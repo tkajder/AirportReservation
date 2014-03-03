@@ -9,5 +9,6 @@ class FlightNode{		//not the real thing, just here for testing of whatever, I du
 	FlightHub *next;
 	public:
 
+
 	
 }
