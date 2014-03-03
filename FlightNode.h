@@ -11,5 +11,24 @@ class FlightNode{		//not the real thing, just here for testing of whatever, I du
 
 	float getBaggageFees();
 	int getDelay();
-	
 }
+
+class FlightSouthWest : public FlightNode{
+	public:
+	float getBaggageFees(int numOfBags){
+		return 25 * numOfBags;
+	}
+}
+class FlightDelta : public FlightNode{
+	public:
+	float getBaggageFees(int numOfBags){
+		return 0;
+	}
+}
+class FlightUSAirway : public FlightNode{
+	public:
+	float getBaggageFees(int numOfBags){
+		return 25 * (numOfBags - 1);
+	}
+}
+
