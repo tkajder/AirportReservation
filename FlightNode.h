@@ -8,5 +8,6 @@ class FlightNode{		//not the real thing, just here for testing of whatever, I du
 	HubNode* destination;
 	FlightHub *next;
 	public:
+
 	
 }
