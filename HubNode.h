@@ -5,6 +5,4 @@ class HubNode {
 	string location;	 
 	HubNode* next = NULL;
 	FlightNode* headFlights = NULL;
-	public:
-	
 }
