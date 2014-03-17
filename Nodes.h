@@ -1,5 +1,6 @@
 using namespace std;
-#include "Date_Time.cpp"
+#include "Date_Time.h"
+//#include "HubNode.h"
 
 class FlightNode{		//not the real thing, just here for testing of whatever, I dunno.
 	string flightNumber;
@@ -35,3 +36,17 @@ class FlightUSAirway : public FlightNode{
 	}
 }
 
+
+
+
+
+
+//#include "FlightNode.h"
+//using namespace std;
+
+class HubNode {
+	string name;
+	string location;	 
+	HubNode* next = NULL;
+	FlightNode* headFlights = NULL;
+}

@@ -2,8 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include <cstdio>
-#include "HubNode.h"
-#include "FlightNode.h"
+#include "Nodes.h"
 #include "Date_Time.h"
 using namespace std;
 
