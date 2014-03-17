@@ -1,6 +1,5 @@
 using namespace std;
 #include "Date_Time.cpp"
-#include "HubeNode.h"
 
 class FlightNode{		//not the real thing, just here for testing of whatever, I dunno.
 	string flightNumber;

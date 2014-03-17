@@ -1,5 +1,4 @@
 #include "FlightNode.h"
-using namespace std;
 
 class HubNode {
 	string name;
