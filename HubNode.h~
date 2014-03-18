@@ -12,7 +12,7 @@ class HubNode {
 	public:
 	
 	HubNode() {};
-	HubNode* Next() {return next; };
+	HubNode* next() {return next; };
 	
 	string getName(){return name;};
 	string getLocation(){return location;};

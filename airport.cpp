@@ -36,8 +36,8 @@ void debug(HubNode* hub){
 	while (current != NULL){		//loops for hubs
 		FlightNode* flight = current->getFlights();
 		while (flight != NULL){		//loops for flight per hub
-			FlightNode* source = flight->getSource();
-			FlightNode* dest = flight->getDestination();
+			HubNode* source = flight->getSource();
+			HubNode* dest = flight->getDestination();
 			//printf("%d : %d : %s : %s : %s\n", flight->getFlightNumber(), flight->getPrice(), flight->getFlightCompany(), source->getName(), dest->getName());
 			flight = flight->Next();
 		}

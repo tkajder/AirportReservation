@@ -23,8 +23,8 @@ class FlightNode{
 	double getPrice(){return price;};
 	string getFlightCompany(){return flightCompany;};
 	int getDuration(){return duration;};			// accessors
-	HubNode* getSource(){return source;};
-	HubNode* getDestination(){return destination;};
+	FlightNode* getSource(){return source;};
+	FlightNode* getDestination(){return destination;};
 	
 	FlightNode* Next() {return next; };		//returns next on singly ll
 };
