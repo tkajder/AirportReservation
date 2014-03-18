@@ -1,8 +1,6 @@
 using namespace std;
 #include "Date_Time.h"
-//#include "HubNode.h"
-
-class HubNode{};
+#include "HubNode.h"
 
 class FlightNode{	
 	string flightNumber;
@@ -59,24 +57,3 @@ class FlightUSAirway : public FlightNode{
 
 
 
-
-
-//#include "FlightNode.h"
-//using namespace std;
-
-class HubNode {
-	string name;
-	string location;	 
-	HubNode* next;
-	FlightNode* headFlights;
-	
-	public:
-	
-	HubNode() {};
-	HubNode* next() {return next; };
-	
-	string getName(){return name;};
-	string getLocation(){return location;};
-	HubNode* Next() { return next;};
-	FlightNode* getFlights() { return headFlights;};
-};
