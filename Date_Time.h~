@@ -1,7 +1,7 @@
 using namespace std;
 class Date_Time{
 public:
-	Date_Time(){};					// default constructor
+	Date_Time();					// default constructor
 	void setDate_Time(int, int, int, int, int);	// setter
 	void AddMinutes(int);				// add minutes
 	string toString();					// creates a sring of the date and time

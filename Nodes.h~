@@ -33,7 +33,6 @@ class FlightSouthWest : public FlightNode{
 	float getBaggageFees(int numOfBags){
 		return 25 * numOfBags;
 	}
-	string getName(){ return "SouthWest";};
 };
 class FlightDelta : public FlightNode{
 	public:
