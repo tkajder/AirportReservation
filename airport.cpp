@@ -1,9 +1,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+<<<<<<< HEAD
 #include <fstream>
 #include "HubNode.h"
 #include "FlightNode.h"
+=======
+#include <cstdio>
+#include "Nodes.h"
+#include "Date_Time.h"
+>>>>>>> origin/mike
 using namespace std;
 
 
@@ -20,11 +26,22 @@ class Date_Time{
 
 
 */
+<<<<<<< HEAD
 void main() {
 	HubNode head = new HubNode()
 
 	load_hubs()
 	load_flights()
+=======
+void main(){
+	//do stuff here
+	printMain();
+}
+
+void printMain(){	
+		printf("Welcome to the Airport Reservation Extravaganza!!\n\n");
+		printf("Please select from the following options:\n");
+>>>>>>> origin/mike
 }
 
 void load_hubs() {
@@ -44,6 +61,7 @@ void load_hubs() {
 		current.name = line.substr(0, pos)
 		current.location = hub_stream.getline(pos+1);
 
+<<<<<<< HEAD
 		while (getline(hub_file, line)) {
 			HubNode node = new HubNode();
 			pos = line.find(",");
@@ -57,6 +75,12 @@ void load_hubs() {
 		cerr << "File Hub.csv could not be opened." << endl
 		exit(1)
 	}
+=======
+void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice){
+	TotalPrice = NumOfBags * Price
+
+	printf("%s\t%s\t%s\t%s\n\t\t%s\t%s\n%f=%f",FlightNum, Company, SourceLocation, Depart_DateTime, DestinationLocation, Arrive_DateTime, Price, TotalPrice); 
+>>>>>>> origin/mike
 }
 
 void load_flights() {

@@ -1,6 +1,7 @@
+using namespace std;
 class Date_Time{
 public:
-	Date_Time();						// default constructor
+	Date_Time();					// default constructor
 	void setDate_Time(int, int, int, int, int);	// setter
 	void AddMinutes(int);				// add minutes
 	string toString();					// creates a sring of the date and time
@@ -21,20 +22,25 @@ void Date_Time::setDate_Time(int mon, int d, int y, int h, int min){
 	minutes = (min >= 0 && min < 60) ? min : 0;
 }
 
-void AddMinutes(int numOfMin){
+void Date_Time::AddMinutes(int numOfMin){
 	if (numOfMin >= 0)
 		minutes += numOfMin;
 	else
 		printf("Please enter a positive number of minutes to add\n");
 }
 
-string toString(){
+string Date_Time::toString(){
 	string dateTime;
-	if (hour > 10){
-		dateTime = toString(month) + "/" + toString(day) + "/" + toString(year) + " " + toString(hours) + ":" + toString(minutes);  
+	char temp[80];
+	if (hours > 10){
+		sprintf(temp, "%d/%d/%d  %d : %d", month, day, year, hours, minutes);
+		string dateTime(temp);
+//		dateTime = toString(month) + "/" + toString(day) + "/" + toString(year) + " " + toString(hours) + ":" + toString(minutes);  
 		return dateTime;
 	}
 	else{
+	sprintf(temp, "%d/%d/%d 0%d : %d", month, day, year, hours, minutes);
+		string dateTime(temp);
 		dateTime = toString(month) + "/" + toString(day) + "/" + toString(year) + " 0" + toString(hours) + ":" + toString(minutes);
 		return dateTime;
 	}
