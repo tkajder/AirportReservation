@@ -7,27 +7,7 @@
 using namespace std;
 
 
-/*
-
-
-class Date_Time{
-	short int minutes;
-	short int hours;
-	short int day;
-	short int month;
-	short int year;
-}
-
-
-*/
-
-HubNode* hub = new hub;
-
-
-void main(){
-	//do stuff here
-	printMain();
-}
+HubNode* hub = NULL;
 
 void printMain(){	
 		printf("Welcome to the Airport Reservation Extravaganza!!\n\n");
@@ -35,21 +15,32 @@ void printMain(){
 }
 
 
-void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice){
-	TotalPrice = NumOfBags * Price
+int main(){
+	//do stuff here
+	printMain();
+	return 0;
+}
 
-	printf("%s\t%s\t%s\t%s\n\t\t%s\t%s\n%f=%f",FlightNum, Company, SourceLocation, Depart_DateTime, DestinationLocation, Arrive_DateTime, Price, TotalPrice); 
+
+
+
+void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice){
+	TotalPrice = NumOfBags * Price;
+
+	//printf("%s\t%s\t%s\t%s\n\t\t%s\t%s\n%f=%f",FlightNum, Company, SourceLocation, Depart_DateTime, DestinationLocation, Arrive_DateTime, Price, TotalPrice); 
 }
 
 
 void debug(HubNode* hub){
 	HubNode* current = hub;
 	while (current != NULL){		//loops for hubs
-		FlightNode* flight = current->flights;
+		FlightNode* flight = current->getFlights();
 		while (flight != NULL){		//loops for flight per hub
-			printf("%d : %d : %s : %s : %s\n", flight->flightNumber, flight->price, flight->flightCompany, flight->source->name, flight->destination->name);
-			flight = flight->next();
+			FlightNode* source = flight->getSource();
+			FlightNode* dest = flight->getDestination();
+			//printf("%d : %d : %s : %s : %s\n", flight->getFlightNumber(), flight->getPrice(), flight->getFlightCompany(), source->getName(), dest->getName());
+			flight = flight->Next();
 		}
-		current = current->next();
+		current = current->Next();
 	}
 }

@@ -10,22 +10,23 @@ class FlightNode{
 	int duration;
 	HubNode* source;
 	HubNode* destination;
-	FlightNode *next = NULL;
+	FlightNode* next;
 	public:
 	
 	FlightNode() {};		//default constructor
+	
 	float getBaggageFees();
-	int getDelay();
+	int getDelay();				//for children classes
 	string getName();
 	
 	string getFlightNumber(){return flightNumber;};
 	double getPrice(){return price;};
-	string getflightCompany(){return flightCompany;};
-	int getDuration(){return duration;};
-	HubNode* getSource(){return source;};
-	HubNode* getDestination(){return destination;};
+	string getFlightCompany(){return flightCompany;};
+	int getDuration(){return duration;};			// accessors
+	FlightNode* getSource(){return source;};
+	FlightNode* getDestination(){return destination;};
 	
-	FlightNode* next() {return next; };
+	FlightNode* Next() {return next; };		//returns next on singly ll
 };
 
 class FlightSouthWest : public FlightNode{
@@ -33,6 +34,7 @@ class FlightSouthWest : public FlightNode{
 	float getBaggageFees(int numOfBags){
 		return 25 * numOfBags;
 	}
+	int getDelay(){/*stuff*/};
 	string getName(){ return "SouthWest";};
 };
 class FlightDelta : public FlightNode{
@@ -40,6 +42,7 @@ class FlightDelta : public FlightNode{
 	float getBaggageFees(int numOfBags){
 		return 0;
 	}
+	int getDelay(){/*stuff*/};
 	string getName(){ return "Delta";};
 };
 class FlightUSAirway : public FlightNode{
@@ -47,6 +50,7 @@ class FlightUSAirway : public FlightNode{
 	float getBaggageFees(int numOfBags){
 		return 25 * (numOfBags - 1);
 	}
+	int getDelay(){/*stuff*/};
 	string getName(){ return "US Airway";};
 };
 
@@ -61,11 +65,16 @@ class FlightUSAirway : public FlightNode{
 class HubNode {
 	string name;
 	string location;	 
-	HubNode* next = NULL;
-	FlightNode* headFlights = NULL;
+	HubNode* next;
+	FlightNode* headFlights;
 	
 	public:
 	
 	HubNode() {};
 	HubNode* next() {return next; };
+	
+	string getName(){return name;};
+	string getLocation(){return location;};
+	HubNode* Next() { return next;};
+	FlightNode* getFlights() { return headFlights;};
 };
