@@ -10,6 +10,8 @@ using namespace std;
 
 void debug(HubNode*);
 void printMain();
+void populateHubs(HubNode*);
+void populateFlights();
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
 
 HubNode* hub = NULL;
@@ -36,6 +38,37 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 	printf("%s\t%s\t%s\t%s\n\t\t%s\t%s\n%f=%f",FlightNum.c_str(), Company.c_str(), SourceLocation.c_str(), Depart_DateTime->toString().c_str(), DestinationLocation.c_str(), Arrive_DateTime->toString().c_str(), Price, TotalPrice); 
 }
 
+void populateHubs(HubNode*) {
+	string line;
+	int pos;
+	HubNode current;
+	ifstream hub_file("Hub.csv")
+
+	if (hub_file) {
+		// Skip the header labels
+		getline(hub_file, line);
+		
+		// Initialize head hub node
+		getline(hub_file, line);
+		current = new HubNode();
+		pos = line.find(",");
+		current.name = line.substr(0, pos)
+		current.location = hub_stream.getline(pos+1);
+
+		while (getline(hub_file, line)) {
+			HubNode node = new HubNode();
+			pos = line.find(",");
+			node.name = line.substr(0, pos)
+			node.location = hub_stream.getline(pos+1);
+			node.next = NULL;
+			current.next = node;
+			current = node
+		}
+	} else {
+		cerr << "File Hub.csv could not be opened." << endl
+		exit(1)
+	}
+}
 
 void debug(HubNode* hub){
 	HubNode* current = hub;
