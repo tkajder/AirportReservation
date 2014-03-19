@@ -1,12 +1,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 #include <cstdio>
 #include "FlightNode.h"
-//#include "Date_Time.h"
+#include "Date_Time.h"
 using namespace std;
-
-
 
 void debug();
 void printMain();
@@ -20,9 +19,11 @@ HubNode* head = new HubNode();
 
 
 int main(){
+	populateHubs();
+	populateFlights();
 	//do stuff here
 	printMain();
-	debug(head);
+	debug();
 	return 0;
 }
 
@@ -43,10 +44,11 @@ void populateHubs() {
 	string line;
 	int pos;
 	HubNode* current;
-	ifstream hub_file("Hub.csv")
+	ifstream hub_file;
+	hub_file.open("Hub.csv");
 
 	if (!hub_file) {
-		throw new Exception("File Hub.csv could not be opened.");
+		throw "File Hub.csv could not be opened.";
 	}
 		
 	// Skip the header labels
@@ -56,18 +58,18 @@ void populateHubs() {
 	getline(hub_file, line);
 	current = head;
 	pos = line.find(",");
-	current->name = line.substr(0, pos)
-	current->location = hub_stream.getline(pos + 1);
+	current->name = line.substr(0, pos);
+	current->location = line.substr(pos + 1);
 
 	// Initialize rest of hubs
 	while (getline(hub_file, line)) {
 		HubNode* node = new HubNode();
 		pos = line.find(",");
-		node->name = line.substr(0, pos)
-		node->location = hub_stream.getline(pos + 1);
+		node->name = line.substr(0, pos);
+		node->location = line.substr(pos + 1);
 		node->next = NULL;
 		current->next = node;
-		current = node
+		current = node;
 	}
 }
 
@@ -75,10 +77,11 @@ void populateFlights() {
 	string line;
 	int pos, ppos;
 	FlightNode* current;
-	ifstream flight_file("Flight.csv")
+	ifstream flight_file;
+	flight_file.open("Flight.csv");
 
 	if (!flight_file) {
-		throw new Exception("File Flight.csv could not be opened.");
+		throw "File Flight.csv could not be opened.";
 	}
 		
 	// Skip the header labels
@@ -86,26 +89,25 @@ void populateFlights() {
 
 	while (getline(flight_file, line)) {
 		current = new FlightNode();
-
 		// Populate FlightNode from line
 		ppos = -1;
 		pos = line.find(",");
 		current->flightNumber = line.substr(ppos + 1, pos);
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->price = line.substr(ppos + 1, pos); // TODO: toDouble
+		current->price = atof(line.substr(ppos + 1, pos - ppos - 1).c_str());
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->source = getHub(line.substr(ppos + 1, pos));
+		current->source = getHub(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->destination = getHub(line.substr(ppos + 1, pos));
+		current->destination = getHub(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->departure = new DateTime(line.substr(ppos + 1, pos));
+		current->departure = Date_Time(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->duration = line.substr(ppos + 1, pos); // TODO: toInt
+		current->duration = atoi(line.substr(ppos + 1, pos - ppos - 1).c_str());
 		current->flightCompany = line.substr(pos + 1);
 		current->next = NULL;
 
@@ -124,7 +126,8 @@ HubNode* getHub(string name) {
 	while(name != current->name) {
 		current = current->next;
 		if (!current) {
-			throw new Exception("Hub not found.");
+			printf(name.c_str());
+			throw "Hub not found.";
 		}
 	}
 	return current;
@@ -135,9 +138,7 @@ void debug(){
 	while (current != NULL){		//loops for hubs
 		FlightNode* flight = current->getFlights();
 		while (flight != NULL){		//loops for flight per hub
-			HubNode* source = flight->getSource();
-			HubNode* dest = flight->getDestination();
-			printf("%s : %f : %s : %s : %s\n", flight->getFlightNumber().c_str(), flight->getPrice(), flight->getFlightCompany().c_str(), source->getName().c_str(), dest->getName().c_str());
+			printf("Flight Number: %s\nPrice: %f\nFlight Company: %s\nSource Airport: %s\nDestination Airport: %s\n\n", flight->flightNumber.c_str(), flight->getPrice(), flight->getFlightCompany().c_str(), flight->getSource()->getName().c_str(), flight->getDestination()->getName().c_str());
 			flight = flight->Next();
 		}
 		current = current->Next();

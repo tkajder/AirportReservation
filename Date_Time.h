@@ -1,3 +1,6 @@
+#ifndef DATETIME_H
+#define DATETIME_H
+
 using namespace std;
 class Date_Time{
 
@@ -13,6 +16,25 @@ class Date_Time{
 		month = day = year = hours = minutes = 0;
 	}
 	*/
+	
+	Date_Time(string input) {
+		int pos, ppos;
+		ppos = -1;
+		pos = input.find("/");
+		minutes = atoi(input.substr(ppos + 1, pos).c_str());
+		ppos = pos;
+		pos = input.find("/");
+		hours = atoi(input.substr(ppos + 1, pos).c_str());
+		ppos = pos;
+		pos = input.find("/");
+		day = atoi(input.substr(ppos + 1, pos).c_str());
+		ppos = pos;
+		pos = input.find("/");
+		month = atoi(input.substr(ppos + 1, pos).c_str());
+		year = atoi(input.substr(pos + 1).c_str());
+
+	}
+
 	void setDate_Time(int mon, int d, int y, int h, int min){
 		month = (mon >= 0 && mon < 12) ? mon : 0;
 		day = (d >= 0 && d < 31) ? d : 0;
@@ -45,3 +67,5 @@ class Date_Time{
 		}
 	}
 };
+
+#endif

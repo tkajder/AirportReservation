@@ -1,8 +1,13 @@
 using namespace std;
+
+#ifndef FLIGHTNODE_H
+#define FLIGHTNODE_H
+
 #include "Date_Time.h"
 #include "HubNode.h"
 
 class FlightNode{	
+	public:
 	string flightNumber;
 	double price;
 	string flightCompany;
@@ -11,7 +16,6 @@ class FlightNode{
 	HubNode* source;
 	HubNode* destination;
 	FlightNode* next;
-	public:
 	
 	FlightNode() {};		//default constructor
 	
@@ -53,6 +57,8 @@ class FlightUSAirway : public FlightNode{
 	int getDelay(){/*stuff*/};
 	string getName(){ return "US Airway";};
 };
+
+#endif
 
 
 
