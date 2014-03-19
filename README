@@ -1,1 +1,1 @@
-It compiles now, we need a lot of testing, but I *think* this meets the first deliverable reqs.   -Mike
+Compiles and debugs correctly. Needs UI. Also unsure if fulfilled requirement of frees all memory allocations. -Tom
