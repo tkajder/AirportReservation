@@ -5,7 +5,7 @@
 using namespace std;
 
 
-class FlightNode;		//forward declare for FlightNode
+class FlightNode;
 class HubNode {
 	string name;
 	string location;

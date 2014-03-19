@@ -51,7 +51,7 @@ class Date_Time{
 		}
 		else{
 			sprintf(temp, "%d/%d/%d 0%d : %d", month, day, year, hours, minutes);
-			string dateTime(temp);
+			string dateTime(temp);s
 			return dateTime;
 		}
 	}
