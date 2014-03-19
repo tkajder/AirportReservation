@@ -16,8 +16,6 @@ void printItinerary(string, string, string, string, double, int, double, Date_Ti
 
 HubNode* head = new HubNode();
 
-
-
 int main(){
 	populateHubs();
 	populateFlights();
@@ -58,17 +56,17 @@ void populateHubs() {
 	getline(hub_file, line);
 	current = head;
 	pos = line.find(",");
-	current->name = line.substr(0, pos);
-	current->location = line.substr(pos + 1);
+	current->setName(line.substr(0, pos));
+	current->setLocation(line.substr(pos + 1));
 
 	// Initialize rest of hubs
 	while (getline(hub_file, line)) {
 		HubNode* node = new HubNode();
 		pos = line.find(",");
-		node->name = line.substr(0, pos);
-		node->location = line.substr(pos + 1);
-		node->next = NULL;
-		current->next = node;
+		node->setName(line.substr(0, pos));
+		node->setLocation(line.substr(pos + 1));
+		node->setNext(NULL);
+		current->setNext(node);
 		current = node;
 	}
 }
@@ -92,39 +90,37 @@ void populateFlights() {
 		// Populate FlightNode from line
 		ppos = -1;
 		pos = line.find(",");
-		current->flightNumber = line.substr(ppos + 1, pos);
+		current->setFlightNumber(line.substr(ppos + 1, pos));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->price = atof(line.substr(ppos + 1, pos - ppos - 1).c_str());
+		current->setPrice(atof(line.substr(ppos + 1, pos - ppos - 1).c_str()));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->source = getHub(line.substr(ppos + 1, pos - ppos - 1));
+		current->setSource(getHub(line.substr(ppos + 1, pos - ppos - 1)));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->destination = getHub(line.substr(ppos + 1, pos - ppos - 1));
+		current->setDestination(getHub(line.substr(ppos + 1, pos - ppos - 1)));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->departure = Date_Time(line.substr(ppos + 1, pos - ppos - 1));
+		current->setDeparture(Date_Time(line.substr(ppos + 1, pos - ppos - 1)));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->duration = atoi(line.substr(ppos + 1, pos - ppos - 1).c_str());
-		current->flightCompany = line.substr(pos + 1);
-		current->next = NULL;
+		current->setDuration(atoi(line.substr(ppos + 1, pos - ppos - 1).c_str()));
+		current->setFlightCompany(line.substr(pos + 1));
+		current->setNext(NULL);
 
 		// Add flight to hub
-		if (current->source->headFlights) {
-			current->next = current->source->headFlights;
-			current->source->headFlights = current;
-		} else {
-			current->source->headFlights = current;
+		if (current->getSource()->getFlights()) {
+			current->setNext(current->getSource()->getFlights());
 		}
+		current->getSource()->setHeadFlights(current);
 	}
 }
 
 HubNode* getHub(string name) {
 	HubNode* current = head;
-	while(name != current->name) {
-		current = current->next;
+	while(name != current->getName()) {
+		current = current->Next();
 		if (!current) {
 			printf(name.c_str());
 			throw "Hub not found.";
@@ -138,7 +134,7 @@ void debug(){
 	while (current != NULL){		//loops for hubs
 		FlightNode* flight = current->getFlights();
 		while (flight != NULL){		//loops for flight per hub
-			printf("Flight Number: %s\nPrice: %f\nFlight Company: %s\nSource Airport: %s\nDestination Airport: %s\n\n", flight->flightNumber.c_str(), flight->getPrice(), flight->getFlightCompany().c_str(), flight->getSource()->getName().c_str(), flight->getDestination()->getName().c_str());
+			printf("Flight Number: %s\nPrice: %f\nFlight Company: %s\nSource Airport: %s\nDestination Airport: %s\n\n", flight->getFlightNumber().c_str(), flight->getPrice(), flight->getFlightCompany().c_str(), flight->getSource()->getName().c_str(), flight->getDestination()->getName().c_str());
 			flight = flight->Next();
 		}
 		current = current->Next();

@@ -7,7 +7,6 @@ using namespace std;
 #include "HubNode.h"
 
 class FlightNode{	
-	public:
 	string flightNumber;
 	double price;
 	string flightCompany;
@@ -17,20 +16,61 @@ class FlightNode{
 	HubNode* destination;
 	FlightNode* next;
 	
+	public:
 	FlightNode() {};		//default constructor
 	
 	float getBaggageFees();
 	int getDelay();				//for children classes
 	string getName();
 	
-	string getFlightNumber(){return flightNumber;};
-	double getPrice(){return price;};
-	string getFlightCompany(){return flightCompany;};
-	int getDuration(){return duration;};			// accessors
-	HubNode* getSource(){return source;};
-	HubNode* getDestination(){return destination;};
+	// Setters
+	void setFlightNumber(string flightNumber) { 
+		this->flightNumber = flightNumber;
+	};
+	void setPrice(double price) {
+		this->price = price;
+	};
+	void setFlightCompany(string flightCompany) {
+		this->flightCompany = flightCompany;
+	};
+	void setDeparture(Date_Time departure) {
+		this->departure = departure;
+	};
+	void setDuration(int duration) {
+		this->duration = duration;
+	};
+	void setSource(HubNode* source) {
+		this->source = source;
+	};
+	void setDestination(HubNode* destination) {
+		this->destination = destination;
+	};
+	void setNext(FlightNode* next) {
+		this->next = next;
+	};
 	
-	FlightNode* Next() {return next; };		//returns next on singly ll
+	// Getters
+	string getFlightNumber() {
+		return flightNumber;
+	};
+	double getPrice() {
+		return price;
+	};
+	string getFlightCompany() {
+		return flightCompany;
+	};
+	int getDuration() {
+		return duration;
+	};			
+	HubNode* getSource() {
+		return source;
+	};
+	HubNode* getDestination() {
+		return destination;
+	};
+	FlightNode* Next() {
+		return next;
+	};
 };
 
 class FlightSouthWest : public FlightNode{
