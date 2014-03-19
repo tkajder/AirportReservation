@@ -13,7 +13,7 @@ class HubNode {
 	FlightNode* headFlights;
 
 	public:
-	HubNode() {};			//constructor
+	HubNode() {};			//init
 
 	// Setters
 	void setName(string name) {

@@ -24,7 +24,7 @@ class FlightNode{
 		this->setDestination(destination);
 		this->setDeparture(departure);
 		this->setDuration(duration);
-	}  	//constructor
+	}
 
 	// I don't think a parent declaration is necessary
 	//for children classes

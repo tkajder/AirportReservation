@@ -47,11 +47,13 @@ class Date_Time{
 		if (hours > 10){
 			sprintf(temp, "%d/%d/%d  %d : %d", month, day, year, hours, minutes);
 			string dateTime(temp);
+	//		dateTime = toString(month) + "/" + toString(day) + "/" + toString(year) + " " + toString(hours) + ":" + toString(minutes);  
 			return dateTime;
 		}
 		else{
 			sprintf(temp, "%d/%d/%d 0%d : %d", month, day, year, hours, minutes);
-			string dateTime(temp);s
+			string dateTime(temp);
+			//dateTime = toString(month) + "/" + toString(day) + "/" + toString(year) + " 0" + toString(hours) + ":" + toString(minutes);
 			return dateTime;
 		}
 	}
