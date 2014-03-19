@@ -6,16 +6,7 @@ class Date_Time{
 
 	int month, day, year, hours, minutes;	// hours should be entered as military time
 	public:
-	Date_Time(){};					// default constructor
-//	void setDate_Time(int, int, int, int, int);	// setter
-//	void AddMinutes(int);				// add minutes
-//	string toString();					// creates a sring of the date and time
-
-
-	/*Date_Time::Date_Time(){
-		month = day = year = hours = minutes = 0;
-	}
-	*/
+	Date_Time(){}; // Needs transition to pointer use like Hub and Flight
 	
 	Date_Time(string input) {
 		int pos, ppos;
@@ -47,7 +38,7 @@ class Date_Time{
 		if (numOfMin >= 0)
 			minutes += numOfMin;
 		else
-			printf("Please enter a positive number of minutes to add\n");
+			throw "Please enter a positive number of minutes to add\n";
 	}
 
 	string toString(){

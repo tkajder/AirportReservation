@@ -5,6 +5,7 @@
 #include <cstdio>
 #include "FlightNode.h"
 #include "Date_Time.h"
+
 using namespace std;
 
 void debug();
@@ -19,7 +20,6 @@ HubNode* head = new HubNode();
 int main(){
 	populateHubs();
 	populateFlights();
-	//do stuff here
 	printMain();
 	debug();
 	return 0;
@@ -28,14 +28,13 @@ int main(){
 
 
 void printMain(){	
-		printf("Welcome to the Airport Reservation Extravaganza!!\n\n");
-		printf("Please select from the following options:\n");
+	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl << "Please select from the following options:" << endl;
 }
 
-void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time* Arrive_DateTime, Date_Time* Depart_DateTime){
+void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time Arrive_DateTime, Date_Time Depart_DateTime){
 	TotalPrice = NumOfBags * Price;
 
-	printf("%s\t%s\t%s\t%s\n\t\t%s\t%s\n%f=%f",FlightNum.c_str(), Company.c_str(), SourceLocation.c_str(), Depart_DateTime->toString().c_str(), DestinationLocation.c_str(), Arrive_DateTime->toString().c_str(), Price, TotalPrice); 
+	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
 }
 
 void populateHubs() {
@@ -72,8 +71,11 @@ void populateHubs() {
 }
 
 void populateFlights() {
-	string line;
-	int pos, ppos;
+	string line, flightNumber, flightCompany;
+	HubNode *source, *destination;
+	double price;
+	Date_Time departure;
+	int pos, ppos, duration;
 	FlightNode* current;
 	ifstream flight_file;
 	flight_file.open("Flight.csv");
@@ -86,28 +88,36 @@ void populateFlights() {
 	getline(flight_file, line);
 
 	while (getline(flight_file, line)) {
-		current = new FlightNode();
-		// Populate FlightNode from line
-		ppos = -1;
+		// Parse line
 		pos = line.find(",");
-		current->setFlightNumber(line.substr(ppos + 1, pos));
+		flightNumber = line.substr(0, pos);
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->setPrice(atof(line.substr(ppos + 1, pos - ppos - 1).c_str()));
+		price = atof(line.substr(ppos + 1, pos - ppos - 1).c_str());
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->setSource(getHub(line.substr(ppos + 1, pos - ppos - 1)));
+		source = getHub(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->setDestination(getHub(line.substr(ppos + 1, pos - ppos - 1)));
+		destination = getHub(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->setDeparture(Date_Time(line.substr(ppos + 1, pos - ppos - 1)));
+		departure = Date_Time(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		current->setDuration(atoi(line.substr(ppos + 1, pos - ppos - 1).c_str()));
-		current->setFlightCompany(line.substr(pos + 1));
-		current->setNext(NULL);
+		duration = atoi(line.substr(ppos + 1, pos - ppos - 1).c_str());
+		// Account for 'extra' \r character
+		flightCompany = line.substr(pos + 1, line.length() - pos - 2);
+
+		if (flightCompany.compare("USAirway") == 0) { 
+			current = new FlightUSAirway(flightNumber, price, source, destination, departure, duration);
+		} else if (flightCompany.compare("SouthWest") == 0) {
+			current = new FlightSouthWest(flightNumber, price, source, destination, departure, duration);
+		} else if (flightCompany.compare("Delta") == 0) {
+			current = new FlightDelta(flightNumber, price, source, destination, departure, duration);
+		} else {
+			throw "Invalid airlines company.\n";
+		}
 
 		// Add flight to hub
 		if (current->getSource()->getFlights()) {
@@ -131,10 +141,10 @@ HubNode* getHub(string name) {
 
 void debug(){
 	HubNode* current = head;
-	while (current != NULL){		//loops for hubs
+	while (current != NULL) {		//loops for hubs
 		FlightNode* flight = current->getFlights();
-		while (flight != NULL){		//loops for flight per hub
-			printf("Flight Number: %s\nPrice: %f\nFlight Company: %s\nSource Airport: %s\nDestination Airport: %s\n\n", flight->getFlightNumber().c_str(), flight->getPrice(), flight->getFlightCompany().c_str(), flight->getSource()->getName().c_str(), flight->getDestination()->getName().c_str());
+		while (flight != NULL) {		//loops for flight per hub
+			cout << "Flight Number: " << flight->getFlightNumber() << endl << "Price: " << flight->getPrice() << endl << "Flight Company: " << flight->getFlightCompany() << endl << "Source Airport: " << flight->getSource()->getName() << endl << "Destination Airport: " << flight->getDestination()->getName() << endl << endl;
 			flight = flight->Next();
 		}
 		current = current->Next();
