@@ -1,11 +1,11 @@
 #ifndef HUBNODE_H
 #define HUBNODE_H
 
-#include "FlightNode.h"
+//#include "FlightNode.h"		//not needed since flightnode calls
 using namespace std;
 
 
-class FlightNode;
+class FlightNode;		//forward declare for FlightNode
 class HubNode {
 	string name;
 	string location;
