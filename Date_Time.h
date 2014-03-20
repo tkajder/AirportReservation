@@ -6,7 +6,7 @@ class Date_Time{
 
 	int month, day, year, hours, minutes;	// hours should be entered as military time
 	public:
-	Date_Time(){}; // Needs transition to pointer use like Hub and Flight
+	Date_Time() {};
 	
 	Date_Time(string input) {
 		int pos, ppos;
@@ -27,18 +27,18 @@ class Date_Time{
 	}
 
 	void setDate_Time(int mon, int d, int y, int h, int min){
-		month = (mon >= 0 && mon < 12) ? mon : 0;
-		day = (d >= 0 && d < 31) ? d : 0;
-		year	= (y >= 0) ? y : 0;		//formats raw time data into readable 
-		hours = (h >= 0 && h < 24) ? h : 0;
-		minutes = (min >= 0 && min < 60) ? min : 0;
+		month = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
+		day = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
+		year	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
+		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
+		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}
 
 	void AddMinutes(int numOfMin){
 		if (numOfMin >= 0)
 			minutes += numOfMin;		//adds # to minutes
 		else
-			throw "Please enter a positive number of minutes to add\n";
+			throw "Positive number of minutes required\n";
 	}
 
 	string toString(){
