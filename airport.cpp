@@ -35,7 +35,6 @@ void freeData() {		//handles memory cleanup after the program is complete
 		fCurrent = hCurrent->getFlights();	//grabs flights in hub
 		while (fCurrent) {		//loops for flights
 			fTemp = fCurrent->Next();	//grabs next flight
-			delete fCurrent->getDeparture();	//frees depature
 			delete fCurrent;	//frees current flight
 			fCurrent = fTemp;		//moves temp to current flight
 		}
@@ -82,7 +81,6 @@ void populateHubs() {
 		pos = line.find(",");
 		node->setName(line.substr(0, pos));	//sets information
 		node->setLocation(line.substr(pos + 1));
-		node->setNext(NULL);
 		current->setNext(node);
 		current = node;
 	}
