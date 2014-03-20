@@ -60,7 +60,7 @@ void populateHubs() {
 
 	// Initialize rest of hubs
 	while (getline(hub_file, line)) {	// loops for line locations
-		HubNode* node = new HubNode();	//makes new temp node
+		HubNode* node = new HubNode();	//makes new temp node in heap
 		pos = line.find(",");
 		node->setName(line.substr(0, pos));	//sets information
 		node->setLocation(line.substr(pos + 1));
@@ -68,7 +68,7 @@ void populateHubs() {
 		current->setNext(node);
 		current = node;
 	}
-	//need to free node from memory here
+	free (current);
 }
 
 void populateFlights() {
@@ -126,6 +126,9 @@ void populateFlights() {
 		}
 		current->getSource()->setHeadFlights(current);
 	}
+	free (source);
+	free (destination);
+	free (current);
 }
 
 HubNode* getHub(string name) {
@@ -150,4 +153,5 @@ void debug(){
 		}
 		current = current->Next();
 	}
+	free (current);
 }
