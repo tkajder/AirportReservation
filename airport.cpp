@@ -12,6 +12,7 @@ void debug();
 void printMain();
 void populateHubs();
 void populateFlights();
+void freeData();
 HubNode* getHub(string);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
 
@@ -22,10 +23,27 @@ int main(){
 	populateFlights();
 	printMain();
 	debug();
+	freeData();
 	return 0;
 }
 
-
+void freeData() {		//handles memory cleanup after the program is complete
+	HubNode *hCurrent, *hTemp;
+	FlightNode *fCurrent, *fTemp;
+	hCurrent = head;
+	while (hCurrent) {	//loops for hubs
+		fCurrent = hCurrent->getFlights();	//grabs flights in hub
+		while (fCurrent) {		//loops for flights
+			fTemp = fCurrent->Next();	//grabs next flight
+			delete fCurrent->getDeparture();	//frees depature
+			delete fCurrent;	//frees current flight
+			fCurrent = fTemp;		//moves temp to current flight
+		}
+		hTemp = hCurrent->Next();
+		delete hCurrent;		//deletes hub after all flights are free
+		hCurrent = hTemp;
+	}
+}
 
 void printMain(){	
 	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl << "Please select from the following options:" << endl;
@@ -68,14 +86,13 @@ void populateHubs() {
 		current->setNext(node);
 		current = node;
 	}
-	free (current);
 }
 
 void populateFlights() {
 	string line, flightNumber, flightCompany;
 	HubNode *source, *destination;
 	double price;
-	Date_Time departure;
+	Date_Time* departure;
 	int pos, ppos, duration;
 	FlightNode* current;
 	ifstream flight_file;
@@ -103,7 +120,7 @@ void populateFlights() {
 		destination = getHub(line.substr(ppos + 1, pos - ppos - 1));		//this whole area parses information between commas
 		ppos = pos;
 		pos = line.find(",", pos + 1);
-		departure = Date_Time(line.substr(ppos + 1, pos - ppos - 1));
+		departure = new Date_Time(line.substr(ppos + 1, pos - ppos - 1));
 		ppos = pos;
 		pos = line.find(",", pos + 1);
 		duration = atoi(line.substr(ppos + 1, pos - ppos - 1).c_str());
@@ -126,9 +143,6 @@ void populateFlights() {
 		}
 		current->getSource()->setHeadFlights(current);
 	}
-	free (source);
-	free (destination);
-	free (current);
 }
 
 HubNode* getHub(string name) {
@@ -153,5 +167,4 @@ void debug(){
 		}
 		current = current->Next();
 	}
-	free (current);
 }
