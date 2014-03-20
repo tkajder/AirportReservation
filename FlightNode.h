@@ -10,14 +10,14 @@ class FlightNode{
 	string flightNumber;
 	double price;
 	string flightCompany;
-	Date_Time departure;
+	Date_Time* departure;
 	int duration;
 	HubNode* source;
 	HubNode* destination;
 	FlightNode* next = NULL;
-	
+
 	public:
-	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time departure, int duration) {
+	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) {
 		this->setFlightNumber(flightNumber);
 		this->setPrice(price);
 		this->setSource(source);
@@ -25,7 +25,6 @@ class FlightNode{
 		this->setDeparture(departure);
 		this->setDuration(duration);
 	}  	//constructor
-
 	// I don't think a parent declaration is necessary
 	//for children classes
 	//float getBaggageFees();
@@ -41,7 +40,7 @@ class FlightNode{
 	void setFlightCompany(string flightCompany) {
 		this->flightCompany = flightCompany;
 	};
-	void setDeparture(Date_Time departure) {
+	void setDeparture(Date_Time* departure) {
 		this->departure = departure;
 	};
 	void setDuration(int duration) {
@@ -70,7 +69,7 @@ class FlightNode{
 	int getDuration() {
 		return duration;
 	};			
-	Date_Time getDeparture() {
+	Date_Time* getDeparture() {
 		return departure;
 	}
 	HubNode* getSource() {
@@ -88,7 +87,7 @@ class FlightNode{
 //children clases
 class FlightSouthWest : public FlightNode {		
 	public:
-	FlightSouthWest(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
+	FlightSouthWest(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
 		this->setFlightCompany("SouthWest");
 	}
 	float getBaggageFees(int numOfBags){
@@ -98,7 +97,7 @@ class FlightSouthWest : public FlightNode {
 };
 class FlightDelta : public FlightNode {
 	public:
-	FlightDelta(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
+	FlightDelta(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
 		this->setFlightCompany("Delta");
 	}
 	float getBaggageFees(int numOfBags){
@@ -108,7 +107,7 @@ class FlightDelta : public FlightNode {
 };
 class FlightUSAirway : public FlightNode {
 	public:
-	FlightUSAirway(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
+	FlightUSAirway(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
 		this->setFlightCompany("USAirway");
 	}
 	float getBaggageFees(int numOfBags){
