@@ -18,18 +18,18 @@ class FlightNode{
 
 	public:
 	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) {
-		this->setFlightNumber(flightNumber);
-		this->setPrice(price);
-		this->setSource(source);
-		this->setDestination(destination);
-		this->setDeparture(departure);
-		this->setDuration(duration);
-	}  	//constructor
-	// I don't think a parent declaration is necessary
-	//for children classes
-	//float getBaggageFees();
-	//int getDelay();				
+		this->flightNumber = flightNumber;
+		this->price = price;
+		this->source = source;
+		this->destination = destination;
+		this->departure = departure;
+		this->duration = duration;
+	}  	//constructor				
 	
+	~FlightNode() {
+		delete this->departure;
+	}
+
 	// Setters
 	void setFlightNumber(string flightNumber) { 
 		this->flightNumber = flightNumber;
