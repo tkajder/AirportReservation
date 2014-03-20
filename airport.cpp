@@ -27,20 +27,20 @@ int main(){
 	return 0;
 }
 
-void freeData() {
+void freeData() {		//handles memory cleanup after the program is complete
 	HubNode *hCurrent, *hTemp;
 	FlightNode *fCurrent, *fTemp;
 	hCurrent = head;
-	while (hCurrent) {
-		fCurrent = hCurrent->getFlights();
-		while (fCurrent) {
-			fTemp = fCurrent->Next();
-			delete fCurrent->getDeparture();
-			delete fCurrent;
-			fCurrent = fTemp;
+	while (hCurrent) {	//loops for hubs
+		fCurrent = hCurrent->getFlights();	//grabs flights in hub
+		while (fCurrent) {		//loops for flights
+			fTemp = fCurrent->Next();	//grabs next flight
+			delete fCurrent->getDeparture();	//frees depature
+			delete fCurrent;	//frees current flight
+			fCurrent = fTemp;		//moves temp to current flight
 		}
 		hTemp = hCurrent->Next();
-		delete hCurrent;
+		delete hCurrent;		//deletes hub after all flights are free
 		hCurrent = hTemp;
 	}
 }
