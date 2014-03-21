@@ -9,7 +9,7 @@
 using namespace std;
 
 void debug();
-void printMain();
+void printIntro();
 void populateHubs();
 void populateFlights();
 void freeData();
@@ -19,10 +19,21 @@ void printItinerary(string, string, string, string, double, int, double, Date_Ti
 HubNode* head = new HubNode();
 
 int main(){
+	string input;
 	populateHubs();
 	populateFlights();
-	printMain();
-	debug();
+	printIntro();
+	do {
+		cout << "d: Debug" << endl << "q: Quit" << endl;
+		getline(cin, input);
+		if (input == "q") {
+			break;
+		} else if (input == "d") {
+			debug();
+		} else {
+			cout << "Improper input." << endl;
+		}
+	} while (input != "q");
 	freeData();
 	return 0;
 }
@@ -44,7 +55,7 @@ void freeData() {		//handles memory cleanup after the program is complete
 	}
 }
 
-void printMain(){	
+void printIntro(){	
 	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl << "Please select from the following options:" << endl;
 }
 
