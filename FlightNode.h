@@ -3,7 +3,6 @@ using namespace std;
 #ifndef FLIGHTNODE_H
 #define FLIGHTNODE_H
 
-//#include "Date_Time.h"
 #include "HubNode.h"
 
 class FlightNode{	
@@ -17,6 +16,7 @@ class FlightNode{
 	FlightNode* next = NULL;
 
 	public:
+	// Constructor
 	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) {
 		this->flightNumber = flightNumber;
 		this->price = price;
@@ -24,8 +24,9 @@ class FlightNode{
 		this->destination = destination;
 		this->departure = departure;
 		this->duration = duration;
-	}  	//constructor				
+	}  				
 	
+	// Destructor
 	~FlightNode() {
 		delete this->departure;
 	}
@@ -79,7 +80,7 @@ class FlightNode{
 		return destination;
 	};
 	FlightNode* Next() {
-		return next;			//used to indirectly access private variable next
+		return next;			// used to indirectly access private variable next
 	};
 };
 
@@ -87,7 +88,7 @@ class FlightNode{
 //children clases
 class FlightSouthWest : public FlightNode {		
 	public:
-	FlightSouthWest(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
+	FlightSouthWest(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor
 		this->setFlightCompany("SouthWest");
 	}
 	float getBaggageFees(int numOfBags){
@@ -97,7 +98,7 @@ class FlightSouthWest : public FlightNode {
 };
 class FlightDelta : public FlightNode {
 	public:
-	FlightDelta(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
+	FlightDelta(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor
 		this->setFlightCompany("Delta");
 	}
 	float getBaggageFees(int numOfBags){
@@ -107,7 +108,7 @@ class FlightDelta : public FlightNode {
 };
 class FlightUSAirway : public FlightNode {
 	public:
-	FlightUSAirway(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	//constructor
+	FlightUSAirway(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor
 		this->setFlightCompany("USAirway");
 	}
 	float getBaggageFees(int numOfBags){
