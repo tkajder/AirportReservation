@@ -46,7 +46,7 @@ class Date_Time{
 		}
 		else{
 			throw "Positive number of minutes required\n";
-		{
+		}
 	}
 
 	string toString(){
