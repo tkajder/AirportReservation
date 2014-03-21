@@ -125,7 +125,7 @@ void populateFlights() {
 		// Account for 'extra' \r character
 		flightCompany = line.substr(pos + 1, line.length() - pos - 2);
 
-		if (flightCompany.compare("USAirway") == 0) { 	//disseminates information above into their destination company
+		if (flightCompany.compare("USAirway") == 0) { 	//disseminates information above into their destination company class
 			current = new FlightUSAirway(flightNumber, price, source, destination, departure, duration);
 		} else if (flightCompany.compare("SouthWest") == 0) {
 			current = new FlightSouthWest(flightNumber, price, source, destination, departure, duration);
