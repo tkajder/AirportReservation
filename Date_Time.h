@@ -1,5 +1,6 @@
 #ifndef DATETIME_H
 #define DATETIME_H
+#include <cmath>
 
 using namespace std;
 class Date_Time{
@@ -36,13 +37,16 @@ class Date_Time{
 
 	void AddMinutes(int numOfMin){
 		
-		if (numOfMin >= 0 && <= 59)
+		if (numOfMin >= 0 && numOfMin <= 59){
 			minutes += numOfMin;		//adds # to minutes
-		else if (numOfMin > 59)
+		}
+		else if (numOfMin > 59){
 			hours += floor(numOfMin/60);	// finds the number of hours to add if minutes to add is over 59 minutes
 			minutes += numOfMin % 60;	// find the remainder minutes after hours is calculated
-		else
+		}
+		else{
 			throw "Positive number of minutes required\n";
+		{
 	}
 
 	string toString(){
