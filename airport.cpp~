@@ -1,38 +1,42 @@
-ss#include <string.h>
+#include <stdlib.h>
+#include <string.h>
 #include <iostream>
 #include <fstream>
 #include <cstdio>
 #include "Date_Time.h"
 #include "FlightNode.h"
+#include "User.h"
 
 using namespace std;
-
+//forward declares
 void debug();
-void SelectionBranch(int);
+void printIntro();
 void populateHubs();
 void populateFlights();
 void freeData();
 HubNode* getHub(string);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
 
+////////////////////////
+
 HubNode* head = new HubNode();
 
 int main(){
-	int selection;
+	string input;
 	populateHubs();
 	populateFlights();
 	printIntro();
-	
-	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {
-		cout << "\t\t\tMain Menu" << endl << "-----------------------------------------" << endl;
-		cout << "1) Make a Reservation" << endl;
-		cout << "2) Quit" << endl;
-		cout << "Enter the number for which option you wish to select: ";
-		cin >> selection;
-		SelectionBranch(selection);
+		cout << "d: Debug" << endl << "q: Quit" << endl;
+		getline(cin, input);
+		if (input == "q") {
+			break;
+		} else if (input == "d") {
+			debug();
+		} else {
+			cout << "Improper input." << endl;
+		}
 	} while (input != "q");
-	
 	freeData();
 	return 0;
 }
@@ -54,33 +58,20 @@ void freeData() {		//handles memory cleanup after the program is complete
 	}
 }
 
-void selectionBranch(int selection){	
-	
-	switch (selection){
-	case 1:
-		cout << "
-		break;
-/***************** FIX ***********************/
-	case 2:
-		if (){
-			printItinerary(FlightNum, Company, SourceLocation, DestinationLocation, Price, NumOfBags, TotalPrice, Date, DepartTime, ArriveTime);
-			break;
-		}
-		else{
-			cout << "ERROR: You must make a reservation before you can view your itinerary." << endl << endl;
-			break;
-		}
-
-	case 3:
-		cout << endl << endl;
-		break;
-	default:
-		cout << "ERROR: Invalid selection. Please Try Again." << endl << endl;
-		break;
-	}
+void printIntro(){	
+	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl << "Please select from the following options:" << endl;
 }
 
-/***************** FIX ***********************/
+void addFlight(){
+	cout << "Please choose starting point" << endl;
+}
+
+void removeFlight(){
+	cout << "Please choose flight to remove" << endl;
+	
+}
+
+
 void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time Arrive_DateTime, Date_Time Depart_DateTime){
 	TotalPrice = NumOfBags * Price;
 
@@ -188,24 +179,6 @@ HubNode* getHub(string name) {
 	return current;
 }
 
-void debug(){
-	HubNode* current = head;
-	while (current != NULL) {		//loops for hubs
-		FlightNode* flight = current->getFlights();
-		while (flight != NULL) {		//loops for flight per hub
-			cout << "Flight Number: " << flight->getFlightNumber() << endl << "Price: " << flight->getPrice() << endl << "Flight Company: " << flight->getFlightCompany() << endl << "Source Airport: " << flight->getSource()->getName() << endl << "Destination Airport: " << flight->getDestination()->getName() << endl << endl;
-			flight = flight->Next();
-		}
-		current = current->Next();
-	}
-}>Next();
-		if (!current) {
-			printf(name.c_str());
-			throw "Hub not found.";
-		}
-	}
-	return current;
-}
 
 void debug(){
 	HubNode* current = head;
