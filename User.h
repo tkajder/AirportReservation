@@ -2,7 +2,7 @@ using namespace std;
 
 
 class User{
-	string flights[][];
+//	string flights[][];
 
 
-}
+};
