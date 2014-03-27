@@ -55,17 +55,16 @@ void freeData() {		//handles memory cleanup after the program is complete
 	}
 }
 
-void selectionBranch(int selection){	
+void SelectionBranch(int selection){	
 	
 	switch (selection){
 	case 1:
-		cout << "
-		break;
+
+	
 /***************** FIX ***********************/
 	case 2:
 		if (){
 			printItinerary(FlightNum, Company, SourceLocation, DestinationLocation, Price, NumOfBags, TotalPrice, Date, DepartTime, ArriveTime);
-			break;
 		}
 		else{
 			cout << "ERROR: You must make a reservation before you can view your itinerary." << endl << endl;
@@ -77,7 +76,7 @@ void selectionBranch(int selection){
 		break;
 	default:
 		cout << "ERROR: Invalid selection. Please Try Again." << endl << endl;
-		break;
+		
 	}
 }
 
