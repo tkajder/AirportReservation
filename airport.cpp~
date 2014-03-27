@@ -9,7 +9,7 @@
 using namespace std;
 
 void debug();
-void SelectionBranch(int);
+void selectionBranch(int);
 void populateHubs();
 void populateFlights();
 void freeData();
@@ -31,7 +31,7 @@ int main(){
 		cout << "2) Quit" << endl;
 		cout << "Enter the number for which option you wish to select: ";
 		cin >> selection;
-		SelectionBranch(selection);
+		selectionBranch(selection);
 	} while (input != "q");
 	
 	freeData();
