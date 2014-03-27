@@ -16,7 +16,8 @@ void populateFlights();
 void freeData();
 HubNode* getHub(string);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
-
+void addFlight();
+void removeFlight();
 ////////////////////////
 
 HubNode* head = new HubNode();
@@ -27,12 +28,14 @@ int main(){
 	populateFlights();
 	printIntro();
 	do {
-		cout << "d: Debug" << endl << "q: Quit" << endl;
+		cout << "a:  Add flight" << endl << "r:  Remove flight" << endl <<"d: Debug" << endl << "q: Quit" << endl;
 		getline(cin, input);
 		if (input == "q") {
 			break;
 		} else if (input == "d") {
 			debug();
+		}else if (input == "a"){
+		}else if (input == "r"){
 		} else {
 			cout << "Improper input." << endl;
 		}
