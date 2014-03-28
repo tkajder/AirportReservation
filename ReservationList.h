@@ -32,7 +32,6 @@ class ReservationList{
 	void setNext(ReservationList* ReservationList) {
 		this->next = ReservationList;
 	}
-	
 	void calculatePrice(){
 		if (this->flight == NULL){
 			this->price = 0;

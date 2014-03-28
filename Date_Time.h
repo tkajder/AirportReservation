@@ -1,11 +1,12 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
+#include <math.h>
 
 using namespace std;
 class Date_Time{
 
-	int month, day, year, hours, minutes;	// hours should be entered as military time
+	int months, days, years, hours, minutes;	// hours should be entered as military time
 	public:
 	Date_Time() {};
 	
@@ -19,46 +20,67 @@ class Date_Time{
 		hours = atoi(input.substr(ppos + 1, pos).c_str());
 		ppos = pos;
 		pos = input.find("/");
-		day = atoi(input.substr(ppos + 1, pos).c_str());
+		days = atoi(input.substr(ppos + 1, pos).c_str());
 		ppos = pos;
 		pos = input.find("/");
-		month = atoi(input.substr(ppos + 1, pos).c_str());
-		year = atoi(input.substr(pos + 1).c_str());
+		months = atoi(input.substr(ppos + 1, pos).c_str());
+		years = atoi(input.substr(pos + 1).c_str());
 
 	}
+	
+	Date_Time(Date_Time* input){
+		this->months = input->getMonth();
+		this->days = input->getDay();
+		this->years = input->getYear();
+		this->hours = input->getHours();
+		this->minutes = input->getMinutes();
+	}
+	
+	int getMonth(){return months;}
+	int getDay(){return days;}
+	int getYear(){return years;}
+	int getHours(){return hours;}
+	int getMinutes(){return minutes;}
 
 	void setDate_Time(int mon, int d, int y, int h, int min){
-		month = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
-		day = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
+		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
+		days = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
 		year	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
 		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}
 
-	void AddMinutes(int numOfMin){
-		
-		if (numOfMin >= 0 && numOfMin <= 59){
-			minutes += numOfMin;		//adds # to minutes
+	void addMinutes(int numOfMin){		//recursion, weeeeeeeeeee
+		if (numOfMin == 0)
+			return;
+		if (numOfMin + this->minutes < 60){
+			this->minutes += numOfMin;
+			return;	
+		}else if(floor(numOfMin/60) + this->hours < 24){
+			this->hours += floor(numOfMin/60);
+			addMinutes(numOfMin - (floor(numOfMin/60) * 60));
+		}else{
+			this->days += floor(numOfMin/1440);
+			addMinutes(numOfMin - (floor(numOfMin/1440) * 60));
 		}
-		else if (numOfMin > 59){
-			hours += floor(numOfMin/60);	// finds the number of hours to add if minutes to add is over 59 minutes
-			minutes += numOfMin % 60;	// find the remainder minutes after hours is calculated
-		}
-		else{
-			throw "Positive number of minutes required\n";
-		}
+	}
+	
+	Date_Time* getEndTime(Date_Time* start, int delta){
+		Date_Time* ret = new Date_Time(start);
+		ret->addMinutes(delta);
+		return ret;			
 	}
 
 	string toString(){
 		string dateTime;
 		char temp[80];	//creates temp char array to use in sprintg
 		if (hours > 10){
-			sprintf(temp, "%d/%d/%d  %d : %d", month, day, year, hours, minutes);
+			sprintf(temp, "%d/%d/%d  %d : %d", months, days, years, hours, minutes);
 			string dateTime(temp);	//converts char array into string
 			return dateTime;		//returns string
 		}
 		else{
-			sprintf(temp, "%d/%d/%d 0%d : %d", month, day, year, hours, minutes);
+			sprintf(temp, "%d/%d/%d 0%d : %d", months, days, years, hours, minutes);
 			string dateTime(temp);
 			return dateTime;
 		}

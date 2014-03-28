@@ -94,7 +94,15 @@ class FlightSouthWest : public FlightNode {
 	float getBaggageFees(int numOfBags){
 		return 25 * numOfBags;
 	}
-	int getDelay(){/*stuff*/};
+	int getDelay(){
+		if (this->departure->getHour() >= 7 && this->departure->getHour() <= 17){
+			if (this->departure->getHour() == 17 && this->departure->getMinute() > 0)
+				return 0;
+			return 30;
+		}else{
+			return 0;
+		}	/*7am - 5pm, 30 minute;  5:01 - 6:59, no delay*/
+	};
 };
 class FlightDelta : public FlightNode {
 	public:
@@ -104,7 +112,10 @@ class FlightDelta : public FlightNode {
 	float getBaggageFees(int numOfBags){
 		return 0;
 	}
-	int getDelay(){/*stuff*/};
+	int getDelay(){
+		return 20;
+		/*20 minutes always*/
+	};
 };
 class FlightUSAirway : public FlightNode {
 	public:
@@ -114,7 +125,21 @@ class FlightUSAirway : public FlightNode {
 	float getBaggageFees(int numOfBags){
 		return 25 * (numOfBags - 1);
 	}
-	int getDelay(){/*stuff*/};
+	int getDelay(){
+		if (this->departure->getHour() >= 7 && this->departure->getHour() <= 17({
+			if (this->departure->getHour() == 17 && this->departure->getMinute() > 0)
+				return 15;
+			return 10;
+		}else if(this->departure->getHour() >= 17 && this->departure->getHour() <= 24 || this->departure->getHour() >= 0 && this->departure->getHour() <= 1){
+			if (this->departure->getHour() == 1 && this->departure->getMinute() > 0)
+				return 0;
+			return 15;
+		}else{
+			return 0;
+		}
+		
+		/*7am -> 5pm, 10 minutes.  5:01 -> 1am, 15 mins.  1:01am->6:59am (no delay)*/
+	};
 };
 
 #endif
