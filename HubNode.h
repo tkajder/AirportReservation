@@ -31,6 +31,7 @@ class HubNode {
 	HubNode* Next() {
 		return next;		//used to indirectly access private variable next
 	};
+		
 	string getName() {
 		return name;
 	};

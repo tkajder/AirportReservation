@@ -6,9 +6,10 @@ class FlightPath{
 	
 	public:
 	
-	FlightPath(FlightNode* new){
-		this->flight = new;
+	FlightPath(FlightNode* newFlight){
+		this->flight = newFlight;
 	}
+	HubNode* getDestination(){return this->flight->getDestination();}
 	FlightPath* getFlight(){return this->flight;}
 	FlightPath* Next(){return this->next;}
 }
