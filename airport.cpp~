@@ -49,6 +49,7 @@ void selectionBranch(int selection){
 		int selectSrc;
 		int selectDest;
 		string enterDate;
+		
 
 		// gets source hub
 		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
@@ -68,8 +69,12 @@ void selectionBranch(int selection){
 		
 		// gets date user want to fly out
 		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YY): ";
+		cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
 		cin >> enterDate;
+		cout << endl << endl;
+		
+		// Displays Possible flights
+		
 		
 		
 		
@@ -230,7 +235,12 @@ void debug(){
 	while (current != NULL) {		//loops for hubs
 		FlightNode* flight = current->getFlights();
 		while (flight != NULL) {		//loops for flight per hub
-			cout << "Flight Number: " << flight->getFlightNumber() << endl << "Flight Company: " << flight->getFlightCompany() << endl << "Source Airport: " << flight->getSource()->getName() << endl << "Destination Airport: " << flight->getDestination()->getName() << endl << "Departure Time: " << flight->getDeparture() << endl << "Price: " << flight->getPrice() << endl << endl;
+			cout << "Flight Number: " << flight->getFlightNumber() << endl; 
+			cout << "Flight Company: " << flight->getFlightCompany() << endl;
+			cout << "Source Airport: " << flight->getSource()->getName() << endl;
+			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
+			cout << "Departure Time: " << flight->getDeparture() << endl;
+			cout << "Price: " << flight->getPrice() << endl << endl;
 			flight = flight->Next();
 		}
 		current = current->Next();

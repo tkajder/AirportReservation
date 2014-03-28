@@ -49,6 +49,8 @@ void selectionBranch(int selection){
 		int selectSrc;
 		int selectDest;
 		string enterDate;
+		
+		
 
 		// gets source hub
 		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
@@ -68,8 +70,12 @@ void selectionBranch(int selection){
 		
 		// gets date user want to fly out
 		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YY): ";
+		cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
 		cin >> enterDate;
+		cout << endl << endl;
+		
+		// Displays Possible flights
+		
 		
 		
 		
