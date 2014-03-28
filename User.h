@@ -1,14 +1,12 @@
-#include "FlightPath.h"
+#include "Reservation.h"
 using namespace std;
 
 
 class User{
-	FlightPath* pathHead = NULL;
-	User* next = NULL;
+	Reservation* pathHead = NULL;
 	
 	public:
 	User(){	
 	}
-	
-	User* Next (){return this->next;}
 };
+

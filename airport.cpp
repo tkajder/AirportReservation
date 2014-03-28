@@ -16,6 +16,7 @@ void populateFlights();
 void freeData();
 HubNode* getHub(string);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
+void printHubs();
 
 HubNode* head = new HubNode();
 User* user = new User();
@@ -154,6 +155,15 @@ void populateFlights() {
 			current->setNext(current->getSource()->getFlights());
 		}
 		current->getSource()->setHeadFlights(current);
+	}
+}
+void printHubs(){
+	HubNode* temp = head;
+	int counter = 1;
+	while (temp->Next() != NULL){
+		cout << counter << ": " << temp->getName() << endl; 
+		counter++;
+		temp = temp->Next();
 	}
 }
 

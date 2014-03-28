@@ -1,12 +1,12 @@
 using namespace std;
 #include <string.h>
 
-class FlightPath{
+class Reservation{
 	FlightNode *flight = NULL;
-	FlightPath *next = NULL;
+	Reservation *next = NULL;
 	
 	public:
-	FlightPath(FlightNode* in){
+	Reservation(FlightNode* in){
 		this->flight = in;
 	}
 	FlightNode* getFlight(){return this->flight;}
@@ -15,6 +15,10 @@ class FlightPath{
 		this->flight = in;
 	}
 	
-	FlightPath* Next (){return this->next;}
+	Reservation* Next (){return this->next;}
 
 };
+
+
+
+
