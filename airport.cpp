@@ -159,7 +159,7 @@ HubNode* getHub(string name) {
 	while(name != current->getName()) {	//returns the hub location of the hub name passed
 		current = current->Next();
 		if (!current) {
-			printf(name.c_str());
+			printf("%s", name.c_str());
 			throw "Hub not found.";
 		}
 	}

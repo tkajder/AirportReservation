@@ -4,8 +4,7 @@ class User{
 	FlightPath* pathHead = NULL;
 
 	public:
-	User(){
-	
+	User(){	
 	}
 	
 	User* Next (){return this->next;}
