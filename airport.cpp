@@ -50,49 +50,66 @@ void selectionBranch(int selection){
 		int selectDest;
 		string enterDate;
 		int numOfBags;
-		Reservations *getPos
-		
-		
+		ReservationList *res;
+		char route;
 
 		// gets source hub
-		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		cout << "Where are you flying from?";
-		printHubs();
-		cout << "Enter the number of where you are flying from: ";
-		cin >> selectSrc; 
-		cout << endl << endl;
+		while (selectSrc == NULL){
+			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+			cout << "Where are you flying from?";
+			printHubs();
+			cout << "Enter the number of where you are flying from: ";
+			cin >> selectSrc; 
+			cout << endl << endl;
+		}
 		
 		// gets destination hub
-		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		cout << "Where do you want to fly to?";
-		printHubs();
-		cout << "Enter the number of where you are flying to: ";
-		cin >> selectDest;
-		cout << endl << endl;
+		while (selectDest == NULL){
+			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+			cout << "Where do you want to fly to?";
+			printHubs();
+			cout << "Enter the number of where you are flying to: ";
+			cin >> selectDest;
+			cout << endl << endl;
+		}
 		
 		// gets date user want to fly out
-		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
-		cin >> enterDate;
-		cout << endl << endl;
+		while(){
+			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+			cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
+			cin >> enterDate;
+			cout << endl << endl;
+		}
 
 		// gets number of bags
-		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		cout << "Enter the number of bags that will be checked: ";
-		cin >> numOfBags;
-		cout << endl << endl;
+		while (numOfBags == NULL){
+			cout << "Enter the number of bags that will be checked: ";
+			cin >> numOfBags;
+			cout << endl << endl;
+		}
 		
-		// Displays Possible flights
-		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-		posRes = getPossibleReservations();
+		getPossibleReservations(/*add stuff*/);
+			
+		
+		// asks for shortest or cheapest reservation
+		while (route != q){
+			cout << "Would you like the shortest route or the cheapest route" << endl;
+			cout << "s: Shortest" << endl;
+			cout << "c: Cheapest" << endl;
+			cout << "Enter you selection: ";
+			cin >> route;
+			if (route == 's')
+				res = getShortestReservation();
+			else if (route == 'c')
+				res = getCheapestReservation(res);
+			else 
+				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
+		}
 		
 		
-
-		
-		
-		
-		
+		printIntinerary(res);
 		break;
+		
 	case 2:
 		// Cancel a Reservation
 		
@@ -123,6 +140,11 @@ void selectionBranch(int selection){
 	}
 }
 
+void printItinerary(){
+
+	
+}
+
 
 void freeData() {		//handles memory cleanup after the program is complete
 	HubNode *hCurrent, *hTemp;
@@ -141,6 +163,23 @@ void freeData() {		//handles memory cleanup after the program is complete
 	}
 }
 
+void getPossibleReservations(HubNode* src, HubNode * dest) {
+	FlightNode* flight1 = src->getFlights();
+	FlightNode* flight2;
+	Reservation* reservation;
+	while (flight) {
+		if (flight->getDestination() == dest) {
+			reservation = new Reservation(flight1);
+			user->addReservation(reservation);
+		}
+		flight2 = flight->getDestination()->getFlights()
+		if (flight2->getDestination() == dest) {
+			reservation = new Reservation(flight1);
+			reservation->setNext(new Reservation(flight2)); 
+			user->addReservation(reservation);
+		}
+	}	
+}
 
 void populateHubs() {
 	string line;
@@ -231,12 +270,22 @@ void populateFlights() {
 	}
 }
 
+void printHubs(){
+	HubNode* temp = head;
+	int counter = 1;
+	while (temp->Next() != NULL){
+		cout << counter << ": " << temp->getName() << endl; 
+		counter++;
+		temp = temp->Next();
+	}
+}
+
 HubNode* getHub(string name) {
 	HubNode* current = head;
 	while(name != current->getName()) {	//returns the hub location of the hub name passed
 		current = current->Next();
 		if (!current) {
-			printf(name.c_str());
+			cout << name << endl;
 			throw "Hub not found.";
 		}
 	}
