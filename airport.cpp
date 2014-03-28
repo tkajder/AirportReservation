@@ -8,7 +8,7 @@
 #include "User.h"
 
 using namespace std;
-
+void getPossibleReservations(HubNode*, HubNode*);
 void debug();
 void printIntro();
 void populateHubs();
@@ -66,6 +66,10 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 	TotalPrice = NumOfBags * Price;
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
+}
+
+void getPossibleReservations(HubNode* src, HubNode * dest) {
+	
 }
 
 void populateHubs() {
