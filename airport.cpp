@@ -8,7 +8,7 @@
 #include "User.h"
 
 using namespace std;
-
+void getPossibleReservations(HubNode*, HubNode*);
 void debug();
 void printIntro();
 void populateHubs();
@@ -67,6 +67,24 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 	TotalPrice = NumOfBags * Price;
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
+}
+
+void getPossibleReservations(HubNode* src, HubNode * dest) {
+	FlightNode* flight1 = src->getFlights();
+	FlightNode* flight2;
+	Reservation* reservation;
+	while (flight) {
+		if (flight->getDestination() == dest) {
+			reservation = new Reservation(flight1);
+			user->addReservation(reservation);
+		}
+		flight2 = flight->getDestination()->getFlights()
+		if (flight2->getDestination() == dest) {
+			reservation = new Reservation(flight1);
+			reservation->setNext(new Reservation(flight2)); 
+			user->addReservation(reservation);
+		}
+	}	
 }
 
 void populateHubs() {
@@ -173,7 +191,6 @@ HubNode* getHub(string name) {
 		current = current->Next();
 		if (!current) {
 			cout << name << endl;
-//			printf("%s", name.c_str());
 			throw "Hub not found.";
 		}
 	}
