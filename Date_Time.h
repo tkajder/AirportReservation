@@ -6,7 +6,11 @@
 using namespace std;
 class Date_Time{
 
-	int months, days, years, hours, minutes;	// hours should be entered as military time
+	int months = NULL; 
+	int days = NULL;
+	int years = NULL; 
+	int hours = NULL;
+	int minutes = NULL;	// hours should be entered as military time
 	public:
 	Date_Time() {};
 	
@@ -36,11 +40,17 @@ class Date_Time{
 		this->minutes = input->getMinutes();
 	}
 	
-	int getMonth(){return months;}
-	int getDay(){return days;}
-	int getYear(){return years;}
+	int getMonths(){return months;}
+	int getDays(){return days;}
+	int getYears(){return years;}
 	int getHours(){return hours;}
 	int getMinutes(){return minutes;}
+	
+	void setMonths(int input){this->months = input;}
+	void setDays(int input){this->days = input;}
+	void setYears(int input){this->years = input;}
+	void setHours(int input){this->hours = input;}
+	void setMinutes(int input){this->minutes = input;}
 
 	void setDate_Time(int mon, int d, int y, int h, int min){
 		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
@@ -92,3 +102,4 @@ class Date_Time{
 };
 
 #endif
+
