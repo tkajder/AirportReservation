@@ -6,10 +6,6 @@ class Reservation{
 	Reservation *next = NULL;
 	double price;
 	int time;
-<<<<<<< HEAD
-	
-=======
->>>>>>> master
 	
 	public:
 	Reservation(FlightNode* in){
@@ -23,13 +19,6 @@ class Reservation{
 	
 	Reservation* Next (){return this->next;}
 	
-<<<<<<< HEAD
-	FlightNode* nextFlight() {return this->flight;}f
-	
-	void setNext(Reservation* reservation){
-		this->next = reservation
-	}
-=======
 	void setNext(Reservation* reservation) {
 		this->next = reservation;
 	}
@@ -47,10 +36,7 @@ class Reservation{
 		}
 	}
 
->>>>>>> master
 };
-
-
 
 
 
