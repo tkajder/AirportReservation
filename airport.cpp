@@ -24,23 +24,153 @@ HubNode* head = new HubNode();
 User* user = new User();
 
 int main(){
-	string input;
+	int selection;
 	populateHubs();
 	populateFlights();
 	printIntro();
+	
+	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {
-		cout << "d: Debug" << endl << "q: Quit" << endl;
-		getline(cin, input);
-		if (input == "q") {
-			break;
-		} else if (input == "d") {
-			debug();
-		} else {
-			cout << "Improper input." << endl;
-		}
-	} while (input != "q");
+		cout << "\t\t\tMain Menu" << endl << "-----------------------------------------" << endl;
+		cout << "1) Make a Reservation" << endl;
+		cout << "2) Cancel a Reservation" << endl;
+		cout << "3) Print Itinerary" << endl;
+		cout << "4) Schedule of all Flights" << endl;
+		cout << "5) Quit" << endl;
+		cout << "Enter the number for which option you wish to select: ";
+		cin >> selection;
+		SelectionBranch(selection);
+	} while (input != 5);
+	
 	freeData();
 	return 0;
+}
+
+
+void selectionBranch(int selection){	
+	int selectSrc;
+	int selectDest;
+	string enterDate;
+	int numOfBags;
+	ReservationList *res;
+	char route;
+	Date_Time *departDate;
+	int pos, ppos;
+	int day, month, year;
+	
+	switch (selection){
+	case 1:
+		// gets source hub
+		while (selectSrc == NULL){
+			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+			cout << "Where are you flying from?";
+			printHubs();
+			cout << "Enter the number of where you are flying from: ";
+			cin >> selectSrc; 
+			cout << endl << endl;
+			
+			// CONVERT SELECTION (INT) INTO THE ACTUAL HUB
+		}
+		
+		// gets destination hub
+		while (selectDest == NULL){
+			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+			cout << "Where do you want to fly to?";
+			printHubs();
+			cout << "Enter the number of where you are flying to: ";
+			cin >> selectDest;
+			cout << endl << endl;
+			
+			// CONVERT SELECTION (INT) INTO THE ACTUAL HUB			
+		}
+		
+		// gets date user want to fly out
+		while(enterDate == NULL){
+			try{
+				cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+				cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
+				cin >> enterDate;
+				cout << endl << endl;
+				
+				// parse
+				pos = input.find("/");
+				day = atoi(input.substr(ppos + 1, pos).c_str());
+				ppos = pos;
+				pos = input.find("/");
+				month = atoi(input.substr(ppos + 1, pos).c_str());
+				year = atoi(input.substr(pos + 1).c_str());
+				
+				// new Date_Time
+				departDate = new Date_Time();
+				departDate->setDays(day);
+				departDate->setMonths(month);
+				departDate->setYears(year);
+			}
+			catch(int ex){
+				departDate = NULL;
+				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
+			}
+		}
+
+		// gets number of bags
+		while (numOfBags == NULL){
+			cout << "Enter the number of bags that will be checked: ";
+			cin >> numOfBags;
+			cout << endl << endl;
+		}
+		
+		getPossibleReservations(/*add stuff NEED TO GET SOURCE AND DESTINATION AND DATE*/,departureDate);
+			
+		
+		// asks for shortest or cheapest reservation
+		while (route != q){
+			cout << "Would you like the shortest route or the cheapest route" << endl;
+			cout << "s: Shortest" << endl;
+			cout << "c: Cheapest" << endl;
+			cout << "Enter you selection: ";
+			cin >> route;
+			if (route == 's')
+				res = new ReservationList();
+				res = getShortestReservation();
+			else if (route == 'c')
+				res = new ReservationList();
+				res = getCheapestReservation(res);
+			else 
+				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
+		}
+		
+		
+		printIntinerary(res);
+		break;
+		
+	case 2:
+		// Cancel a Reservation
+		
+		break;
+	case 3:
+		// Print Itinerary
+		if (){
+			cout << flightNum << "\t" << company << "\t" << srcLoc << "\t" << Depart_DateTime.toString() << endl << "\t\t" << destLoc << "\t" << Arrive_DateTime.toString() << endl << price << "=" << totalPrice << endl; 
+			break;
+		}
+		else{
+			cout << "ERROR: You must make a reservation before you can view your itinerary." << endl << endl;
+			break;
+		}
+
+	case 4:
+		// Print schedule of all flights
+		debug();
+		break;
+	case 5:
+		// quit
+		cout << endl << endl;
+		break;	
+	default:
+		// if 1, 2, 3, 4, or 5 isn't entered (Invalid entry)
+		cout << "ERROR: Invalid selection. Please Try Again." << endl << endl;
+		break;
+	}
 }
 
 void freeData() {		//handles memory cleanup after the program is complete
@@ -282,9 +412,15 @@ void debug(){
 	while (current != NULL) {		//loops for hubs
 		FlightNode* flight = current->getFlights();
 		while (flight != NULL) {		//loops for flight per hub
-			cout << "Flight Number: " << flight->getFlightNumber() << endl << "Price: " << flight->getPrice() << endl << "Flight Company: " << flight->getFlightCompany() << endl << "Source Airport: " << flight->getSource()->getName() << endl << "Destination Airport: " << flight->getDestination()->getName() << endl << endl;
+			cout << "Flight Number: " << flight->getFlightNumber() << endl; 
+			cout << "Flight Company: " << flight->getFlightCompany() << endl;
+			cout << "Source Airport: " << flight->getSource()->getName() << endl;
+			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
+			cout << "Departure Time: " << flight->getDeparture() << endl;
+			cout << "Price: " << flight->getPrice() << endl << endl;
 			flight = flight->Next();
 		}
 		current = current->Next();
 	}
 }
+
