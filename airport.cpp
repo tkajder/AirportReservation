@@ -49,6 +49,8 @@ void selectionBranch(int selection){
 		int selectSrc;
 		int selectDest;
 		string enterDate;
+		int numOfBags;
+		Reservations *getPos
 		
 		
 
@@ -73,8 +75,19 @@ void selectionBranch(int selection){
 		cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
 		cin >> enterDate;
 		cout << endl << endl;
+
+		// gets number of bags
+		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+		cout << "Enter the number of bags that will be checked: ";
+		cin >> numOfBags;
+		cout << endl << endl;
 		
 		// Displays Possible flights
+		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+		posRes = getPossibleReservations();
+		
+		
+
 		
 		
 		

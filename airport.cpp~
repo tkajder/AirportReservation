@@ -49,6 +49,8 @@ void selectionBranch(int selection){
 		int selectSrc;
 		int selectDest;
 		string enterDate;
+		int numOfBags;
+		
 		
 
 		// gets source hub
@@ -74,6 +76,15 @@ void selectionBranch(int selection){
 		cout << endl << endl;
 		
 		// Displays Possible flights
+		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+		
+		
+		
+		// gets number of bags
+		cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+		cout << "Enter the number of bags that will be checked: ";
+		cin >> numOfBags;
+		cout << endl << endl;
 		
 		
 		
