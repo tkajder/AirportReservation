@@ -4,6 +4,9 @@ using namespace std;
 class Reservation{
 	FlightNode *flight = NULL;
 	Reservation *next = NULL;
+	double price;
+	int time;
+	
 	
 	public:
 	Reservation(FlightNode* in){
@@ -16,8 +19,15 @@ class Reservation{
 	}
 	
 	Reservation* Next (){return this->next;}
-
+	
+	FlightNode* nextFlight() {return this->flight;}f
+	
+	void setNext(Reservation* reservation){
+		this->next = reservation
+	}
 };
+
+
 
 
 
