@@ -42,17 +42,18 @@ int main(){
 
 
 void selectionBranch(int selection){	
+	int selectSrc;
+	int selectDest;
+	string enterDate;
+	int numOfBags;
+	ReservationList *res;
+	char route;
+	Date_Time *departDate;
+	int pos, ppos;
+	int day, month, year;
 	
 	switch (selection){
 	case 1:
-		// Make a reservation
-		int selectSrc;
-		int selectDest;
-		string enterDate;
-		int numOfBags;
-		ReservationList *res;
-		char route;
-
 		// gets source hub
 		while (selectSrc == NULL){
 			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
@@ -61,6 +62,8 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
 			cout << endl << endl;
+			
+			// CONVERT SELECTION (INT) INTO THE ACTUAL HUB
 		}
 		
 		// gets destination hub
@@ -71,14 +74,36 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
 			cout << endl << endl;
+			
+			// CONVERT SELECTION (INT) INTO THE ACTUAL HUB			
 		}
 		
 		// gets date user want to fly out
-		while(){
-			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-			cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
-			cin >> enterDate;
-			cout << endl << endl;
+		while(enterDate == NULL){
+			try{
+				cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+				cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
+				cin >> enterDate;
+				cout << endl << endl;
+				
+				// parse
+				pos = input.find("/");
+				day = atoi(input.substr(ppos + 1, pos).c_str());
+				ppos = pos;
+				pos = input.find("/");
+				month = atoi(input.substr(ppos + 1, pos).c_str());
+				year = atoi(input.substr(pos + 1).c_str());
+				
+				// new Date_Time
+				departDate = new Date_Time();
+				departDate->setDays(day);
+				departDate->setMonths(month);
+				departDate->setYears(year);
+			}
+			catch(int ex){
+				departDate = NULL;
+				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
+			}
 		}
 
 		// gets number of bags
@@ -88,7 +113,7 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 		
-		getPossibleReservations(/*add stuff*/);
+		getPossibleReservations(/*add stuff NEED TO GET SOURCE AND DESTINATION AND DATE*/,departureDate);
 			
 		
 		// asks for shortest or cheapest reservation
@@ -99,8 +124,10 @@ void selectionBranch(int selection){
 			cout << "Enter you selection: ";
 			cin >> route;
 			if (route == 's')
+				res = new ReservationList();
 				res = getShortestReservation();
 			else if (route == 'c')
+				res = new ReservationList();
 				res = getCheapestReservation(res);
 			else 
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;

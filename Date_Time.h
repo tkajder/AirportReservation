@@ -24,8 +24,8 @@ class Date_Time{
 		pos = input.find("/");
 		month = atoi(input.substr(ppos + 1, pos).c_str());
 		year = atoi(input.substr(pos + 1).c_str());
-
 	}
+	
 
 	void setDate_Time(int mon, int d, int y, int h, int min){
 		month = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
@@ -33,6 +33,26 @@ class Date_Time{
 		year	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
 		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
+	}
+	
+	void setMinutes(int min){
+		minutes = min;
+	}
+	
+	void setHours(int h){
+		hours = h;
+	}
+	
+	void setMonth(int mon){
+		month = mon;
+	}	
+	
+	void setDay(int d){
+		day = d;
+	}	
+	
+	void setYear(int y){
+		year = y;
 	}
 
 	void AddMinutes(int numOfMin){
