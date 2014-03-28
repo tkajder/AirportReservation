@@ -4,6 +4,8 @@ using namespace std;
 class Reservation{
 	FlightNode *flight = NULL;
 	Reservation *next = NULL;
+	double price;
+	int time;
 	
 	public:
 	Reservation(FlightNode* in){
@@ -16,6 +18,23 @@ class Reservation{
 	}
 	
 	Reservation* Next (){return this->next;}
+	
+	void setNext(Reservation* reservation) {
+		this->next = reservation;
+	}
+	
+	void addFlightPathNode(Reservation* reservation) {
+		Reservation* curr = this->reservationHead;
+		if(curr) {
+			while(curr->Next()) {
+				curr = curr->Next();
+			}
+			curr->setNext() = reservation;
+		}
+		else {
+			this->reservationHead = reservation;
+		}
+	}
 
 };
 
