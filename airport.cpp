@@ -68,25 +68,50 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
 }
-/*
-void getPossibleReservations(HubNode* src, HubNode * dest){
+
+ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
 	FlightNode* flight1 = src->getFlights();
 	FlightNode* flight2;
-	Reservation* reservation;
-	while (flight) {
-		if (flight->getDestination() == dest) {
-			reservation = new Reservation(flight1);
-			user->addReservation(reservation);
+	FlightPath* path;
+	ReservationList* head = NULL
+	ReservationList* current = NULL;
+	ReservationList* reservation;
+	while (flight1) {
+		if (flight1->getDestination() == dest) {
+			path = new FlightPath(flight1);
+			reservation = new Reservation(path);
+			if (head) {
+				if (current) {
+					current->setNext(reservation);
+				} else {
+					head = reservation;
+				}
+				current = reservation;
+			}
 		}
+
 		flight2 = flight->getDestination()->getFlights();
-		if (flight2->getDestination() == dest) {
-			reservation = new Reservation(flight1);
-			reservation->setNext(new Reservation(flight2)); 
-			user->addReservation(reservation);
+		while (flight2) {
+			if (flight2->getDestination() == dest and isLegal(flight1, flight2)) {
+				path = new FlightPath(flight1);
+				path->setNext(flight2);
+				reservation = new ReservationList(path);
+				if (head) {
+					if (current) {
+						current->setNext(reservation);
+					} else {
+						head = reservation;
+					}
+					current = reservation;
+				}
+			}
+			flight2 = flight2->Next();
 		}
-	}	
+		flight1 = flight1->Next();
+	}
+	return head;	
 }
-*/
+
 void populateHubs() {
 	string line;
 	int pos;
