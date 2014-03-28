@@ -8,13 +8,15 @@
 #include "User.h"
 
 using namespace std;
-void getPossibleReservations(HubNode*, HubNode*);
+ReservationList* getPossibleReservations(HubNode*, HubNode*);
 void debug();
 void printIntro();
 void populateHubs();
 void populateFlights();
 void freeData();
 HubNode* getHub(string);
+ReservationList* getCheapestReservation(ReservationList*);
+ReservationList* getShortestReservation(ReservationList*);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
 void printHubs();
 
@@ -67,6 +69,46 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 	TotalPrice = NumOfBags * Price;
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
+}
+
+ReservationList* getCheapestReservation(ReservationList* head) {
+	ReservationList* reservation = head;
+	ReservationList* cheapest = head;
+	ReservationList* temp;
+	reservation = reservation->Next();
+	while (reservation) {
+		if (reservation->getPrice() < cheapest->getPrice()) {
+			delete cheapest;
+			cheapest = reservation;
+			reservation = reservation->Next();
+			cheapest->Next() = NULL;
+		} else {
+			temp = reservation;
+			reservation = reservation->Next();
+			delete temp;
+		}
+	}
+	return cheapest;
+}
+
+ReservationList* getShortestReservation(ReservationList* head) {
+	ReservationList* reservation = head;
+	ReservationList* shortest = head;
+	ReservationList* temp;
+	reservation = reservation->Next();
+	while (reservation) {
+		if (reservation->getTime() < cheapest->getTime()) {
+			delete cheapest;
+			shortest = reservation;
+			reservation = reservation->Next();
+			cheapest->Next() = NULL;
+		} else {
+			temp = reservation;
+			reservation = reservation->Next();
+			delete temp;
+		}
+	}
+	return shortest;
 }
 
 ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
