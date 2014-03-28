@@ -191,10 +191,6 @@ void freeData() {		//handles memory cleanup after the program is complete
 	delete user;
 }
 
-void printIntro(){	
-	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl << "Please select from the following options:" << endl;
-}
-
 void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time Arrive_DateTime, Date_Time Depart_DateTime){
 	TotalPrice = NumOfBags * Price;
 
