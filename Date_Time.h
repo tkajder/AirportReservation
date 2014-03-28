@@ -70,6 +70,10 @@ class Date_Time{
 		ret->addMinutes(delta);
 		return ret;			
 	}
+	
+	int getMinutes(){
+		return this->hours * 60 + this->minutes;
+	}
 
 	string toString(){
 		string dateTime;

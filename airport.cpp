@@ -134,7 +134,8 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
 
 		flight2 = flight->getDestination()->getFlights();
 		while (flight2) {
-			if (flight2->getDestination() == dest and isLegal(flight1, flight2)) {
+			if (flight2->getDestination() == dest and 
+			isLegal(flight1, flight2)) {
 				path = new FlightPath(flight1);
 				path->setNext(flight2);
 				reservation = new ReservationList(path);
@@ -152,6 +153,18 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
 		flight1 = flight1->Next();
 	}
 	return head;	
+}
+
+bool isLegal(FlightNode* flight1, FlightNode* flight2){
+	if (flight1->getArrival()->getDays() < flight2->getDeparture()->getDays())
+		return 1;
+	
+	
+	if (flight1->getArrival()->getDays() == flight2->getDeparture()->getDays())
+		if (flight1->getArrival()->getMinutes() < flight2->getDeparture()->getMinutes())	//better run
+			return 1;
+	
+	return 0;
 }
 
 void populateHubs() {

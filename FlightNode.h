@@ -10,6 +10,7 @@ class FlightNode{
 	double price;
 	string flightCompany;
 	Date_Time* departure;
+	Date_Time* arrival;
 	int duration;
 	HubNode* source;
 	HubNode* destination;
@@ -24,11 +25,13 @@ class FlightNode{
 		this->destination = destination;
 		this->departure = departure;
 		this->duration = duration;
+		this->arrival = this->arrival->getEndTime(departure, duration + getDelay());
 	}  				
 	
 	// Destructor
 	~FlightNode() {
 		delete this->departure;
+		delete this->arrival;
 	}
 
 	// Setters
@@ -46,7 +49,7 @@ class FlightNode{
 	};
 	void setDuration(int duration) {
 		this->duration = duration;
-	};
+	};getDeparture
 	void setSource(HubNode* source) {
 		this->source = source;
 	};
@@ -69,7 +72,10 @@ class FlightNode{
 	};
 	int getDuration() {
 		return duration;
-	};			
+	};
+	Date_Time* getArrival(){
+		return arrival;
+	}
 	Date_Time* getDeparture() {
 		return departure;
 	}
