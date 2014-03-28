@@ -2,7 +2,7 @@
 using namespace std;
 
 class User{
-	ReservationList* reservationHead = NULL;
+	Reservation* reservationHead = NULL;
 	
 	public:
 	User(){	
