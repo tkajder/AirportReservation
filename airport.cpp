@@ -230,7 +230,12 @@ void debug(){
 	while (current != NULL) {		//loops for hubs
 		FlightNode* flight = current->getFlights();
 		while (flight != NULL) {		//loops for flight per hub
-			cout << "Flight Number: " << flight->getFlightNumber() << endl << "Flight Company: " << flight->getFlightCompany() << endl << "Source Airport: " << flight->getSource()->getName() << endl << "Destination Airport: " << flight->getDestination()->getName() << endl << "Departure Time: " << flight->getDeparture() << endl << "Price: " << flight->getPrice() << endl << endl;
+			cout << "Flight Number: " << flight->getFlightNumber() << endl; 
+			cout << "Flight Company: " << flight->getFlightCompany() << endl;
+			cout << "Source Airport: " << flight->getSource()->getName() << endl;
+			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
+			cout << "Departure Time: " << flight->getDeparture() << endl;
+			cout << "Price: " << flight->getPrice() << endl << endl;
 			flight = flight->Next();
 		}
 		current = current->Next();
