@@ -9,7 +9,7 @@ class FlightPath{
 	FlightPath(FlightNode* in){
 		this->flight = in;
 	}
-	string getFlight(){return this->flight;}
+	FlightNode* getFlight(){return this->flight;}
 	
 	void setFlight(FlightNode* in){
 		this->flight = in;

@@ -5,6 +5,7 @@
 #include <cstdio>
 #include "Date_Time.h"
 #include "FlightNode.h"
+#include "User.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ HubNode* getHub(string);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
 
 HubNode* head = new HubNode();
+User* user = new User();
 
 int main(){
 	string input;
@@ -53,6 +55,7 @@ void freeData() {		//handles memory cleanup after the program is complete
 		delete hCurrent;		//deletes hub after all flights are free
 		hCurrent = hTemp;
 	}
+	delete user;
 }
 
 void printIntro(){	
@@ -159,7 +162,8 @@ HubNode* getHub(string name) {
 	while(name != current->getName()) {	//returns the hub location of the hub name passed
 		current = current->Next();
 		if (!current) {
-			printf("%s", name.c_str());
+			cout << name << endl;
+//			printf("%s", name.c_str());
 			throw "Hub not found.";
 		}
 	}
