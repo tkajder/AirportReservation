@@ -1,8 +1,11 @@
 using namespace std;
 
-
 class User{
-//	string flights[][];
+	FlightPath* pathHead = NULL;
 
-
+	public:
+	User(){
+	
+	}
+	
 };

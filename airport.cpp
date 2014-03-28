@@ -5,10 +5,9 @@
 #include <cstdio>
 #include "Date_Time.h"
 #include "FlightNode.h"
-#include "User.h"
 
 using namespace std;
-//forward declares
+
 void debug();
 void printIntro();
 void populateHubs();
@@ -16,8 +15,6 @@ void populateFlights();
 void freeData();
 HubNode* getHub(string);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
-
-////////////////////////
 
 HubNode* head = new HubNode();
 
@@ -61,16 +58,6 @@ void freeData() {		//handles memory cleanup after the program is complete
 void printIntro(){	
 	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl << "Please select from the following options:" << endl;
 }
-
-void addFlight(){
-	cout << "Please choose starting point" << endl;
-}
-
-void removeFlight(){
-	cout << "Please choose flight to remove" << endl;
-	
-}
-
 
 void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time Arrive_DateTime, Date_Time Depart_DateTime){
 	TotalPrice = NumOfBags * Price;
