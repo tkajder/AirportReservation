@@ -8,15 +8,13 @@
 #include "User.h"
 
 using namespace std;
-ReservationList* getPossibleReservations(HubNode*, HubNode*);
+void getPossibleReservations(HubNode*, HubNode*);
 void debug();
 void printIntro();
 void populateHubs();
 void populateFlights();
 void freeData();
 HubNode* getHub(string);
-ReservationList* getCheapestReservation(ReservationList*);
-ReservationList* getShortestReservation(ReservationList*);
 void printItinerary(string, string, string, string, double, int, double, Date_Time*, Date_Time*);
 void printHubs();
 
@@ -70,90 +68,25 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
 }
-
-ReservationList* getCheapestReservation(ReservationList* head) {
-	ReservationList* reservation = head;
-	ReservationList* cheapest = head;
-	ReservationList* temp;
-	reservation = reservation->Next();
-	while (reservation) {
-		if (reservation->getPrice() < cheapest->getPrice()) {
-			delete cheapest;
-			cheapest = reservation;
-			reservation = reservation->Next();
-			cheapest->Next() = NULL;
-		} else {
-			temp = reservation;
-			reservation = reservation->Next();
-			delete temp;
-		}
-	}
-	return cheapest;
-}
-
-ReservationList* getShortestReservation(ReservationList* head) {
-	ReservationList* reservation = head;
-	ReservationList* shortest = head;
-	ReservationList* temp;
-	reservation = reservation->Next();
-	while (reservation) {
-		if (reservation->getTime() < cheapest->getTime()) {
-			delete cheapest;
-			shortest = reservation;
-			reservation = reservation->Next();
-			cheapest->Next() = NULL;
-		} else {
-			temp = reservation;
-			reservation = reservation->Next();
-			delete temp;
-		}
-	}
-	return shortest;
-}
-
-ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
+/*
+void getPossibleReservations(HubNode* src, HubNode * dest){
 	FlightNode* flight1 = src->getFlights();
 	FlightNode* flight2;
-	FlightPath* path;
-	ReservationList* head = NULL
-	ReservationList* current = NULL;
-	ReservationList* reservation;
-	while (flight1) {
-		if (flight1->getDestination() == dest) {
-			path = new FlightPath(flight1);
-			reservation = new Reservation(path);
-			if (head) {
-				if (current) {
-					current->setNext(reservation);
-				} else {
-					head = reservation;
-				}
-				current = reservation;
-			}
+	Reservation* reservation;
+	while (flight) {
+		if (flight->getDestination() == dest) {
+			reservation = new Reservation(flight1);
+			user->addReservation(reservation);
 		}
-
 		flight2 = flight->getDestination()->getFlights();
-		while (flight2) {
-			if (flight2->getDestination() == dest and isLegal(flight1, flight2)) {
-				path = new FlightPath(flight1);
-				path->setNext(flight2);
-				reservation = new ReservationList(path);
-				if (head) {
-					if (current) {
-						current->setNext(reservation);
-					} else {
-						head = reservation;
-					}
-					current = reservation;
-				}
-			}
-			flight2 = flight2->Next();
+		if (flight2->getDestination() == dest) {
+			reservation = new Reservation(flight1);
+			reservation->setNext(new Reservation(flight2)); 
+			user->addReservation(reservation);
 		}
-		flight1 = flight1->Next();
-	}
-	return head;	
+	}	
 }
-
+*/
 void populateHubs() {
 	string line;
 	int pos;
