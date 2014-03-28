@@ -25,6 +25,8 @@ class ReservationList{
 	}
 	double getPrice(){return this->price;}
 	
+	int getTime(){return this->time;}
+	
 	ReservationList* Next(){return this->next;}
 	
 	void setNext(ReservationList* ReservationList) {
@@ -37,9 +39,9 @@ class ReservationList{
 			return;
 		}else{
 			FlightPath* temp = this->flight;
-			while (temp->next != NULL){
-				this->price += temp->getFlight()->getPrice();
-				this->price += temp->getFlight()->getBaggageFees(this->numOfBags){
+			while (temp->Next() != NULL){
+				this->price += (temp->getFlight())->getPrice();
+				this->price += (temp->getFlight())->getBaggageFees(this->numOfBags){
 				temp = temp->Next();
 			}
 		}
@@ -51,7 +53,7 @@ class ReservationList{
 		}else{
 			FlightPath* temp = this->flight;
 			while (temp->next != NULL){
-				this->time += temp->getFlight()->getDuration();
+				this->time += (temp->getFlight())->getDuration();
 				temp = temp->Next();
 			}
 		}

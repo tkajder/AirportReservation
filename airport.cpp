@@ -68,8 +68,8 @@ void printItinerary(string FlightNum, string Company, string SourceLocation, str
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
 }
-
-void getPossibleReservations(HubNode* src, HubNode * dest) {
+/*
+void getPossibleReservations(HubNode* src, HubNode * dest){
 	FlightNode* flight1 = src->getFlights();
 	FlightNode* flight2;
 	Reservation* reservation;
@@ -78,7 +78,7 @@ void getPossibleReservations(HubNode* src, HubNode * dest) {
 			reservation = new Reservation(flight1);
 			user->addReservation(reservation);
 		}
-		flight2 = flight->getDestination()->getFlights()
+		flight2 = flight->getDestination()->getFlights();
 		if (flight2->getDestination() == dest) {
 			reservation = new Reservation(flight1);
 			reservation->setNext(new Reservation(flight2)); 
@@ -86,7 +86,7 @@ void getPossibleReservations(HubNode* src, HubNode * dest) {
 		}
 	}	
 }
-
+*/
 void populateHubs() {
 	string line;
 	int pos;
