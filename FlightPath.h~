@@ -15,6 +15,6 @@ class FlightPath{
 		this->flight = in;
 	}
 	
-	FlightPath* Next (){return this->next;}
+	FlightPath* next (){return this->next;}
 
 };
