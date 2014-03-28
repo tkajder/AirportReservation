@@ -129,14 +129,15 @@ void selectionBranch(int selection){
 			cout << "c: Cheapest" << endl;
 			cout << "Enter you selection: ";
 			cin >> route;
-			if (route == 's')
+			if (route == 's'){
 				res = new ReservationList();
 				res = getShortestReservation();
-			else if (route == 'c')
+			}else if (route == 'c'){
 				res = new ReservationList();
 				res = getCheapestReservation(res);
-			else 
+			}else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
+			}
 		}
 		
 		
@@ -241,7 +242,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
 	FlightNode* flight1 = src->getFlights();
 	FlightNode* flight2;
 	FlightPath* path;
-	ReservationList* head = NULL
+	ReservationList* head = NULL;
 	ReservationList* current = NULL;
 	ReservationList* reservation;
 	while (flight1) {
@@ -260,8 +261,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
 
 		flight2 = flight->getDestination()->getFlights();
 		while (flight2) {
-			if (flight2->getDestination() == dest and 
-			isLegal(flight1, flight2)) {
+			if (flight2->getDestination() == dest and isLegal(flight1, flight2)){
 				path = new FlightPath(flight1);
 				path->setNext(flight2);
 				reservation = new ReservationList(path);
@@ -419,4 +419,3 @@ void debug(){
 		current = current->Next();
 	}
 }
-
