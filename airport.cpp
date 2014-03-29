@@ -119,7 +119,6 @@ void selectionBranch(int selection){
 		}
 		
 		posRes = getPossibleReservations(src, dest, departDate);	
-		cout << posRes << endl;	
 		res = posRes;
 		while (res) {
 			printItinerary(res);
@@ -251,12 +250,11 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
 			path = new FlightPath(flight1);
 			reservation = new ReservationList(path);
-			if (head) {
-				if (current) {
-					current->setNext(reservation);
-				} else {
-					head = reservation;
-				}
+			if (current) {
+				current->setNext(reservation);
+				current = reservation;
+			} else {
+				head = reservation;
 				current = reservation;
 			}
 		}
@@ -267,12 +265,11 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 				path = new FlightPath(flight1);
 				path->setNext(new FlightPath(flight2));
 				reservation = new ReservationList(path);
-				if (head) {
-					if (current) {
-						current->setNext(reservation);
-					} else {
-						head = reservation;
-					}
+				if (current) {
+					current->setNext(reservation);
+					current = reservation;
+				} else {
+					head = reservation;
 					current = reservation;
 				}
 			}
