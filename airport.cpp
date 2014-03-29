@@ -248,6 +248,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 	ReservationList* reservation;
 	while (flight1) {
 		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
+			cout << flight1->getDeparture()->toString() << endl;
 			path = new FlightPath(flight1);
 			reservation = new ReservationList(path);
 			if (current) {
@@ -427,7 +428,7 @@ void debug(){
 			cout << "Flight Company: " << flight->getFlightCompany() << endl;
 			cout << "Source Airport: " << flight->getSource()->getName() << endl;
 			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
-			cout << "Departure Time: " << flight->getDeparture() << endl;
+			cout << "Departure Time: " << flight->getDeparture()->toString() << endl;
 			cout << "Price: " << flight->getPrice() << endl << endl;
 			flight = flight->Next();
 		}
