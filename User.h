@@ -2,16 +2,17 @@
 #define USER_H
 
 #include "ReservationList.h"
-using namespace std;
+//using namespace std;
 
 class User{
 	ReservationList* reservationHead = NULL;
-	int numOfBags = 0;
+	int numOfBags;
 	public:
-	User(){	
+	User(){
+		this->numOfBags = 0;
 	}
 	int getBagNum(){return this->numOfBags;}
-	Reservation* getReservationHead() {
+	ReservationList* getReservationHead() {
 		return this->reservationHead;
 	}
 	

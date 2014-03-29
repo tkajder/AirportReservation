@@ -1,4 +1,4 @@
-6#ifndef DATETIME_H
+#ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
 #include <math.h>
@@ -6,13 +6,19 @@
 using namespace std;
 class Date_Time{
 
-	int months = NULL; 
-	int days = NULL;
-	int years = NULL; 
-	int hours = NULL;
-	int minutes = NULL;	// hours should be entered as military time
+	int months; 
+	int days;
+	int years; 
+	int hours;
+	int minutes;	// hours should be entered as military time
 	public:
-	Date_Time() {};
+	Date_Time() {
+		this->months = 0; 
+		this->days = 0;
+		this->years = 0; 
+		this->hours = 0;
+		this->minutes = 0;
+	};
 	
 	Date_Time(string input) {
 		int pos, ppos;
@@ -33,9 +39,9 @@ class Date_Time{
 	}
 	
 	Date_Time(Date_Time* input){
-		this->months = input->getMonth();
-		this->days = input->getDay();
-		this->years = input->getYear();
+		this->months = input->getMonths();
+		this->days = input->getDays();
+		this->years = input->getYears();
 		this->hours = input->getHours();
 		this->minutes = input->getMinutes();
 	}
@@ -55,7 +61,7 @@ class Date_Time{
 	void setDate_Time(int mon, int d, int y, int h, int min){
 		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
 		days = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
-		year	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
+		years	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
 		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}

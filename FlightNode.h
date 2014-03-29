@@ -9,13 +9,13 @@ class FlightNode{
 	string flightNumber;
 	double price;
 	string flightCompany;
-	Date_Time* departure;
-	Date_Time* arrival;
 	int duration;
 	HubNode* source;
 	HubNode* destination;
 	FlightNode* next = NULL;
-
+	protected:
+	Date_Time* departure;
+	Date_Time* arrival;
 	public:
 	// Constructor
 	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) {
@@ -25,14 +25,17 @@ class FlightNode{
 		this->destination = destination;
 		this->departure = departure;
 		this->duration = duration;
-		this->arrival = this->arrival->getEndTime(departure, duration + getDelay());
-	}  				
+		this->arrival = this->arrival->getEndTime(departure, duration + this->getDelay());
+	}			
 	
 	// Destructor
 	~FlightNode() {
 		delete this->departure;
 		delete this->arrival;
 	}
+	
+	virtual int getDelay();
+	virtual float getBaggageFees(int);
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 
@@ -49,7 +52,7 @@ class FlightNode{
 	};
 	void setDuration(int duration) {
 		this->duration = duration;
-	};getDeparture
+	};
 	void setSource(HubNode* source) {
 		this->source = source;
 	};
@@ -101,8 +104,8 @@ class FlightSouthWest : public FlightNode {
 		return 25 * numOfBags;
 	}
 	int getDelay(){
-		if (this->departure->getHour() >= 7 && this->departure->getHour() <= 17){
-			if (this->departure->getHour() == 17 && this->departure->getMinute() > 0)
+		if (this->departure->getHours() >= 7 && this->departure->getHours() <= 17){
+			if (this->departure->getHours() == 17 && this->departure->getMinutes() > 0)
 				return 0;
 			return 30;
 		}else{
@@ -132,12 +135,12 @@ class FlightUSAirway : public FlightNode {
 		return 25 * (numOfBags - 1);
 	}
 	int getDelay(){
-		if (this->departure->getHour() >= 7 && this->departure->getHour() <= 17({
-			if (this->departure->getHour() == 17 && this->departure->getMinute() > 0)
+		if (this->departure->getHours() >= 7 && this->departure->getHours() <= 17){
+			if (this->departure->getHours() == 17 && this->departure->getMinutes() > 0)
 				return 15;
 			return 10;
-		}else if(this->departure->getHour() >= 17 && this->departure->getHour() <= 24 || this->departure->getHour() >= 0 && this->departure->getHour() <= 1){
-			if (this->departure->getHour() == 1 && this->departure->getMinute() > 0)
+		}else if(this->departure->getHours() >= 17 && this->departure->getHours() <= 24 || this->departure->getHours() >= 0 && this->departure->getHours() <= 1){
+			if (this->departure->getHours() == 1 && this->departure->getMinutes() > 0)
 				return 0;
 			return 15;
 		}else{

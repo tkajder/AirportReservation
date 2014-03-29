@@ -248,7 +248,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest){
 	while (flight1) {
 		if (flight1->getDestination() == dest) {
 			path = new FlightPath(flight1);
-			reservation = new Reservation(path);
+			reservation = new ReservationList(path);
 			if (head) {
 				if (current) {
 					current->setNext(reservation);
