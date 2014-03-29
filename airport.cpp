@@ -245,7 +245,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 	ReservationList* current = NULL;
 	ReservationList* reservation;
 	while (flight1) {
-		if (flight1->getDestination() == dest) {
+		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
 			path = new FlightPath(flight1);
 			reservation = new ReservationList(path);
 			if (head) {
@@ -260,7 +260,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 
 		flight2 = flight1->getDestination()->getFlights();
 		while (flight2) {
-			if (flight2->getDestination() == dest and isLegal(flight1, flight2)){
+			if (flight2->getDestination() == dest && isLegal(flight1->getArrival(), flight2->getDeparture())){
 				path = new FlightPath(flight1);
 				path->setNext(new FlightPath(flight2));
 				reservation = new ReservationList(path);
