@@ -113,8 +113,7 @@ void selectionBranch(int selection){
 				pos = enterDate.find("/", ppos + 1);
 				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
 				year = atoi(enterDate.substr(pos + 1).c_str());
-				
-				cout << day << "/" << month << "/" << year << endl;
+			
 				// new Date_Time
 				departDate = new Date_Time();
 				departDate->setDate_Time(month, day, year, 0, 0);
