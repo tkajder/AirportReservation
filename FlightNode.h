@@ -36,7 +36,7 @@ class FlightNode{
 	}
 	
 	virtual int getDelay(){};
-	virtual double getBaggageFees(int){ cout << "I am the super method" << endl;};
+	virtual double getBaggageFees(int){};
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 
