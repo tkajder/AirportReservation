@@ -35,8 +35,8 @@ class FlightNode{
 		delete this->arrival;
 	}
 	
-	virtual int getDelay(){};
-	virtual float getBaggageFees(int){};
+	virtual int getDelay () {};
+	virtual float getBaggageFees (int) {};
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 

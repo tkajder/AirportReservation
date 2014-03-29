@@ -93,20 +93,19 @@ void selectionBranch(int selection){
 				cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> enterDate;
 				cout << endl << endl;
-				
 				// parse
 				pos = enterDate.find("/");
-				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				ppos = pos;
-				pos = enterDate.find("/");
 				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
+				cout << month << "\t" << enterDate.substr(pos) << endl;
+				ppos = pos;
+				pos = enterDate.find("/", ppos + 1);
+				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
+				cout << day << "\t" << enterDate.substr(pos) << endl;
 				year = atoi(enterDate.substr(pos + 1).c_str());
 				
 				// new Date_Time
 				departDate = new Date_Time();
-				departDate->setDays(day);
-				departDate->setMonths(month);
-				departDate->setYears(year);
+				departDate->setDate_Time(month, day, year, 0, 0);
 			}
 			catch(int ex){
 				departDate = NULL;
