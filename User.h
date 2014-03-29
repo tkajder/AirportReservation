@@ -5,15 +5,11 @@
 
 class User{
 	ReservationList* reservationHead;
-	int numOfBags;
 	public:
 	User(){
 		reservationHead = NULL;
-		this->numOfBags = 0;
 	}
-	int getBagNum(){return this->numOfBags;}
 	
-	void setBagNum(int numOfBags) {this->numOfBags = numOfBags;}
 
 	ReservationList* getReservationHead() {
 		return this->reservationHead;
