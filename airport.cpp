@@ -118,8 +118,14 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 		
-		posRes = getPossibleReservations(src, dest, departDate);
-		
+		posRes = getPossibleReservations(src, dest, departDate);	
+		cout << posRes << endl;	
+		res = posRes;
+		while (res) {
+			printItinerary(res);
+			res = res->Next();
+		}
+
 		// asks for shortest or cheapest reservation
 		while (route != 'q'){
 			cout << "Would you like the shortest route or the cheapest route" << endl;
@@ -381,7 +387,7 @@ void populateFlights() {
 void printHubs(){
 	HubNode* temp = head;
 	int counter = 1;
-	while (temp->Next() != NULL){
+	while (temp){
 		cout << counter << ": " << temp->getName() << endl; 
 		counter++;
 		temp = temp->Next();

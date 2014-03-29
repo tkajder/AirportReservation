@@ -16,11 +16,11 @@ class ReservationList{
 	Date_Time* end;
 	
 	public:
-	ReservationList(FlightPath* in){
-		this->flight = in;
-		start = in->getFlight()->getDeparture();
-		calculatePrice();
-		calculateTime();
+	ReservationList(FlightPath* path){
+		this->flight = path;
+		start = path->getFlight()->getDeparture();
+		//calculatePrice();
+		//calculateTime();
 		this->next = NULL;
 	}
 	FlightPath* getFlights(){return this->flight;}
