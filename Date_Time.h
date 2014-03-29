@@ -1,4 +1,4 @@
-#ifndef DATETIME_H
+6#ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
 #include <math.h>
@@ -81,7 +81,7 @@ class Date_Time{
 		return ret;			
 	}
 	
-	int getMinutes(){
+	int getElapsedMinutes(){
 		return this->hours * 60 + this->minutes;
 	}
 
