@@ -60,27 +60,28 @@ class Date_Time{
 	}
 
 	void addMinutes(int numOfMin){		//recursion, weeeeeeeeeee
-		if (numOfMin == 0)
+		if (numOfMin <= 0)
 			return;
-		if (numOfMin + this->minutes < 60){
-			this->minutes += numOfMin;
-			return;	
-		}else if(floor(numOfMin/60) + this->hours < 24){
-			this->hours += floor(numOfMin/60);
-			addMinutes(numOfMin - (floor(numOfMin/60) * 60));
-		}else{
+		if (floor(numOfMin/1440) > 0){
 			this->days += floor(numOfMin/1440);
-			addMinutes(numOfMin - (floor(numOfMin/1440) * 60));
+			numOfMin -= floor(numOfMin/1440)* 1440;
 		}
+		if (floor(numOfMin/60) > 0){
+			this->hours += floor(numOfMin/60);
+			numOfMin -= floor(numOfMin/60) * 60;
+		}
+		this->minutes += numOfMin;
+		return;
+		
 	}
 	
 	Date_Time* getEndTime(int delta){
 		Date_Time* ret = new Date_Time();
-		ret->months = this->getMonths();
-		ret->days = this->getDays();
-		ret->years = this->getYears();
-		ret->hours = this->getHours();
-		ret->minutes = this->getMinutes();
+		ret->setMonths(this->getMonths());
+		ret->setDays(this->getDays());
+		ret->setYears(this->getYears());
+		ret->setHours(this->getHours());
+		ret->setMinutes(this->getMinutes()) ;
 		ret->addMinutes(delta);
 		return ret;			
 	}
