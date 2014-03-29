@@ -40,7 +40,12 @@ int main(){
 		cout << "5) Quit" << endl;
 		cout << "Enter the number for which option you wish to select: ";
 		cin >> selection;
-		selectionBranch(selection);
+		if (selection > 0 && selection < 6){
+			selectionBranch(selection);
+		}
+		else{
+			cout << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+		}
 	} while (selection != 5);
 	
 	freeData();
@@ -129,9 +134,12 @@ void selectionBranch(int selection){
 		while (numOfBags == -1){
 			cout << "Enter the number of bags that will be checked: ";
 			cin >> numOfBags;
+			if (!(numOfBags >= 0)){
+				cout << "Error: Invalid entry. Please enter an integer";
+				numOfBags = -1;
+			}
 			cout << endl << endl;
 		}
-		
 		posRes = getPossibleReservations(src, dest, departDate);	
 
 		// asks for shortest or cheapest reservation
@@ -143,6 +151,7 @@ void selectionBranch(int selection){
 			cin >> route;
 			if (route == 's'){
 				res = getShortestReservation(posRes);
+				res->
 				break;
 			}else if (route == 'c'){
 				res = getCheapestReservation(posRes);
@@ -152,7 +161,7 @@ void selectionBranch(int selection){
 			}
 		}
 		
-		printItinerary(res);
+		//user->printItinerary();
 		break;
 		
 	case 2:
