@@ -131,11 +131,6 @@ void selectionBranch(int selection){
 		}
 		
 		posRes = getPossibleReservations(src, dest, departDate);	
-		res = posRes;
-		while (res) {
-			printItinerary(res);
-			res = res->Next();
-		}
 
 		// asks for shortest or cheapest reservation
 		while (route != 'q'){
@@ -146,8 +141,10 @@ void selectionBranch(int selection){
 			cin >> route;
 			if (route == 's'){
 				res = getShortestReservation(posRes);
+				break;
 			}else if (route == 'c'){
 				res = getCheapestReservation(posRes);
+				break;
 			}else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}

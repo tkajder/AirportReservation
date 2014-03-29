@@ -12,12 +12,15 @@ class User{
 		this->numOfBags = 0;
 	}
 	int getBagNum(){return this->numOfBags;}
+	
+	void setBagNum(int numOfBags) {this->numOfBags = numOfBags;}
+
 	ReservationList* getReservationHead() {
 		return this->reservationHead;
 	}
 	
 	void addReservation(ReservationList* reservation){
-	
+		
 	}
 
 	ReservationList* cheapestRoute(){
