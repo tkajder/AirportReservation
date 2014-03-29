@@ -5,7 +5,8 @@ using namespace std;
 
 #include "HubNode.h"
 
-class FlightNode{	
+class FlightNode{
+	protected:
 	string flightNumber;
 	double price;
 	string flightCompany;
@@ -26,7 +27,8 @@ class FlightNode{
 		this->destination = destination;
 		this->departure = departure;
 		this->duration = duration;
-		this->arrival = departure->getEndTime(duration + this->getDelay());
+		//this->arrival = departure->getEndTime(getDelay());
+		//cout << this->arrival->toString() << endl;
 	}			
 	
 	// Destructor
@@ -35,8 +37,8 @@ class FlightNode{
 		delete this->arrival;
 	}
 	
-	virtual int getDelay(){};
-	virtual float getBaggageFees(int){};
+	int getDelay(){};
+	float getBaggageFees(int){};
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 
@@ -98,9 +100,18 @@ class FlightNode{
 //children clases
 class FlightSouthWest : public FlightNode {		
 	public:
-	FlightSouthWest(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor
+	FlightSouthWest(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor	
+		this->next = NULL;
+		this->flightNumber = flightNumber;
+		this->price = price;
+		this->source = source;
+		this->destination = destination;
+		this->departure = departure;
+		this->duration = duration;
 		this->setFlightCompany("SouthWest");
+		this->arrival = departure->getEndTime(duration+getDelay());
 	}
+	
 	float getBaggageFees(int numOfBags){
 		return 25 * numOfBags;
 	}
@@ -117,7 +128,15 @@ class FlightSouthWest : public FlightNode {
 class FlightDelta : public FlightNode {
 	public:
 	FlightDelta(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor
+		this->next = NULL;
+		this->flightNumber = flightNumber;
+		this->price = price;
+		this->source = source;
+		this->destination = destination;
+		this->departure = departure;
+		this->duration = duration;
 		this->setFlightCompany("Delta");
+		this->arrival = departure->getEndTime(duration+getDelay());
 	}
 	float getBaggageFees(int numOfBags){
 		return 0;
@@ -130,7 +149,15 @@ class FlightDelta : public FlightNode {
 class FlightUSAirway : public FlightNode {
 	public:
 	FlightUSAirway(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) : FlightNode(flightNumber, price, source, destination, departure, duration) {	// constructor calls super constructor
+		this->next = NULL;
+		this->flightNumber = flightNumber;
+		this->price = price;
+		this->source = source;
+		this->destination = destination;
+		this->departure = departure;
+		this->duration = duration;
 		this->setFlightCompany("USAirway");
+		this->arrival = departure->getEndTime(duration+getDelay());
 	}
 	float getBaggageFees(int numOfBags){
 		return 25 * (numOfBags - 1);
