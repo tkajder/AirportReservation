@@ -208,7 +208,7 @@ ReservationList* getCheapestReservation(ReservationList* head) {
 			delete cheapest;
 			cheapest = reservation;
 			reservation = reservation->Next();
-			cheapest->Next() = NULL;
+			cheapest->setNext(NULL);
 		} else {
 			temp = reservation;
 			reservation = reservation->Next();
@@ -228,7 +228,7 @@ ReservationList* getShortestReservation(ReservationList* head) {
 			delete cheapest;
 			shortest = reservation;
 			reservation = reservation->Next();
-			cheapest->Next() = NULL;
+			shortest->setNext(NULL);
 		} else {
 			temp = reservation;
 			reservation = reservation->Next();
