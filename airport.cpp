@@ -8,6 +8,7 @@
 #include "User.h"
 
 using namespace std;
+
 ReservationList* getPossibleReservations(HubNode*, HubNode*);
 void debug();
 void printIntro();
@@ -45,7 +46,6 @@ int main(){
 	freeData();
 	return 0;
 }
-
 
 void selectionBranch(int selection){	
 	int selectSrc;
@@ -119,7 +119,7 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 		
-		getPossibleReservations(/*add stuff NEED TO GET SOURCE AND DESTINATION AND DATE*/,departureDate);
+		getPossibleReservations(,departureDate);
 			
 		
 		// asks for shortest or cheapest reservation
@@ -191,13 +191,13 @@ void freeData() {		//handles memory cleanup after the program is complete
 	}
 	delete user;
 }
-
+/*
 void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time Arrive_DateTime, Date_Time Depart_DateTime){
 	TotalPrice = NumOfBags * Price;
 
 	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
 }
-
+*/
 ReservationList* getCheapestReservation(ReservationList* head) {
 	ReservationList* reservation = head;
 	ReservationList* cheapest = head;
@@ -287,7 +287,7 @@ bool isLegal(FlightNode* flight1, FlightNode* flight2){
 	
 	
 	if (flight1->getArrival()->getDays() == flight2->getDeparture()->getDays())
-		if (flight1->getArrival()->getMinutes() < flight2->getDeparture()->getMinutes())	//better run
+		if (flight1->getArrival()->getElapsedMinutes() < flight2->getDeparture()->getElapsedMinutes())	//better run
 			return 1;
 	
 	return 0;
@@ -420,4 +420,3 @@ void debug(){
 		current = current->Next();
 	}
 }
-*/
