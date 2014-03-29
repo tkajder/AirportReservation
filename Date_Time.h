@@ -38,13 +38,6 @@ class Date_Time{
 
 	}
 	
-	Date_Time(Date_Time* input){
-		this->months = input->getMonths();
-		this->days = input->getDays();
-		this->years = input->getYears();
-		this->hours = input->getHours();
-		this->minutes = input->getMinutes();
-	}
 	
 	int getMonths(){return months;}
 	int getDays(){return days;}
@@ -81,8 +74,13 @@ class Date_Time{
 		}
 	}
 	
-	Date_Time* getEndTime(Date_Time* start, int delta){
-		Date_Time* ret = new Date_Time(start);
+	Date_Time* getEndTime(int delta){
+		Date_Time* ret = new Date_Time();
+		ret->months = this->getMonths();
+		ret->days = this->getDays();
+		ret->years = this->getYears();
+		ret->hours = this->getHours();
+		ret->minutes = this->getMinutes();
 		ret->addMinutes(delta);
 		return ret;			
 	}

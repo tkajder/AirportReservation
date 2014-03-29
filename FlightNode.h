@@ -26,7 +26,7 @@ class FlightNode{
 		this->destination = destination;
 		this->departure = departure;
 		this->duration = duration;
-		this->arrival = this->departure->getEndTime(departure, duration + this->getDelay());
+		this->arrival = departure->getEndTime(duration + this->getDelay());
 	}			
 	
 	// Destructor
