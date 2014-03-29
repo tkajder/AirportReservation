@@ -5,10 +5,11 @@
 //using namespace std;
 
 class User{
-	ReservationList* reservationHead = NULL;
+	ReservationList* reservationHead;
 	int numOfBags;
 	public:
 	User(){
+		reservationHead = NULL;
 		this->numOfBags = 0;
 	}
 	int getBagNum(){return this->numOfBags;}
@@ -16,7 +17,7 @@ class User{
 		return this->reservationHead;
 	}
 	
-	void addReservation(Reservation* reservation){
+	void addReservation(ReservationList* reservation){
 	
 	}
 

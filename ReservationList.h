@@ -2,12 +2,12 @@ using namespace std;
 #ifndef RESERVATIONLIST_H
 #define RESERVATIONLIST_H
 
-#include <string>
+#include <cstring>
 #include "FlightPath.h"
 
 class ReservationList{
-	FlightPath *flight = NULL;
-	ReservationList *next = NULL;
+	FlightPath *flight;
+	ReservationList *next;
 	double price;
 	int time;
 	int numOfBags;
@@ -17,15 +17,13 @@ class ReservationList{
 	public:
 	ReservationList(FlightPath* in){
 		this->flight = in;
-		start = in->getFlight()->getDeparture;
+		start = in->getFlight()->getDeparture();
 		calculatePrice();
 		calculateTime();
+		this->next = NULL;
 	}
-	FlightNode* getFlights(){return this->flight;}
-	
-	void setFlight(FlightNode* in){
-		this->flight = in;
-	}
+	FlightPath* getFlights(){return this->flight;}
+
 	double getPrice(){return this->price;}
 	
 	int getTime(){return this->time;}
@@ -54,7 +52,7 @@ class ReservationList{
 			return;
 		}else{
 			FlightPath* temp = this->flight;
-			while (temp->next != NULL){
+			while (temp->Next() != NULL){
 				this->time += (temp->getFlight())->getDuration();
 				temp = temp->Next();
 			}

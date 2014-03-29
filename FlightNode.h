@@ -12,13 +12,14 @@ class FlightNode{
 	int duration;
 	HubNode* source;
 	HubNode* destination;
-	FlightNode* next = NULL;
+	FlightNode* next;
 	protected:
 	Date_Time* departure;
 	Date_Time* arrival;
 	public:
 	// Constructor
 	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) {
+		this->next = NULL;
 		this->flightNumber = flightNumber;
 		this->price = price;
 		this->source = source;

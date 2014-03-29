@@ -7,11 +7,13 @@ class FlightNode;		//forward declare for FlightNode
 class HubNode {
 	string name;
 	string location;
-	HubNode* next = NULL;
+	HubNode* next;
 	FlightNode* headFlights;
 
 	public:
-	HubNode() {};			//constructor
+	HubNode() {
+		this->next = NULL;
+	}			//constructor
 
 	// Setters
 	void setName(string name) {

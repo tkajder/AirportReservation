@@ -4,8 +4,8 @@
 using namespace std;
 
 class FlightPath{
-	FlightNode* flight= NULL;
-	FlightPath* next = NULL;
+	FlightNode* flight;
+	FlightPath* next;
 	
 	public:
 	
@@ -15,8 +15,8 @@ class FlightPath{
 	HubNode* getDestination(){return this->flight->getDestination();}
 	FlightNode* getFlight(){return this->flight;}
 	FlightPath* Next(){return this->next;}
-	void setNext (FlightPath* FlightPath) {
-		this->next = FlightPath;
+	void setNext (FlightPath* stuff) {
+		this->next = stuff;
 	}
 };
 #endif
