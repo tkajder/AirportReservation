@@ -111,7 +111,11 @@ class FlightSouthWest : public FlightNode {
 	}
 	
 	double getBaggageFees(int numOfBags){
-		return 25 * numOfBags;
+		if (numOfBags >= 0) {
+			return 25 * numOfBags;
+		} else {
+			throw "Illegal number of bags.";
+		}
 	}
 	int getDelay(){
 		if (this->departure->getHours() >= 7 && this->departure->getHours() <= 17){
@@ -158,7 +162,13 @@ class FlightUSAirway : public FlightNode {
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
 	double getBaggageFees(int numOfBags){
-		return 25 * (numOfBags - 1);
+		if (numOfBags == 0 || numOfBags == 1) {
+			return 0;
+		} else if (numOfBags > 1) {
+			return 25 * (numOfBags - 1);
+		} else {
+			throw "Illegal number of bags.";
+		}
 	}
 	int getDelay(){
 		if (this->departure->getHours() >= 7 && this->departure->getHours() <= 17){
