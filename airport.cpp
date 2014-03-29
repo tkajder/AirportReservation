@@ -238,7 +238,7 @@ ReservationList* getShortestReservation(ReservationList* head) {
 	return shortest;
 }
 
-ReservationList* getPossibleReservations(HubNode* src, HubNode * dest){
+ReservationList* getPossibleReservations(HubNode* src, HubNode* dest){
 	FlightNode* flight1 = src->getFlights();
 	FlightNode* flight2;
 	FlightPath* path;
@@ -381,6 +381,7 @@ void populateFlights() {
 		current->getSource()->setHeadFlights(current);
 	}
 }
+
 void printHubs(){
 	HubNode* temp = head;
 	int counter = 1;
@@ -419,3 +420,4 @@ void debug(){
 		current = current->Next();
 	}
 }
+*/
