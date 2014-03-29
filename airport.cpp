@@ -33,7 +33,7 @@ int main(){
 	
 	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {
-		cout << "\t\t\tMain Menu" << endl << "-----------------------------------------" << endl;
+		cout << "\t\t\tMain Menu" << endl << "----------------------------------------------------------" << endl;
 		cout << "1) Make a Reservation" << endl;
 		cout << "2) Cancel a Reservation" << endl;
 		cout << "3) Print Itinerary" << endl;
@@ -66,41 +66,39 @@ void selectionBranch(int selection){
 	case 1:
 		// gets source hub
 		while (selectSrc == -1){
-			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-			cout << "Where are you flying from?";
+			cout << endl << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
+			cout << "Where are you flying from?" << endl;
 			printHubs();
 			cout << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
-			cout << endl << endl;
+			cout << endl;
 			src = selectHubs(selectSrc);
 		}
 		
 		// gets destination hub
 		while (selectDest == -1){
-			cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
-			cout << "Where do you want to fly to?";
+			cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
+			cout << "Where do you want to fly to?" << endl;
 			printHubs();
 			cout << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
-			cout << endl << endl;
+			cout << endl;
 			dest = selectHubs(selectDest);
 		}
 		
 		// gets date user want to fly out
 		while(enterDate == ""){
 			try{
-				cout << "\t\tMake a Reservation" << endl << "-----------------------" << endl;
+				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> enterDate;
 				cout << endl << endl;
 				// parse
 				pos = enterDate.find("/");
 				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				cout << month << "\t" << enterDate.substr(pos) << endl;
 				ppos = pos;
 				pos = enterDate.find("/", ppos + 1);
 				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				cout << day << "\t" << enterDate.substr(pos) << endl;
 				year = atoi(enterDate.substr(pos + 1).c_str());
 				
 				// new Date_Time
