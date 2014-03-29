@@ -39,11 +39,11 @@ class Date_Time{
 	}
 	
 	
-	int getMonths(){return months;}
-	int getDays(){return days;}
-	int getYears(){return years;}
-	int getHours(){return hours;}
-	int getMinutes(){return minutes;}
+	int getMonths(){return this->months;}
+	int getDays(){return this->days;}
+	int getYears(){return this->years;}
+	int getHours(){return this->hours;}
+	int getMinutes(){return this->minutes;}
 	
 	void setMonths(int input){this->months = input;}
 	void setDays(int input){this->days = input;}
