@@ -173,9 +173,9 @@ void printItinerary(ReservationList *res){
 	FlightNode* flight = path->getFlight();
 	
 	while (flight) {
-		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource() << "\t" << flight->getDeparture() << endl;
-		cout << "\t\t" << flight->getDestination() << "\t" << flight->getArrival() << endl;
-		cout << "\t\t" << "$" << flight->getPrice() << ".00" << "base price" << " = " << "$" << res->getPrice() << ".00" << endl; 
+		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getName() << "\t" << flight->getDeparture()->toString() << endl;
+		cout << "\t\t" << flight->getDestination()->getName() << "\t" << flight->getArrival()->toString() << endl;
+		cout << "\t\t" << "$" << flight->getPrice() << "base price" << " = " << "$" << res->getPrice() <<  endl; 
 		path = path->Next();
 		flight = path->getFlight();
 	}
