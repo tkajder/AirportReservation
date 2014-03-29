@@ -20,7 +20,7 @@ class ReservationList{
 		this->flight = path;
 		start = path->getFlight()->getDeparture();
 		//calculatePrice();
-		//calculateTime();
+		calculateTime();
 		this->next = NULL;
 	}
 

@@ -51,6 +51,19 @@ class User{
 		
 		return shortest;
 	}
+	
+	void printItinerary(ReservationList *res){
+		FlightPath* path = res->getFlights();
+		FlightNode* flight = path->getFlight();
+	
+		while (flight) {
+			cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getName() << "\t" << flight->getDeparture()->toString() << endl;
+			cout << "\t\t" << flight->getDestination()->getName() << "\t" << flight->getArrival()->toString() << endl;
+			cout << "\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << res->getPrice() <<  endl; 
+			path = path->Next();
+			flight = path->getFlight();
+		}
+	}
 };
 
 #endif
