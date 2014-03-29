@@ -109,6 +109,9 @@ void selectionBranch(int selection){
 				departDate = NULL;
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
 			}
+			catch (...) {
+				cout << "stuff" << endl;
+			}
 		}
 
 		// gets number of bags
