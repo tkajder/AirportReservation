@@ -1,6 +1,7 @@
-using namespace std;
 #ifndef RESERVATIONLIST_H
 #define RESERVATIONLIST_H
+
+using namespace std;
 
 #include <cstring>
 #include "FlightPath.h"
@@ -75,5 +76,3 @@ class ReservationList{
 };
 
 #endif
-
-

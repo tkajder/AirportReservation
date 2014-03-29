@@ -41,7 +41,7 @@ int main(){
 		cout << "Enter the number for which option you wish to select: ";
 		cin >> selection;
 		SelectionBranch(selection);
-	} while (input != 5);
+	} while (selection != 5);
 	
 	freeData();
 	return 0;
@@ -53,10 +53,13 @@ void selectionBranch(int selection){
 	string enterDate;
 	int numOfBags;
 	ReservationList *res;
+	ReservationList *posRes;
 	char route;
 	Date_Time *departDate;
 	int pos, ppos;
 	int day, month, year;
+	HubNode* src;
+	HubNode* dest;
 	
 	switch (selection){
 	case 1:
@@ -68,8 +71,7 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
 			cout << endl << endl;
-			
-			// CONVERT SELECTION (INT) INTO THE ACTUAL HUB
+			src = selectHubs(selectSrc);
 		}
 		
 		// gets destination hub
@@ -80,8 +82,7 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
 			cout << endl << endl;
-			
-			// CONVERT SELECTION (INT) INTO THE ACTUAL HUB			
+			dest = selectHubs(selectDest);
 		}
 		
 		// gets date user want to fly out
@@ -119,8 +120,7 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 		
-		getPossibleReservations(,departureDate);
-			
+		posRes = getPossibleReservations(src, dest, departureDate);
 		
 		// asks for shortest or cheapest reservation
 		while (route != q){
@@ -130,16 +130,13 @@ void selectionBranch(int selection){
 			cout << "Enter you selection: ";
 			cin >> route;
 			if (route == 's'){
-				res = new ReservationList();
-				res = getShortestReservation();
+				res = getShortestReservation(posRes);
 			}else if (route == 'c'){
-				res = new ReservationList();
-				res = getCheapestReservation(res);
+				res = getCheapestReservation(posRes);
 			}else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		
 		
 		printIntinerary(res);
 		break;
@@ -174,6 +171,17 @@ void selectionBranch(int selection){
 	}
 }
 
+void printItinerary(ReservationList *res){
+	FlightPath* flight = res->getFlights()->getFlight();
+	
+	while (flight) {
+	cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany << "\t" << flight->getSource() << "\t" << flight->getDeparture << endl;
+	cout << "\t\t" << flight->getDestination() << "\t" << flight->getArrival() << endl;
+	cout << "\t\t" << "$" << flight->getPrice() << ".00" << "base price" << " = " << "$" << res->getPrice() << ".00" << endl; 
+		flight = flight->Next();
+	}
+}
+
 void freeData() {		//handles memory cleanup after the program is complete
 	HubNode *hCurrent, *hTemp;
 	FlightNode *fCurrent, *fTemp;
@@ -191,13 +199,7 @@ void freeData() {		//handles memory cleanup after the program is complete
 	}
 	delete user;
 }
-/*
-void printItinerary(string FlightNum, string Company, string SourceLocation, string DestinationLocation, double Price, int NumOfBags, double TotalPrice, Date_Time Arrive_DateTime, Date_Time Depart_DateTime){
-	TotalPrice = NumOfBags * Price;
 
-	cout << FlightNum << "\t" << Company << "\t" << SourceLocation << "\t" << Depart_DateTime.toString() << endl << "\t\t" << DestinationLocation << "\t" << Arrive_DateTime.toString() << endl << Price << "=" << TotalPrice << endl; 
-}
-*/
 ReservationList* getCheapestReservation(ReservationList* head) {
 	ReservationList* reservation = head;
 	ReservationList* cheapest = head;
@@ -390,6 +392,21 @@ void printHubs(){
 		counter++;
 		temp = temp->Next();
 	}
+}
+
+HubNode* selectHubs(int selection){
+	HubNode* temp = head;
+	int i = 1;
+	while (temp){
+		if (i == selection){
+			return temp;
+		}
+		else{
+			temp = temp->Next();
+			i++;
+		}
+	}
+	throw ("Selection not in Hubs");
 }
 
 HubNode* getHub(string name) {
