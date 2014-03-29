@@ -152,8 +152,7 @@ void selectionBranch(int selection){
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		
-		printItinerary(res);
+		//user->printItinerary();
 		break;
 		
 	case 2:
