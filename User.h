@@ -1,3 +1,6 @@
+#ifndef USER_H
+#define USER_H
+
 #include "ReservationList.h"
 using namespace std;
 
@@ -44,4 +47,6 @@ class User{
 		
 		return shortest;
 	}
-}
+};
+
+#endif
