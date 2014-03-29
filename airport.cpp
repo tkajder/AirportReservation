@@ -31,7 +31,7 @@ int main(){
 	populateHubs();
 	populateFlights();
 	
-	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
+	cout << endl << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {
 		cout << "\t\t\tMain Menu" << endl << "----------------------------------------------------------" << endl;
 		cout << "1) Make a Reservation" << endl;
@@ -117,8 +117,7 @@ void selectionBranch(int selection){
 				departDate = new Date_Time();
 				departDate->setDate_Time(month, day, year, 0, 0);
 			}
-			catch(int x){
-				departDate = NULL;
+			catch(...){
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
 				enterDate = ""; 
 			}
@@ -188,7 +187,7 @@ void printItinerary(ReservationList *res){
 	while (flight) {
 		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getName() << "\t" << flight->getDeparture()->toString() << endl;
 		cout << "\t\t" << flight->getDestination()->getName() << "\t" << flight->getArrival()->toString() << endl;
-		cout << "\t\t" << "$" << flight->getPrice() << "base price" << " = " << "$" << res->getPrice() <<  endl; 
+		cout << "\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << res->getPrice() <<  endl; 
 		path = path->Next();
 		flight = path->getFlight();
 	}
