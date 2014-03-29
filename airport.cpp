@@ -72,7 +72,13 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
 			cout << endl;
-			src = selectHubs(selectSrc);
+			if (selectSrc >= 1 && selectSrc <= 15){
+				src = selectHubs(selectSrc);
+			}
+			else{
+			cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
+			selectSrc = -1;
+			} 
 		}
 		
 		// gets destination hub
@@ -83,7 +89,13 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
 			cout << endl;
-			dest = selectHubs(selectDest);
+			if (selectDest >= 1 && selectDest <= 15){
+				dest = selectHubs(selectDest);
+			}
+			else{
+				cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly to." << endl;
+				selectDest = -1;
+			}
 		}
 		
 		// gets date user want to fly out
@@ -105,9 +117,10 @@ void selectionBranch(int selection){
 				departDate = new Date_Time();
 				departDate->setDate_Time(month, day, year, 0, 0);
 			}
-			catch(int ex){
+			catch(int x){
 				departDate = NULL;
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
+				enterDate = ""; 
 			}
 		}
 
