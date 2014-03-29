@@ -19,10 +19,12 @@ class ReservationList{
 		calculatePrice();
 		calculateTime();
 	}
+	FlightNode* getFlights(){return this->flight;
+	}
 	
-	FlightNode* getFlights(){return this->flight;}
-	
-	void setFlight(FlightNode* in){this->flight = in;}
+	void setFlight(FlightNode* in){
+		this->flight = in;
+	}
 	
 	double getPrice(){return this->price;}
 	
@@ -30,8 +32,9 @@ class ReservationList{
 	
 	ReservationList* Next(){return this->next;}
 	
-	void setNext(ReservationList* ReservationList) {this->next = ReservationList;}
-	
+	void setNext(ReservationList* ReservationList) {
+		this->next = ReservationList;
+	}
 	void calculatePrice(){
 		if (this->flight == NULL){
 			this->price = 0;
