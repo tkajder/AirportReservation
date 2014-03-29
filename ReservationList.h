@@ -19,8 +19,8 @@ class ReservationList{
 	ReservationList(FlightPath* path){
 		this->flight = path;
 		start = path->getFlight()->getDeparture();
-		//calculatePrice();
-		//calculateTime();
+		calculatePrice();
+		calculateTime();
 		this->next = NULL;
 	}
 

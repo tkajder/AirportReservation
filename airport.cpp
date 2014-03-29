@@ -31,7 +31,7 @@ int main(){
 	populateHubs();
 	populateFlights();
 	
-	cout << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
+	cout << endl << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {
 		cout << "\t\t\tMain Menu" << endl << "----------------------------------------------------------" << endl;
 		cout << "1) Make a Reservation" << endl;
@@ -57,7 +57,8 @@ void selectionBranch(int selection){
 	ReservationList *posRes;
 	char route;
 	Date_Time *departDate;
-	int pos, ppos;
+	int pos;
+	int ppos = -1;
 	int day, month, year;
 	HubNode* src;
 	HubNode* dest;
@@ -72,7 +73,13 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
 			cout << endl;
-			src = selectHubs(selectSrc);
+			if (selectSrc >= 1 && selectSrc <= 15){
+				src = selectHubs(selectSrc);
+			}
+			else{
+			cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
+			selectSrc = -1;
+			} 
 		}
 		
 		// gets destination hub
@@ -83,7 +90,13 @@ void selectionBranch(int selection){
 			cout << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
 			cout << endl;
-			dest = selectHubs(selectDest);
+			if (selectDest >= 1 && selectDest <= 15){
+				dest = selectHubs(selectDest);
+			}
+			else{
+				cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly to." << endl;
+				selectDest = -1;
+			}
 		}
 		
 		// gets date user want to fly out
@@ -95,19 +108,22 @@ void selectionBranch(int selection){
 				cout << endl << endl;
 				// parse
 				pos = enterDate.find("/");
-				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
+				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
 				ppos = pos;
 				pos = enterDate.find("/", ppos + 1);
-				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
+				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
 				year = atoi(enterDate.substr(pos + 1).c_str());
 				
+				cout << day << "/" << month << "/" << year << endl;
 				// new Date_Time
 				departDate = new Date_Time();
 				departDate->setDate_Time(month, day, year, 0, 0);
 			}
-			catch(int ex){
-				departDate = NULL;
-				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
+			catch(...){
+				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
+				enterDate = ""; 
+				pos = 0;
+				ppos = -1;
 			}
 			catch (...) {
 				cout << "stuff" << endl;
@@ -178,7 +194,7 @@ void printItinerary(ReservationList *res){
 	while (flight) {
 		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getName() << "\t" << flight->getDeparture()->toString() << endl;
 		cout << "\t\t" << flight->getDestination()->getName() << "\t" << flight->getArrival()->toString() << endl;
-		cout << "\t\t" << "$" << flight->getPrice() << "base price" << " = " << "$" << res->getPrice() <<  endl; 
+		cout << "\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << res->getPrice() <<  endl; 
 		path = path->Next();
 		flight = path->getFlight();
 	}
