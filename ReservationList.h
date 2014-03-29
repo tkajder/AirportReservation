@@ -17,7 +17,7 @@ class ReservationList{
 	
 	public:
 	ReservationList(FlightPath* path){
-		this->numOfBgs = 0;
+		this->numOfBags = 0;
 		this->flight = path;
 		start = path->getFlight()->getDeparture();
 		calculatePrice();
