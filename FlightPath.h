@@ -1,3 +1,6 @@
+#ifndef FLIGHTPATH_H
+#define FLIGHTPATH_H
+
 using namespace std;
 
 class FlightPath{
@@ -16,3 +19,4 @@ class FlightPath{
 		this->next = FlightPath;
 	}
 }
+#endif

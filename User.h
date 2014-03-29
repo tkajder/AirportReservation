@@ -1,4 +1,6 @@
-<<<<<<< HEAD
+#ifndef USER_H
+#define USER_H
+
 #include "ReservationList.h"
 using namespace std;
 
@@ -45,13 +47,5 @@ class User{
 		
 		return shortest;
 	}
-=======
-using namespace std;
-
-
-class User{
-//	string flights[][];
-
-
->>>>>>> origin/Seth
 };
+#endif
