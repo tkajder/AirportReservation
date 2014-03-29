@@ -81,8 +81,8 @@ void selectionBranch(int selection){
 				src = selectHubs(selectSrc);
 			}
 			else{
-			cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
-			selectSrc = -1;
+				cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
+				selectSrc = -1;
 			} 
 		}
 		
@@ -151,16 +151,16 @@ void selectionBranch(int selection){
 			cin >> route;
 			if (route == 's'){
 				res = getShortestReservation(posRes);
-				res->
+				res->setBagNum(numOfBags);
 				break;
 			}else if (route == 'c'){
 				res = getCheapestReservation(posRes);
+				res->setBagNum(numOfBags);
 				break;
 			}else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		
 		//user->printItinerary();
 		break;
 		

@@ -17,10 +17,11 @@ class ReservationList{
 	
 	public:
 	ReservationList(FlightPath* path){
+		this->numOfBags = 0;
 		this->flight = path;
 		start = path->getFlight()->getDeparture();
-		//calculatePrice();
-		calculateTime();
+		calculatePrice();
+		//calculateTime();	///
 		this->next = NULL;
 	}
 
@@ -34,7 +35,9 @@ class ReservationList{
 
 	Date_Time* getEnd() {return this->end;}
 
-	int getBags() {return this->numOfBags;}
+	int getBagNum(){return this->numOfBags;}
+	
+	void setBagNum(int numOfBags) {this->numOfBags = numOfBags;}
 
 	ReservationList* Next(){return this->next;}
 	
