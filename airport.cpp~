@@ -104,7 +104,9 @@ void selectionBranch(int selection){
 				
 				// new Date_Time
 				departDate = new Date_Time();
-				departDate->setDate_Time(day, month, year, 0, 0);
+				departDate->setDays(day);
+				departDate->setMonths(month);
+				departDate->setYears(year);
 			}
 			catch(int ex){
 				departDate = NULL;
