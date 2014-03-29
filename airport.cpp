@@ -118,8 +118,13 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 		
-		posRes = getPossibleReservations(src, dest, departDate);
-		
+		posRes = getPossibleReservations(src, dest, departDate);	
+		res = posRes;
+		while (res) {
+			printItinerary(res);
+			res = res->Next();
+		}
+
 		// asks for shortest or cheapest reservation
 		while (route != 'q'){
 			cout << "Would you like the shortest route or the cheapest route" << endl;
@@ -245,12 +250,11 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
 			path = new FlightPath(flight1);
 			reservation = new ReservationList(path);
-			if (head) {
-				if (current) {
-					current->setNext(reservation);
-				} else {
-					head = reservation;
-				}
+			if (current) {
+				current->setNext(reservation);
+				current = reservation;
+			} else {
+				head = reservation;
 				current = reservation;
 			}
 		}
@@ -261,12 +265,11 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 				path = new FlightPath(flight1);
 				path->setNext(new FlightPath(flight2));
 				reservation = new ReservationList(path);
-				if (head) {
-					if (current) {
-						current->setNext(reservation);
-					} else {
-						head = reservation;
-					}
+				if (current) {
+					current->setNext(reservation);
+					current = reservation;
+				} else {
+					head = reservation;
 					current = reservation;
 				}
 			}
@@ -381,7 +384,7 @@ void populateFlights() {
 void printHubs(){
 	HubNode* temp = head;
 	int counter = 1;
-	while (temp->Next() != NULL){
+	while (temp){
 		cout << counter << ": " << temp->getName() << endl; 
 		counter++;
 		temp = temp->Next();
