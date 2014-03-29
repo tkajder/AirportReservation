@@ -15,8 +15,8 @@ class FlightPath{
 	HubNode* getDestination(){return this->flight->getDestination();}
 	FlightNode* getFlight(){return this->flight;}
 	FlightPath* Next(){return this->next;}
-	void setNext (FlightPath* stuff) {
-		this->next = stuff;
+	void setNext (FlightPath* next) {
+		this->next = next;
 	}
 };
 #endif

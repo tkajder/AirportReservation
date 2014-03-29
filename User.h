@@ -2,7 +2,6 @@
 #define USER_H
 
 #include "ReservationList.h"
-//using namespace std;
 
 class User{
 	ReservationList* reservationHead;
