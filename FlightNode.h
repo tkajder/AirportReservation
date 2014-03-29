@@ -35,8 +35,8 @@ class FlightNode{
 		delete this->arrival;
 	}
 	
-	int getDelay(){};
-	float getBaggageFees(int){};
+	virtual int getDelay(){};
+	virtual double getBaggageFees(int){ cout << "I am the super method" << endl;};
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 
@@ -110,7 +110,7 @@ class FlightSouthWest : public FlightNode {
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
 	
-	float getBaggageFees(int numOfBags){
+	double getBaggageFees(int numOfBags){
 		return 25 * numOfBags;
 	}
 	int getDelay(){
@@ -136,7 +136,7 @@ class FlightDelta : public FlightNode {
 		this->setFlightCompany("Delta");
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
-	float getBaggageFees(int numOfBags){
+	double getBaggageFees(int numOfBags){
 		return 0;
 	}
 	int getDelay(){
@@ -157,7 +157,7 @@ class FlightUSAirway : public FlightNode {
 		this->setFlightCompany("USAirway");
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
-	float getBaggageFees(int numOfBags){
+	double getBaggageFees(int numOfBags){
 		return 25 * (numOfBags - 1);
 	}
 	int getDelay(){

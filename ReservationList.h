@@ -20,8 +20,7 @@ class ReservationList{
 		this->numOfBags = 0;
 		this->flight = path;
 		start = path->getFlight()->getDeparture();
-		calculatePrice();
-		//calculateTime();	///
+		//calculateTime();
 		this->next = NULL;
 	}
 
@@ -37,22 +36,28 @@ class ReservationList{
 
 	int getBagNum(){return this->numOfBags;}
 	
-	void setBagNum(int numOfBags) {this->numOfBags = numOfBags;}
+	void setBagNum(int numOfBags) {
+		this->numOfBags = numOfBags;
+		calculatePrice();
+	}
 
 	ReservationList* Next(){return this->next;}
 	
 	void setNext(ReservationList* ReservationList) {
 		this->next = ReservationList;
 	}
-	void calculatePrice(){
+	void calculatePrice() {
+		FlightPath* temp;
+		this->price = 0;
 		if (this->flight == NULL){
-			this->price = 0;
 			return;
-		}else{
-			FlightPath* temp = this->flight;
-			while (temp->Next() != NULL){
+		} else {
+			temp = this->flight;
+			while (temp){
 				this->price += (temp->getFlight())->getPrice();
+				cout << this->price << endl;
 				this->price += (temp->getFlight())->getBaggageFees(this->numOfBags);
+				cout << this->price << endl;
 				temp = temp->Next();
 			}
 		}

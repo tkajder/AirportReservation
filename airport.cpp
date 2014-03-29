@@ -140,6 +140,7 @@ void selectionBranch(int selection){
 			}
 			cout << endl << endl;
 		}
+
 		posRes = getPossibleReservations(src, dest, departDate);	
 
 		// asks for shortest or cheapest reservation
