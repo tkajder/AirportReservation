@@ -21,7 +21,7 @@ void printItinerary(ReservationList*);
 void printHubs();
 HubNode* selectHubs(int);
 void selectionBranch(int);
-bool isLegal(FlightNode*, FlightNode*);
+bool isLegal(Date_Time*, Date_Time*);
 
 HubNode* head = new HubNode();
 User* user = new User();
@@ -280,13 +280,13 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 	return head;	
 }
 
-bool isLegal(FlightNode* flight1, FlightNode* flight2){
-	if (flight1->getArrival()->getDays() < flight2->getDeparture()->getDays())
+bool isLegal(Date_Time* flight1, Date_Time* flight2){
+	if (flight1->getDays() < flight2->getDays())
 		return 1;
 	
 	
-	if (flight1->getArrival()->getDays() == flight2->getDeparture()->getDays())
-		if (flight1->getArrival()->getElapsedMinutes() < flight2->getDeparture()->getElapsedMinutes())	//better run
+	if (flight1->getDays() == flight2->getDays())
+		if (flight1->getElapsedMinutes() < flight2->getElapsedMinutes())	//better run
 			return 1;
 	
 	return 0;
