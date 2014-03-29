@@ -131,8 +131,13 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 		
-		posRes = getPossibleReservations(src, dest, departDate);
-		
+		posRes = getPossibleReservations(src, dest, departDate);	
+		res = posRes;
+		while (res) {
+			printItinerary(res);
+			res = res->Next();
+		}
+
 		// asks for shortest or cheapest reservation
 		while (route != 'q'){
 			cout << "Would you like the shortest route or the cheapest route" << endl;
@@ -181,9 +186,9 @@ void printItinerary(ReservationList *res){
 	FlightNode* flight = path->getFlight();
 	
 	while (flight) {
-		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource() << "\t" << flight->getDeparture() << endl;
-		cout << "\t\t" << flight->getDestination() << "\t" << flight->getArrival() << endl;
-		cout << "\t\t" << "$" << flight->getPrice() << ".00" << "base price" << " = " << "$" << res->getPrice() << ".00" << endl; 
+		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getName() << "\t" << flight->getDeparture()->toString() << endl;
+		cout << "\t\t" << flight->getDestination()->getName() << "\t" << flight->getArrival()->toString() << endl;
+		cout << "\t\t" << "$" << flight->getPrice() << "base price" << " = " << "$" << res->getPrice() <<  endl; 
 		path = path->Next();
 		flight = path->getFlight();
 	}
@@ -256,14 +261,14 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 	ReservationList* reservation;
 	while (flight1) {
 		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
+			cout << flight1->getDeparture()->toString() << endl;
 			path = new FlightPath(flight1);
 			reservation = new ReservationList(path);
-			if (head) {
-				if (current) {
-					current->setNext(reservation);
-				} else {
-					head = reservation;
-				}
+			if (current) {
+				current->setNext(reservation);
+				current = reservation;
+			} else {
+				head = reservation;
 				current = reservation;
 			}
 		}
@@ -274,12 +279,11 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 				path = new FlightPath(flight1);
 				path->setNext(new FlightPath(flight2));
 				reservation = new ReservationList(path);
-				if (head) {
-					if (current) {
-						current->setNext(reservation);
-					} else {
-						head = reservation;
-					}
+				if (current) {
+					current->setNext(reservation);
+					current = reservation;
+				} else {
+					head = reservation;
 					current = reservation;
 				}
 			}
@@ -394,7 +398,7 @@ void populateFlights() {
 void printHubs(){
 	HubNode* temp = head;
 	int counter = 1;
-	while (temp->Next() != NULL){
+	while (temp){
 		cout << counter << ": " << temp->getName() << endl; 
 		counter++;
 		temp = temp->Next();
@@ -437,7 +441,7 @@ void debug(){
 			cout << "Flight Company: " << flight->getFlightCompany() << endl;
 			cout << "Source Airport: " << flight->getSource()->getName() << endl;
 			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
-			cout << "Departure Time: " << flight->getDeparture() << endl;
+			cout << "Departure Time: " << flight->getDeparture()->toString() << endl;
 			cout << "Price: " << flight->getPrice() << endl << endl;
 			flight = flight->Next();
 		}
