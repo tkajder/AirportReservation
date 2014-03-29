@@ -57,7 +57,8 @@ void selectionBranch(int selection){
 	ReservationList *posRes;
 	char route;
 	Date_Time *departDate;
-	int pos, ppos;
+	int pos;
+	int ppos = -1;
 	int day, month, year;
 	HubNode* src;
 	HubNode* dest;
@@ -107,22 +108,22 @@ void selectionBranch(int selection){
 				cout << endl << endl;
 				// parse
 				pos = enterDate.find("/");
-				cout << enterDate.substr(ppos + 1, pos) << endl;
-				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				ppos = pos;
-				cout << "test1" << endl;
-				pos = enterDate.find("/", ppos + 1);
 				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
+				ppos = pos;
+				pos = enterDate.find("/", ppos + 1);
+				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
 				year = atoi(enterDate.substr(pos + 1).c_str());
-				cout << "test2" << endl;
-				cout << month << "/"  << day << "/"  << year << endl;
+				
+				cout << day << "/" << month << "/" << year << endl;
 				// new Date_Time
 				departDate = new Date_Time();
 				departDate->setDate_Time(month, day, year, 0, 0);
 			}
 			catch(...){
-				cout << "Invalid input.  Please enter date as DD/MM/YYYY";
+				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
 				enterDate = ""; 
+				pos = 0;
+				ppos = -1;
 			}
 		}
 
