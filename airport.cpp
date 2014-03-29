@@ -125,9 +125,6 @@ void selectionBranch(int selection){
 				pos = 0;
 				ppos = -1;
 			}
-			catch (...) {
-				cout << "stuff" << endl;
-			}
 		}
 
 		// gets number of bags
