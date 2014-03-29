@@ -17,7 +17,6 @@ void freeData();
 HubNode* getHub(string);
 ReservationList* getCheapestReservation(ReservationList*);
 ReservationList* getShortestReservation(ReservationList*);
-void printItinerary(ReservationList*);
 void printHubs();
 HubNode* selectHubs(int);
 void selectionBranch(int);
@@ -152,8 +151,7 @@ void selectionBranch(int selection){
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		
-		printItinerary(res);
+		//user->printItinerary();
 		break;
 		
 	case 2:
@@ -180,18 +178,6 @@ void selectionBranch(int selection){
 	}
 }
 
-void printItinerary(ReservationList *res){
-	FlightPath* path = res->getFlights();
-	FlightNode* flight = path->getFlight();
-	
-	while (flight) {
-		cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getName() << "\t" << flight->getDeparture()->toString() << endl;
-		cout << "\t\t" << flight->getDestination()->getName() << "\t" << flight->getArrival()->toString() << endl;
-		cout << "\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << res->getPrice() <<  endl; 
-		path = path->Next();
-		flight = path->getFlight();
-	}
-}
 
 void freeData() {		//handles memory cleanup after the program is complete
 	HubNode *hCurrent, *hTemp;
