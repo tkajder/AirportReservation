@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <fstream>
@@ -232,7 +232,7 @@ ReservationList* getShortestReservation(ReservationList* head) {
 	ReservationList* temp;
 	reservation = reservation->Next();
 	while (reservation) {
-		if (reservation->getTime()->lessThan(shortest->getTime())) {
+		if (reservation->getTime() < shortest->getTime()) {
 			shortest = reservation;
 			reservation = reservation->Next();
 			shortest->setNext(NULL);

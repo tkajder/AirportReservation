@@ -55,9 +55,7 @@ class ReservationList{
 			temp = this->flight;
 			while (temp){
 				this->price += (temp->getFlight())->getPrice();
-				cout << this->price << endl;
 				this->price += (temp->getFlight())->getBaggageFees(this->numOfBags);
-				cout << this->price << endl;
 				temp = temp->Next();
 			}
 		}

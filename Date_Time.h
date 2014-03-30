@@ -1,7 +1,6 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
-#include <math.h>
 
 using namespace std;
 class Date_Time{
@@ -84,7 +83,7 @@ class Date_Time{
 			return 1;
 		}
 	
-		if (this->getDays() == date->getDays())
+		if (this->getDays() == date->getDays()) {
 			if (this->getElapsedMinutes() < date->getElapsedMinutes()) {
 				return 1;
 			}
