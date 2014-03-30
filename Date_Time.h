@@ -37,19 +37,21 @@ class Date_Time{
 
 	}
 	
-	
+	//Getters
 	int getMonths(){return this->months;}
 	int getDays(){return this->days;}
 	int getYears(){return this->years;}
 	int getHours(){return this->hours;}
 	int getMinutes(){return this->minutes;}
 	
+	//Setters
 	void setMonths(int input){this->months = input;}
 	void setDays(int input){this->days = input;}
 	void setYears(int input){this->years = input;}
 	void setHours(int input){this->hours = input;}
 	void setMinutes(int input){this->minutes = input;}
-
+	
+	//Sets the chunk at once
 	void setDate_Time(int mon, int d, int y, int h, int min){
 		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
 		days = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
@@ -59,21 +61,21 @@ class Date_Time{
 	}
 
 	void addMinutes(int numOfMin){
-		this->minutes += numOfMin;
-		if (this->minutes >= 60) {
+		this->minutes += numOfMin;		//adds numbers of minutes to minutes
+		if (this->minutes >= 60) {		//checks if minutes is more than 59
 			this->hours += floor(this->minutes / 60);
-			this->minutes = this->minutes % 60;
+			this->minutes = this->minutes % 60;		//converts excess minutes to hours, throws in there, fixes minutes
 		}
-		if (this->hours >= 24) {
-			this->days += floor(this->hours / 24);
-			this->hours = this->hours % 24; 
+		if (this->hours >= 24) {		//checks if hours > 23
+			this->days += floor(this->hours / 24);	
+			this->hours = this->hours % 24; 	//converts excess hours into days, tosses rest into hours
 		}
 		return;
 	}
 	
-	bool lessThan(Date_Time* date){
+	bool lessThan(Date_Time* date){		//ensures the given time is less than the time passed
 		if (this->getDays() < date->getDays()) {
-			return 1;
+			return 1;			//used to make sure past flights cannot be added
 		}
 	
 		if (this->getDays() == date->getDays()) {
@@ -85,25 +87,25 @@ class Date_Time{
 		return 0;
 	}
 
-	int timeDifferential(Date_Time* date) {
+	int timeDifferential(Date_Time* date) {		//pulls the time difference between two dates (this and passed)
 		int numOfMin = 0;
 		numOfMin += (date->getDays() - this->getDays()) * 1440;
 		numOfMin += date->minutesSinceMidnight() - minutesSinceMidnight(); 
 		return numOfMin;
 	}
-
-	Date_Time* getEndTime(int delta){
+	// this is used to get the Date_Time of the flights arrival
+	Date_Time* getEndTime(int delta){	//creates new Date_Time object
 		Date_Time* ret = new Date_Time();
 		ret->setMonths(this->getMonths());
-		ret->setDays(this->getDays());
+		ret->setDays(this->getDays());		//adds current date_time info into it
 		ret->setYears(this->getYears());
 		ret->setHours(this->getHours());
 		ret->setMinutes(this->getMinutes()) ;
-		ret->addMinutes(delta);
+		ret->addMinutes(delta);		//adds change in minutes to it
 		return ret;			
 	}
 	
-	int minutesSinceMidnight() {
+	int minutesSinceMidnight() {		//returns amount of minutes since midnight 
 		return this->hours * 60 + this->minutes;
 	}
 

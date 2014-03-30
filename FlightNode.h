@@ -6,7 +6,7 @@ using namespace std;
 #include "HubNode.h"
 
 class FlightNode{
-	protected:
+	protected:	//protected to give children access
 	string flightNumber;
 	double price;
 	string flightCompany;
@@ -14,9 +14,9 @@ class FlightNode{
 	HubNode* source;
 	HubNode* destination;
 	FlightNode* next;
-	protected:
 	Date_Time* departure;
 	Date_Time* arrival;
+	
 	public:
 	// Constructor
 	FlightNode(string flightNumber, double price, HubNode* source, HubNode* destination, Date_Time* departure, int duration) {
@@ -114,7 +114,7 @@ class FlightSouthWest : public FlightNode {
 		if (numOfBags >= 0) {
 			return 25 * numOfBags;
 		} else {
-			throw "Illegal number of bags.";
+			throw "Illegal number of bags.";	//it's illegal, and illegal things are against the law
 		}
 	}
 	int getDelay(){
