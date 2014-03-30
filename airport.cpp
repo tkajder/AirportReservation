@@ -215,14 +215,12 @@ ReservationList* getCheapestReservation(ReservationList* head) {
 	reservation = reservation->Next();
 	while (reservation) {
 		if (reservation->getPrice() < cheapest->getPrice()) {
-			delete cheapest;
 			cheapest = reservation;
 			reservation = reservation->Next();
 			cheapest->setNext(NULL);
 		} else {
 			temp = reservation;
 			reservation = reservation->Next();
-			delete temp;
 		}
 	}
 	return cheapest;
@@ -234,15 +232,13 @@ ReservationList* getShortestReservation(ReservationList* head) {
 	ReservationList* temp;
 	reservation = reservation->Next();
 	while (reservation) {
-		if (reservation->getTime() < shortest->getTime()) {
-			delete shortest;
+		if (reservation->getTime()->lessThan(shortest->getTime())) {
 			shortest = reservation;
 			reservation = reservation->Next();
 			shortest->setNext(NULL);
 		} else {
 			temp = reservation;
 			reservation = reservation->Next();
-			delete temp;
 		}
 	}
 	return shortest;
@@ -256,7 +252,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 	ReservationList* current = NULL;
 	ReservationList* reservation;
 	while (flight1) {
-		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
+		if (flight1->getDestination() == dest && start->lessThan(flight1->getDeparture())) {
 			path = new FlightPath(flight1);
 			reservation = new ReservationList(path);
 			if (current) {
@@ -270,7 +266,7 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 
 		flight2 = flight1->getDestination()->getFlights();
 		while (flight2) {
-			if (flight2->getDestination() == dest && isLegal(flight1->getArrival(), flight2->getDeparture())){
+			if (flight2->getDestination() == dest && flight1->getArrival()->lessThan(flight2->getDeparture())){
 				path = new FlightPath(flight1);
 				path->setNext(new FlightPath(flight2));
 				reservation = new ReservationList(path);
@@ -287,18 +283,6 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 		flight1 = flight1->Next();
 	}
 	return head;	
-}
-
-bool isLegal(Date_Time* flight1, Date_Time* flight2){
-	if (flight1->getDays() < flight2->getDays())
-		return 1;
-	
-	
-	if (flight1->getDays() == flight2->getDays())
-		if (flight1->getElapsedMinutes() < flight2->getElapsedMinutes())	//better run
-			return 1;
-	
-	return 0;
 }
 
 void populateHubs() {

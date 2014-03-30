@@ -68,6 +68,10 @@ class Date_Time{
 		}
 		if (floor(numOfMin/60) > 0){
 			this->hours += floor(numOfMin/60);
+			if (this->hours >= 24) {
+				this->hours = this->hours % 24;
+				this->days += 1;
+			}
 			numOfMin -= floor(numOfMin/60) * 60;
 		}
 		this->minutes += numOfMin;
@@ -75,6 +79,20 @@ class Date_Time{
 		
 	}
 	
+	bool lessThan(Date_Time* date){
+		if (this->getDays() < date->getDays()) {
+			return 1;
+		}
+	
+		if (this->getDays() == date->getDays())
+			if (this->getElapsedMinutes() < date->getElapsedMinutes()) {
+				return 1;
+			}
+		}
+	
+		return 0;
+	}
+
 	Date_Time* getEndTime(int delta){
 		Date_Time* ret = new Date_Time();
 		ret->setMonths(this->getMonths());
