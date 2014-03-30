@@ -238,10 +238,12 @@ void selectionBranch(int selection){
 		break;
 		
 	case 5:
+		cout << endl;
 		debugPhoenixToLA();
 		break;
 		
 	case 6:
+		cout << endl;
 		debugPhoenixToHonolulu();
 		break;	
 		
