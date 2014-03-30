@@ -21,6 +21,7 @@ void printHubs();
 HubNode* selectHubs(int);
 void selectionBranch(int);
 bool isLegal(Date_Time*, Date_Time*);
+void debugReservations(ReservationList*,int);
 
 HubNode* head = new HubNode();
 User* user = new User();
@@ -142,6 +143,7 @@ void selectionBranch(int selection){
 		}
 
 		posRes = getPossibleReservations(src, dest, departDate);	
+		debugReservations(posRes, numOfBags);
 
 		// asks for shortest or cheapest reservation
 		while (route != 'q'){
@@ -153,16 +155,18 @@ void selectionBranch(int selection){
 			if (route == 's'){
 				res = getShortestReservation(posRes);
 				res->setBagNum(numOfBags);
+				user->addReservation(res);
 				break;
-			}else if (route == 'c'){
+			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);
 				res->setBagNum(numOfBags);
+				user->addReservation(res);
 				break;
-			}else{
+			} else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		//user->printItinerary();
+		user->printItinerary();
 		break;
 		
 	case 2:
@@ -425,5 +429,25 @@ void debug(){
 			flight = flight->Next();
 		}
 		current = current->Next();
+	}
+}
+
+void debugReservations(ReservationList* res, int numOfBags) {
+	FlightPath* path;
+	while (res) {
+		cout << "Reservation" << endl;
+		res->setBagNum(numOfBags);
+		path = res->getFlights();
+		while (path) {
+			cout << "Flight Number: " << path->getFlight()->getFlightNumber() << endl;
+			cout << "Source: " << path->getFlight()->getSource()->getName() << endl;
+			cout << "Destination: " << path->getDestination()->getName() << endl;
+			cout << "Departure: " << path->getFlight()->getDeparture()->toString() << endl;
+			cout << "Arrival: " << path->getFlight()->getArrival()->toString() << endl;
+			path = path->Next();
+		}
+		cout << endl << "Total Price: " << res->getPrice() << endl;	
+		cout << "Total Time: " << res->getTime() << endl << endl;
+		res = res->Next();
 	}
 }

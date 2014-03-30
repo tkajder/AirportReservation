@@ -77,12 +77,19 @@ class Date_Time{
 		}
 	
 		if (this->getDays() == date->getDays()) {
-			if (this->getElapsedMinutes() < date->getElapsedMinutes()) {
+			if (this->minutesSinceMidnight() < date->minutesSinceMidnight()) {
 				return 1;
 			}
 		}
 	
 		return 0;
+	}
+
+	int timeDifferential(Date_Time* date) {
+		int numOfMin = 0;
+		numOfMin += (date->getDays() - this->getDays()) * 1440;
+		numOfMin += date->minutesSinceMidnight() - minutesSinceMidnight(); 
+		return numOfMin;
 	}
 
 	Date_Time* getEndTime(int delta){
@@ -96,20 +103,30 @@ class Date_Time{
 		return ret;			
 	}
 	
-	int getElapsedMinutes(){
+	int minutesSinceMidnight() {
 		return this->hours * 60 + this->minutes;
 	}
 
 	string toString(){
 		string dateTime;
 		char temp[80];	//creates temp char array to use in sprintg
-		if (hours > 10){
+		if (hours >= 10 && minutes >= 10){
 			sprintf(temp, "%d/%d/%d  %d : %d", months, days, years, hours, minutes);
 			string dateTime(temp);	//converts char array into string
 			return dateTime;		//returns string
 		}
-		else{
+		else if (hours < 10 && minutes >= 10){
 			sprintf(temp, "%d/%d/%d 0%d : %d", months, days, years, hours, minutes);
+			string dateTime(temp);
+			return dateTime;
+		}
+		else if (hours >= 10 && minutes < 10){
+			sprintf(temp, "%d/%d/%d %d : 0%d", months, days, years, hours, minutes);
+			string dateTime(temp);
+			return dateTime;
+		}
+		else {
+			sprintf(temp, "%d/%d/%d 0%d : 0%d", months, days, years, hours, minutes);
 			string dateTime(temp);
 			return dateTime;
 		}
