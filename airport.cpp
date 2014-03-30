@@ -56,12 +56,14 @@ int main(){
 void selectionBranch(int selection){
 	int selectSrc = -1;
 	int selectDest = -1;
-	string enterDate = "";
+	string startDate = "";
+	string endDate = "";
 	int numOfBags = -1;
 	ReservationList *res;
 	ReservationList *posRes;
 	char route;
 	Date_Time *departDate;
+	Date_Time *arriveDate;
 	int pos;
 	int ppos = -1;
 	int day, month, year;
@@ -105,19 +107,19 @@ void selectionBranch(int selection){
 		}
 		
 		// gets date user want to fly out
-		while(enterDate == ""){
+		while(startDate == ""){
 			try{
 				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-				cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
-				cin >> enterDate;
+				cout << "What is the eariest date you would like to depart?" << endl << "Enter date (DD/MM/YYYY): ";
+				cin >> startDate;
 				cout << endl << endl;
 				// parse
-				pos = enterDate.find("/");
-				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
+				pos = startDate.find("/");
+				day = atoi(startDate.substr(ppos + 1, pos).c_str());
 				ppos = pos;
-				pos = enterDate.find("/", ppos + 1);
-				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				year = atoi(enterDate.substr(pos + 1).c_str());
+				pos = startDate.find("/", ppos + 1);
+				month = atoi(startDate.substr(ppos + 1, pos).c_str());
+				year = atoi(startDate.substr(pos + 1).c_str());
 			
 				// new Date_Time
 				departDate = new Date_Time();
@@ -125,11 +127,40 @@ void selectionBranch(int selection){
 			}
 			catch(...){
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
-				enterDate = ""; 
+				startDate = ""; 
 				pos = 0;
 				ppos = -1;
 			}
 		}
+		
+		// gets date user wants to arrive
+		while(endDate == ""){
+			try{
+				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
+				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (DD/MM/YYYY): ";
+				cin >> endDate;
+				cout << endl << endl;
+				// parse
+				pos = endDate.find("/");
+				day = atoi(endDate.substr(ppos + 1, pos).c_str());
+				ppos = pos;
+				pos = endDate.find("/", ppos + 1);
+				month = atoi(endDate.substr(ppos + 1, pos).c_str());
+				year = atoi(endDate.substr(pos + 1).c_str());
+			
+				// new Date_Time
+				arriveDate = new Date_Time();
+				arriveDate->setDate_Time(month, day, year, 23, 59);
+			}
+			catch(...){
+				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
+				endDate = ""; 
+				pos = 0;
+				ppos = -1;
+			}
+		}
+		
+		
 
 		// gets number of bags
 		while (numOfBags == -1){
@@ -142,7 +173,7 @@ void selectionBranch(int selection){
 			cout << endl << endl;
 		}
 
-		posRes = getPossibleReservations(src, dest, departDate);	
+		posRes = getPossibleReservations(src, dest, departDate, arriveDate);	
 		debugReservations(posRes, numOfBags);
 
 		// asks for shortest or cheapest reservation
