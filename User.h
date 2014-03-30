@@ -28,7 +28,7 @@ class User{
 		}
 	}
 	*/
-	void addReservation(ReservationList* reservation) {
+	void setReservation(ReservationList* reservation) {
 		reservationHead = reservation;
 	}
 	
@@ -64,9 +64,10 @@ class User{
 	void printItinerary() {
 		FlightPath* path = this->reservationHead->getFlights();
 		FlightNode* flight;
-		int baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
+		int baggageFees;
 		
 		while (path) {
+			baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
 			if (baggageFees){
 				flight = path->getFlight();
 				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
@@ -82,10 +83,9 @@ class User{
 				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << flight->getPrice() <<  endl; 
 				path = path->Next();
 			}	
-			
-			
-			
 		}
+		cout << endl << "Check-in " << reservationHead->getBagNum() << " Bags" << endl;
+		cout << "Grand Total: $" << reservationHead->getPrice() << endl << endl;
 	}
 };
 

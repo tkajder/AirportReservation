@@ -155,37 +155,52 @@ void selectionBranch(int selection){
 			if (route == 's'){
 				res = getShortestReservation(posRes);
 				res->setBagNum(numOfBags);
-				user->addReservation(res);
+				user->setReservation(res);
 				break;
 			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);
 				res->setBagNum(numOfBags);
-				user->addReservation(res);
+				user->setReservation(res);
 				break;
 			} else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
+		cout << endl;
 		user->printItinerary();
 		break;
 		
 	case 2:
 		// Cancel a Reservation
-		
+		if (user->getReservationHead()){
+			user->setReservation(NULL);
+			cout << endl << "Your reservation has been cancelled." << endl << endl;
+		}
+		else{
+			cout << endl << "Reservation not found." << endl;
+		}
 		break;
-	case 3:
-		// Print Itinerary
 		
+	case 3:
+		if (user->getReservationHead()){
+			cout << endl;
+			user->printItinerary();
+		}
+		else{
+			cout << endl << "Itinerary not found." << endl << endl;
+		}
 		break;
 
 	case 4:
 		// Print schedule of all flights
 		debug();
 		break;
+		
 	case 5:
 		// quit
 		cout << endl << endl;
 		break;	
+		
 	default:
 		// if 1, 2, 3, 4, or 5 isn't entered (Invalid entry)
 		cout << "ERROR: Invalid selection. Please Try Again." << endl << endl;
