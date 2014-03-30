@@ -77,6 +77,8 @@ class ReservationList{
 			// last arrival - first departure
 			cout << "BEGIN: " << first->getFlight()->getDeparture()->toString() << endl;
 			cout << "END: " << last->getFlight()->getArrival()->toString() << endl;
+			time = first->getFlight->getDeparture()->timeDifferential(last->getFlight()->getArrival());
+			cout << "TIME: " << time << endl;
 		}
 	}
 	
