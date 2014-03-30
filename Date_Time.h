@@ -58,19 +58,15 @@ class Date_Time{
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}
 
-	void addMinutes(int numOfMin){		//recursion, weeeeeeeeeee
+	void addMinutes(int numOfMin){
 		if (numOfMin <= 0)
 			return;
-		if (floor(numOfMin/1440) > 0){
+		if (floor((this->minutes + numOfMin)/1440) > 0){
 			this->days += floor(numOfMin/1440);
-			numOfMin -= floor(numOfMin/1440)* 1440;
+			numOfMin -= floor(numOfMin/1440) * 1440;
 		}
-		if (floor(numOfMin/60) > 0){
+		if (floor((this->minutes + numOfMin)/60) > 0){
 			this->hours += floor(numOfMin/60);
-			if (this->hours >= 24) {
-				this->hours = this->hours % 24;
-				this->days += 1;
-			}
 			numOfMin -= floor(numOfMin/60) * 60;
 		}
 		this->minutes += numOfMin;
