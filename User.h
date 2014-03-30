@@ -60,13 +60,27 @@ class User{
 	void printItinerary(){
 		FlightPath* path = this->reservationHead->getFlights();
 		FlightNode* flight;
+		int baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
 		
 		while (path) {
-			flight = path->getFlight();
-			cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
-			cout << "\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
-			cout << "\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << this->reservationHead->getPrice() <<  endl; 
-			path = path->Next();
+			if (baggageFees){
+				flight = path->getFlight();
+				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
+				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
+				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " + $" << baggageFees << " Baggage Fee" << " = " << "$" << flight->getPrice() + baggageFees <<  endl; 
+				path = path->Next();
+			}	
+			
+			else{
+				flight = path->getFlight();
+				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
+				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
+				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << flight->getPrice() <<  endl; 
+				path = path->Next();
+			}	
+			
+			
+			
 		}
 	}
 };

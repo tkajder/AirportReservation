@@ -111,22 +111,22 @@ class Date_Time{
 		string dateTime;
 		char temp[80];	//creates temp char array to use in sprintg
 		if (hours >= 10 && minutes >= 10){
-			sprintf(temp, "%d/%d/%d  %d : %d", months, days, years, hours, minutes);
+			sprintf(temp, "%d/%d/%d  %d:%d", months, days, years, hours, minutes);
 			string dateTime(temp);	//converts char array into string
 			return dateTime;		//returns string
 		}
 		else if (hours < 10 && minutes >= 10){
-			sprintf(temp, "%d/%d/%d 0%d : %d", months, days, years, hours, minutes);
+			sprintf(temp, "%d/%d/%d 0%d:%d", months, days, years, hours, minutes);
 			string dateTime(temp);
 			return dateTime;
 		}
 		else if (hours >= 10 && minutes < 10){
-			sprintf(temp, "%d/%d/%d %d : 0%d", months, days, years, hours, minutes);
+			sprintf(temp, "%d/%d/%d %d:0%d", months, days, years, hours, minutes);
 			string dateTime(temp);
 			return dateTime;
 		}
 		else {
-			sprintf(temp, "%d/%d/%d 0%d : 0%d", months, days, years, hours, minutes);
+			sprintf(temp, "%d/%d/%d 0%d:0%d", months, days, years, hours, minutes);
 			string dateTime(temp);
 			return dateTime;
 		}
