@@ -16,7 +16,16 @@ class User{
 	}
 	
 	void addReservation(ReservationList* reservation){
-		
+		ReservationList* temp;
+		if (reservationHead) {
+			temp = reservationHead;
+			while (temp->Next()) {
+				temp = temp->Next();
+			}
+			temp->setNext(reservation);
+		} else {
+			reservationHead = reservation;
+		}
 	}
 
 	ReservationList* cheapestRoute(){

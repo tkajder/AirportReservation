@@ -154,16 +154,16 @@ void selectionBranch(int selection){
 				res = getShortestReservation(posRes);
 				res->setBagNum(numOfBags);
 				break;
-			}else if (route == 'c'){
+			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);
 				res->setBagNum(numOfBags);
+				user->addReservation(res);
 				break;
-			}else{
+			} else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		printItinerary(res);
-		//user->printItinerary();
+		user->printItinerary();
 		break;
 		
 	case 2:
