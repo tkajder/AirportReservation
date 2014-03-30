@@ -59,25 +59,16 @@ class Date_Time{
 	}
 
 	void addMinutes(int numOfMin){
-		if (numOfMin <= 0)
-			return;
-		if (floor((this->minutes + numOfMin)/1440) > 0){
-			this->days += floor((this->minutes + numOfMin)/1440);
-			numOfMin -= floor((this->minutes + numOfMin)/1440) * 1440;
-		}
-		if (numOfMin <= 0)
-			return;
-		if (floor((this->minutes + numOfMin)/60) > 0){
-			this->hours += floor((this->minutes + numOfMin)/60);
-				if (this->hours > 24){
-					this->days++;
-					this->hours -= 24;
-			numOfMin -= floor((this->minutes + numOfMin)/60) * 60;
-		}
-		if (numOfMin <= 0)
-			return;
 		this->minutes += numOfMin;
-		return;		
+		if (this->minutes >= 60) {
+			this->hours += floor(this->minutes / 60);
+			this->minutes = this->minutes % 60;
+		}
+		if (this->hours >= 24) {
+			this->days += floor(this->hours / 24);
+			this->hours = this->hours % 24; 
+		}
+		return;
 	}
 	
 	bool lessThan(Date_Time* date){
