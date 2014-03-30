@@ -175,7 +175,7 @@ void selectionBranch(int selection){
 		break;
 	case 3:
 		// Print Itinerary
-
+		
 		break;
 
 	case 4:
@@ -308,7 +308,7 @@ void populateHubs() {
 	current = head;			//sets current to head
 	pos = line.find(",");		//finds commas in csv
 	current->setName(line.substr(0, pos));	//pulls string until comma position
-	current->setLocation(line.substr(pos + 1));	//moves position to last pull + 1
+	current->setLocation(line.substr(pos + 1, (line.length() - pos - 2)));	//moves position to last pull + 1
 
 	// Initialize rest of hubs
 	while (getline(hub_file, line)) {	// loops for line locations
