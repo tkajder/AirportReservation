@@ -111,7 +111,7 @@ class Date_Time{
 
 	string toString(){
 		string dateTime;
-		char temp[80];	//creates temp char array to use in sprintg
+		char temp[80];	//creates temp char array to use in sprint
 		if (hours >= 10 && minutes >= 10){
 			sprintf(temp, "%d/%d/%d  %d:%d", months, days, years, hours, minutes);
 			string dateTime(temp);	//converts char array into string

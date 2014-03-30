@@ -11,7 +11,7 @@ class User{
 	}
 	
 	~User() {
-		delete reservationHead;
+		delete reservationHead;		//destructor
 	}
 
 	ReservationList* getReservationHead() {
@@ -31,19 +31,19 @@ class User{
 		}
 	}
 	*/
-	void setReservation(ReservationList* reservation) {
+	void setReservation(ReservationList* reservation) {	//used to set the reservation head
 		reservationHead = reservation;
 	}
 	
-	ReservationList* cheapestRoute(){
+	ReservationList* cheapestRoute(){		//grabs cheapest route
 		ReservationList* temp = reservationHead;
 		ReservationList* cheapest = temp;
-		if (cheapest == NULL)
+		if (cheapest == NULL)		//return NULL if list is empty
 			return NULL;
-		while (temp->Next() != NULL){
+		while (temp->Next() != NULL){	//loops for linked list
 			temp = temp->Next();
 			if(temp->getPrice() < cheapest->getPrice())
-				cheapest = temp;
+				cheapest = temp;	//puts cheapest into here if the current tested one is less money
 			
 		}
 		
@@ -53,12 +53,12 @@ class User{
 	ReservationList* shortestRoute(){
 		ReservationList* temp = reservationHead;
 		ReservationList* shortest = temp;
-		if (shortest == NULL)
+		if (shortest == NULL)		//return NULL if list is empty
 			return NULL;
-		while (temp->Next() != NULL){
+		while (temp->Next() != NULL){		//loops for list
 			temp = temp->Next();
 			if(temp->getTime() < shortest->getTime())
-				shortest = temp;
+				shortest = temp;	//puts shortest in here if the tested one is shorter
 		}
 		
 		return shortest;
@@ -69,17 +69,15 @@ class User{
 		FlightNode* flight;
 		int baggageFees;
 		
-		while (path) {
+		while (path) {	//loops for paths
 			baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
-			if (baggageFees){
+			if (baggageFees){		//if there is baggage fees
 				flight = path->getFlight();
 				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
 				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
 				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " + $" << baggageFees << " Baggage Fee" << " = " << "$" << flight->getPrice() + baggageFees <<  endl; 
-				path = path->Next();
-			}	
-			
-			else{
+				path = path->Next();	//iterates path (flight)
+			}else{
 				flight = path->getFlight();
 				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
 				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;

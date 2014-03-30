@@ -14,16 +14,16 @@ class FlightPath{
 		this->next = NULL;
 	}
 	
-	~FlightPath() {
+	~FlightPath() {		//destructor
 		delete next;
 		delete flight;
 	}
 	
-	HubNode* getDestination(){return this->flight->getDestination();}
+	HubNode* getDestination(){return this->flight->getDestination();}		//getters
 	FlightNode* getFlight(){return this->flight;}
 	FlightPath* Next(){return this->next;}
 	void setNext (FlightPath* next) {
-		this->next = next;
+		this->next = next;		//setter
 	}
 };
 #endif

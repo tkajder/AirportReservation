@@ -155,7 +155,7 @@ class FlightUSAirway : public FlightNode {
 		this->flightNumber = flightNumber;
 		this->price = price;
 		this->source = source;
-		this->destination = destination;
+		this->destination = destination;		//constructors for children classes
 		this->departure = departure;
 		this->duration = duration;
 		this->setFlightCompany("USAirway");
