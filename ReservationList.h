@@ -23,14 +23,14 @@ class ReservationList{
 		calculateTime();
 		this->next = NULL;
 	}
-	/*
+	
 	~ReservationList() {
 		delete flight;
 		delete next;
 		delete start;
 		delete end;
 	}
-	*/
+	
 	FlightPath* getFlights(){return this->flight;}
 
 	double getPrice(){return this->price;}

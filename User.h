@@ -9,11 +9,11 @@ class User{
 	User(){
 		reservationHead = NULL;
 	}
-	/*
+	
 	~User() {
 		delete reservationHead;
 	}
-	*/
+
 	ReservationList* getReservationHead() {
 		return this->reservationHead;
 	}

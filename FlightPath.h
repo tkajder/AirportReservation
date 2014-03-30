@@ -13,12 +13,12 @@ class FlightPath{
 		this->flight = newFlight;
 		this->next = NULL;
 	}
-	/*
+	
 	~FlightPath() {
 		delete next;
 		delete flight;
 	}
-	*/
+	
 	HubNode* getDestination(){return this->flight->getDestination();}
 	FlightNode* getFlight(){return this->flight;}
 	FlightPath* Next(){return this->next;}
