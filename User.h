@@ -14,7 +14,7 @@ class User{
 	ReservationList* getReservationHead() {
 		return this->reservationHead;
 	}
-	
+	/* ADD WHEN WE HAVE MULTIPLE RESERVATIONS
 	void addReservation(ReservationList* reservation){
 		ReservationList* temp;
 		if (reservationHead) {
@@ -27,7 +27,11 @@ class User{
 			reservationHead = reservation;
 		}
 	}
-
+	*/
+	void addReservation(ReservationList* reservation) {
+		reservationHead = reservation;
+	}
+	
 	ReservationList* cheapestRoute(){
 		ReservationList* temp = reservationHead;
 		ReservationList* cheapest = temp;
@@ -57,7 +61,7 @@ class User{
 		return shortest;
 	}
 	
-	void printItinerary(){
+	void printItinerary() {
 		FlightPath* path = this->reservationHead->getFlights();
 		FlightNode* flight;
 		int baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
