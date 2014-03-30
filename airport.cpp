@@ -1,436 +1,127 @@
-#include <stdlib.h>
-#include <cstring>
-#include <iostream>
-#include <fstream>
-#include <cstdio>
-#include "Date_Time.h"
-#include "FlightNode.h"
-#include "User.h"
+#ifndef DATETIME_H
+#define DATETIME_H
+#include <cmath>
 
 using namespace std;
+class Date_Time{
 
-ReservationList* getPossibleReservations(HubNode*, HubNode*, Date_Time*);
-void debug();
-void populateHubs();
-void populateFlights();
-void freeData();
-HubNode* getHub(string);
-ReservationList* getCheapestReservation(ReservationList*);
-ReservationList* getShortestReservation(ReservationList*);
-void printHubs();
-HubNode* selectHubs(int);
-void selectionBranch(int);
-bool isLegal(Date_Time*, Date_Time*);
-
-HubNode* head = new HubNode();
-User* user = new User();
-
-int main(){
-	int selection;
-	populateHubs();
-	populateFlights();
+	int months; 
+	int days;
+	int years; 
+	int hours;
+	int minutes;	// hours should be entered as military time
+	public:
+	Date_Time() {
+		this->months = 0; 
+		this->days = 0;
+		this->years = 0; 
+		this->hours = 0;
+		this->minutes = 0;
+	};
 	
-	cout << endl << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
-	do {
-		cout << "\t\t\tMain Menu" << endl << "----------------------------------------------------------" << endl;
-		cout << "1) Make a Reservation" << endl;
-		cout << "2) Cancel a Reservation" << endl;
-		cout << "3) Print Itinerary" << endl;
-		cout << "4) Schedule of all Flights" << endl;
-		cout << "5) Quit" << endl;
-		cout << "Enter the number for which option you wish to select: ";
-		cin >> selection;
-		selectionBranch(selection);
-	} while (selection != 5);
-	
-	freeData();
-	return 0;
-}
+	Date_Time(string input) {
+		int pos, ppos;
+		ppos = -1;	// trails behind pos
+		pos = input.find("/");		//searches for /
+		minutes = atoi(input.substr(ppos + 1, pos).c_str()); //places that information into minutes
+		ppos = pos;	//moves ppos up
+		pos = input.find("/", ppos + 1);
+		hours = atoi(input.substr(ppos + 1, pos).c_str());
+		ppos = pos;
+		pos = input.find("/", ppos + 1);
+		days = atoi(input.substr(ppos + 1, pos).c_str());
+		ppos = pos;
+		pos = input.find("/", ppos + 1);
+		months = atoi(input.substr(ppos + 1, pos).c_str());
+		years = atoi(input.substr(pos + 1).c_str());
 
-void selectionBranch(int selection){
-	int selectSrc = -1;
-	int selectDest = -1;
-	string enterDate = "";
-	int numOfBags = -1;
-	ReservationList *res;
-	ReservationList *posRes;
-	char route;
-	Date_Time *departDate;
-	int pos;
-	int ppos = -1;
-	int day, month, year;
-	HubNode* src;
-	HubNode* dest;
-	
-	switch (selection){
-	case 1:
-		// gets source hub
-		while (selectSrc == -1){
-			cout << endl << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-			cout << "Where are you flying from?" << endl;
-			printHubs();
-			cout << "Enter the number of where you are flying from: ";
-			cin >> selectSrc; 
-			cout << endl;
-			if (selectSrc >= 1 && selectSrc <= 15){
-				src = selectHubs(selectSrc);
-			}
-			else{
-			cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
-			selectSrc = -1;
-			} 
-		}
-		
-		// gets destination hub
-		while (selectDest == -1){
-			cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-			cout << "Where do you want to fly to?" << endl;
-			printHubs();
-			cout << "Enter the number of where you are flying to: ";
-			cin >> selectDest;
-			cout << endl;
-			if (selectDest >= 1 && selectDest <= 15){
-				dest = selectHubs(selectDest);
-			}
-			else{
-				cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly to." << endl;
-				selectDest = -1;
-			}
-		}
-		
-		// gets date user want to fly out
-		while(enterDate == ""){
-			try{
-				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-				cout << "What day would you like to fly out?" << endl << "Enter date (DD/MM/YYYY): ";
-				cin >> enterDate;
-				cout << endl << endl;
-				// parse
-				pos = enterDate.find("/");
-				day = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				ppos = pos;
-				pos = enterDate.find("/", ppos + 1);
-				month = atoi(enterDate.substr(ppos + 1, pos).c_str());
-				year = atoi(enterDate.substr(pos + 1).c_str());
-				
-				cout << day << "/" << month << "/" << year << endl;
-				// new Date_Time
-				departDate = new Date_Time();
-				departDate->setDate_Time(month, day, year, 0, 0);
-			}
-			catch(...){
-				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
-				enterDate = ""; 
-				pos = 0;
-				ppos = -1;
-			}
-		}
-
-		// gets number of bags
-		while (numOfBags == -1){
-			cout << "Enter the number of bags that will be checked: ";
-			cin >> numOfBags;
-			cout << endl << endl;
-		}
-		
-		posRes = getPossibleReservations(src, dest, departDate);	
-
-		// asks for shortest or cheapest reservation
-		while (route != 'q'){
-			cout << "Would you like the shortest route or the cheapest route" << endl;
-			cout << "s: Shortest" << endl;
-			cout << "c: Cheapest" << endl;
-			cout << "Enter you selection: ";
-			cin >> route;
-			if (route == 's'){
-				res = getShortestReservation(posRes);
-				break;
-			}else if (route == 'c'){
-				res = getCheapestReservation(posRes);
-				break;
-			}else{
-				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
-			}
-		}
-		//user->printItinerary();
-		break;
-		
-	case 2:
-		// Cancel a Reservation
-		
-		break;
-	case 3:
-		// Print Itinerary
-
-		break;
-
-	case 4:
-		// Print schedule of all flights
-		debug();
-		break;
-	case 5:
-		// quit
-		cout << endl << endl;
-		break;	
-	default:
-		// if 1, 2, 3, 4, or 5 isn't entered (Invalid entry)
-		cout << "ERROR: Invalid selection. Please Try Again." << endl << endl;
-		break;
 	}
-}
-
-
-void freeData() {		//handles memory cleanup after the program is complete
-	HubNode *hCurrent, *hTemp;
-	FlightNode *fCurrent, *fTemp;
-	hCurrent = head;
-	while (hCurrent) {	//loops for hubs
-		fCurrent = hCurrent->getFlights();	//grabs flights in hub
-		while (fCurrent) {		//loops for flights
-			fTemp = fCurrent->Next();	//grabs next flight
-			delete fCurrent;	//frees current flight
-			fCurrent = fTemp;		//moves temp to current flight
-		}
-		hTemp = hCurrent->Next();
-		delete hCurrent;		//deletes hub after all flights are free
-		hCurrent = hTemp;
-	}
-	delete user;
-}
-
-ReservationList* getCheapestReservation(ReservationList* head) {
-	ReservationList* reservation = head;
-	ReservationList* cheapest = head;
-	ReservationList* temp;
-	reservation = reservation->Next();
-	while (reservation) {
-		if (reservation->getPrice() < cheapest->getPrice()) {
-			delete cheapest;
-			cheapest = reservation;
-			reservation = reservation->Next();
-			cheapest->setNext(NULL);
-		} else {
-			temp = reservation;
-			reservation = reservation->Next();
-			delete temp;
-		}
-	}
-	return cheapest;
-}
-
-ReservationList* getShortestReservation(ReservationList* head) {
-	ReservationList* reservation = head;
-	ReservationList* shortest = head;
-	ReservationList* temp;
-	reservation = reservation->Next();
-	while (reservation) {
-		if (reservation->getTime() < shortest->getTime()) {
-			delete shortest;
-			shortest = reservation;
-			reservation = reservation->Next();
-			shortest->setNext(NULL);
-		} else {
-			temp = reservation;
-			reservation = reservation->Next();
-			delete temp;
-		}
-	}
-	return shortest;
-}
-
-ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time* start){
-	FlightNode* flight1 = src->getFlights();
-	FlightNode* flight2;
-	FlightPath* path;
-	ReservationList* head = NULL;
-	ReservationList* current = NULL;
-	ReservationList* reservation;
-	while (flight1) {
-		if (flight1->getDestination() == dest && isLegal(start, flight1->getDeparture())) {
-			cout << flight1->getDeparture()->toString() << endl;
-			path = new FlightPath(flight1);
-			reservation = new ReservationList(path);
-			if (current) {
-				current->setNext(reservation);
-				current = reservation;
-			} else {
-				head = reservation;
-				current = reservation;
-			}
-		}
-
-		flight2 = flight1->getDestination()->getFlights();
-		while (flight2) {
-			if (flight2->getDestination() == dest && isLegal(flight1->getArrival(), flight2->getDeparture())){
-				path = new FlightPath(flight1);
-				path->setNext(new FlightPath(flight2));
-				reservation = new ReservationList(path);
-				if (current) {
-					current->setNext(reservation);
-					current = reservation;
-				} else {
-					head = reservation;
-					current = reservation;
-				}
-			}
-			flight2 = flight2->Next();
-		}
-		flight1 = flight1->Next();
-	}
-	return head;	
-}
-
-bool isLegal(Date_Time* flight1, Date_Time* flight2){
-	if (flight1->getDays() < flight2->getDays())
-		return 1;
 	
 	
-	if (flight1->getDays() == flight2->getDays())
-		if (flight1->getElapsedMinutes() < flight2->getElapsedMinutes())	//better run
+	int getMonths(){return this->months;}
+	int getDays(){return this->days;}
+	int getYears(){return this->years;}
+	int getHours(){return this->hours;}
+	int getMinutes(){return this->minutes;}
+	
+	void setMonths(int input){this->months = input;}
+	void setDays(int input){this->days = input;}
+	void setYears(int input){this->years = input;}
+	void setHours(int input){this->hours = input;}
+	void setMinutes(int input){this->minutes = input;}
+
+	void setDate_Time(int mon, int d, int y, int h, int min){
+		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
+		days = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
+		years	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
+		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
+		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
+	}
+
+	void addMinutes(int numOfMin){		//recursion, weeeeeeeeeee
+		if (numOfMin <= 0)
+			return;
+		if (floor(numOfMin/1440) > 0){
+			this->days += floor(numOfMin/1440);
+			numOfMin -= floor(numOfMin/1440)* 1440;
+		}
+		if (floor(numOfMin/60) > 0){
+			this->hours += floor(numOfMin/60);
+			if (this->hours >= 24) {
+				this->hours = this->hours % 24;
+				this->days += 1;
+			}
+			numOfMin -= floor(numOfMin/60) * 60;
+		}
+		this->minutes += numOfMin;
+		return;
+		
+	}
+	
+	bool lessThan(Date_Time* date){
+		if (this->getDays() < date->getDays()) {
 			return 1;
+		}
 	
-	return 0;
-}
-
-void populateHubs() {
-	string line;
-	int pos;
-	HubNode* current;
-	ifstream hub_file;
-	hub_file.open("Hub.csv");		//open hub file
-
-	if (!hub_file) {
-		throw "File Hub.csv could not be opened.";
-	}
-		
-	// Skip the header labels
-	getline(hub_file, line);
-		
-	// Initialize head hub node
-	getline(hub_file, line);
-	current = head;			//sets current to head
-	pos = line.find(",");		//finds commas in csv
-	current->setName(line.substr(0, pos));	//pulls string until comma position
-	current->setLocation(line.substr(pos + 1));	//moves position to last pull + 1
-
-	// Initialize rest of hubs
-	while (getline(hub_file, line)) {	// loops for line locations
-		HubNode* node = new HubNode();	//makes new temp node in heap
-		pos = line.find(",");
-		node->setName(line.substr(0, pos));	//sets information
-		node->setLocation(line.substr(pos + 1));
-		current->setNext(node);
-		current = node;
-	}
-}
-
-void populateFlights() {
-	string line, flightNumber, flightCompany;
-	HubNode *source, *destination;
-	double price;
-	Date_Time* departure;
-	int pos, ppos, duration;
-	FlightNode* current;
-	ifstream flight_file;
-	flight_file.open("Flight.csv");		//open flight file
-
-	if (!flight_file) {
-		throw "File Flight.csv could not be opened.";
-	}
-		
-	// Skip the header labels
-	getline(flight_file, line);
-
-	while (getline(flight_file, line)) {
-		// Parse line
-		pos = line.find(",");
-		flightNumber = line.substr(0, pos);
-		ppos = pos;
-		pos = line.find(",", pos + 1);
-		price = atof(line.substr(ppos + 1, pos - ppos - 1).c_str());
-		ppos = pos;
-		pos = line.find(",", pos + 1);
-		source = getHub(line.substr(ppos + 1, pos - ppos - 1));
-		ppos = pos;
-		pos = line.find(",", pos + 1);
-		destination = getHub(line.substr(ppos + 1, pos - ppos - 1));		//this whole area parses information between commas
-		ppos = pos;
-		pos = line.find(",", pos + 1);
-		departure = new Date_Time(line.substr(ppos + 1, pos - ppos - 1));
-		ppos = pos;
-		pos = line.find(",", pos + 1);
-		duration = atoi(line.substr(ppos + 1, pos - ppos - 1).c_str());
-		// Account for 'extra' \r character
-		flightCompany = line.substr(pos + 1, line.length() - pos - 2);
-
-		if (flightCompany.compare("USAirway") == 0) { 	//disseminates information above into their destination company class
-			current = new FlightUSAirway(flightNumber, price, source, destination, departure, duration);
-		} else if (flightCompany.compare("SouthWest") == 0) {
-			current = new FlightSouthWest(flightNumber, price, source, destination, departure, duration);
-		} else if (flightCompany.compare("Delta") == 0) {
-			current = new FlightDelta(flightNumber, price, source, destination, departure, duration);
-		} else {
-			throw "Invalid airlines company.\n";
+		if (this->getDays() == date->getDays()) {
+			if (this->getElapsedMinutes() < date->getElapsedMinutes()) {
+				return 1;
+			}
 		}
-
-		// Add flight to hub
-		if (current->getSource()->getFlights()) {
-			current->setNext(current->getSource()->getFlights());
-		}
-		current->getSource()->setHeadFlights(current);
+	
+		return 0;
 	}
-}
 
-void printHubs(){
-	HubNode* temp = head;
-	int counter = 1;
-	while (temp){
-		cout << counter << ": " << temp->getName() << endl; 
-		counter++;
-		temp = temp->Next();
+	Date_Time* getEndTime(int delta){
+		Date_Time* ret = new Date_Time();
+		ret->setMonths(this->getMonths());
+		ret->setDays(this->getDays());
+		ret->setYears(this->getYears());
+		ret->setHours(this->getHours());
+		ret->setMinutes(this->getMinutes()) ;
+		ret->addMinutes(delta);
+		return ret;			
 	}
-}
+	
+	int getElapsedMinutes(){
+		return this->hours * 60 + this->minutes;
+	}
 
-HubNode* selectHubs(int selection){
-	HubNode* temp = head;
-	int i = 1;
-	while (temp){
-		if (i == selection){
-			return temp;
+	string toString(){
+		string dateTime;
+		char temp[80];	//creates temp char array to use in sprintg
+		if (hours > 10){
+			sprintf(temp, "%d/%d/%d  %d : %d", months, days, years, hours, minutes);
+			string dateTime(temp);	//converts char array into string
+			return dateTime;		//returns string
 		}
 		else{
-			temp = temp->Next();
-			i++;
+			sprintf(temp, "%d/%d/%d 0%d : %d", months, days, years, hours, minutes);
+			string dateTime(temp);
+			return dateTime;
 		}
 	}
-	throw ("Selection not in Hubs");
-}
+};
 
-HubNode* getHub(string name) {
-	HubNode* current = head;
-	while(name != current->getName()) {	//returns the hub location of the hub name passed
-		current = current->Next();
-		if (!current) {
-			cout << name << endl;
-			throw "Hub not found.";
-		}
-	}
-	return current;
-}
+#endif
 
-void debug(){
-	HubNode* current = head;
-	while (current != NULL) {		//loops for hubs
-		FlightNode* flight = current->getFlights();
-		while (flight != NULL) {		//loops for flight per hub
-			cout << "Flight Number: " << flight->getFlightNumber() << endl; 
-			cout << "Flight Company: " << flight->getFlightCompany() << endl;
-			cout << "Source Airport: " << flight->getSource()->getName() << endl;
-			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
-			cout << "Departure Time: " << flight->getDeparture()->toString() << endl;
-			cout << "Price: " << flight->getPrice() << endl << endl;
-			flight = flight->Next();
-		}
-		current = current->Next();
-	}
-}
