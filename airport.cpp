@@ -22,6 +22,8 @@ HubNode* selectHubs(int);
 void selectionBranch(int);
 bool isLegal(Date_Time*, Date_Time*);
 void debugReservations(ReservationList*,int);
+void debugPhoenixToLA();
+void debugPhoenixToHonolulu();
 
 HubNode* head = new HubNode();
 User* user = new User();
@@ -521,7 +523,7 @@ void debugReservations(ReservationList* res, int numOfBags) {
 void debugPhoenixToLA() {
 	ReservationList* reservation;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
-	HubNode* to = getHub("Los Angeles International");
+	HubNode* to = getHub("Los Angeles International Airport");
 	Date_Time* start = new Date_Time();
 	Date_Time* end = new Date_Time();
 	int bags = 3;
