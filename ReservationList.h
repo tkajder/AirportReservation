@@ -51,15 +51,9 @@ class ReservationList{
 		this->price = 0;
 		if (this->flight == NULL){
 			return;
-<<<<<<< HEAD
-		}else{
-			FlightPath* temp = this->flight;	//temp head
-			while (temp->Next() != NULL){
-=======
 		} else {
 			temp = this->flight;
 			while (temp){
->>>>>>> origin/Tom
 				this->price += (temp->getFlight())->getPrice();
 				this->price += (temp->getFlight())->getBaggageFees(this->numOfBags);
 				temp = temp->Next();

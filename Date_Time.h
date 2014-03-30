@@ -59,27 +59,17 @@ class Date_Time{
 	}
 
 	void addMinutes(int numOfMin){
-<<<<<<< HEAD
-		cout << numOfMin << endl;
-=======
->>>>>>> origin/Tom
 		if (numOfMin <= 0)
 			return;
 		if (floor((this->minutes + numOfMin)/1440) > 0){
 			this->days += floor(numOfMin/1440);
 			numOfMin -= floor(numOfMin/1440) * 1440;
 		}
-<<<<<<< HEAD
-		cout << numOfMin << endl;
-=======
->>>>>>> origin/Tom
 		if (floor((this->minutes + numOfMin)/60) > 0){
 			this->hours += floor(numOfMin/60);
 			numOfMin -= floor(numOfMin/60) * 60;
 		}
-		cout << numOfMin << endl;
 		this->minutes += numOfMin;
-		cout << numOfMin << endl << endl << endl;
 		return;
 		
 	}
