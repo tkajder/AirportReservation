@@ -509,13 +509,14 @@ void debugReservations(ReservationList* res, int numOfBags) {
 }
 
 void debugPhoenixToLA() {
+	ReservationList* reservation;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
 	HubNode* to = getHub("Los Angeles International");
-	Date_Time start = new Date_Time();
-	Date_Time end = new Date_Time();
+	Date_Time* start = new Date_Time();
+	Date_Time* end = new Date_Time();
 	int bags = 3;
-	end.setDate_Time(12,18,2013,23,59);
-	start.setDate_Time(12,16,2013,0,0);
+	end->setDate_Time(12,18,2013,23,59);
+	start->setDate_Time(12,16,2013,0,0);
 
 	reservation = getPossibleReservations(from, to, start, end);
 	reservation = getCheapestReservation(reservation);
@@ -528,11 +529,11 @@ void debugPhoenixToHonolulu() {
 	ReservationList* reservation;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
 	HubNode* to = getHub("Honolulu International Airport");
-	Date_Time start = new Date_Time();
-	Date_Time end = new Date_Time();
+	Date_Time* start = new Date_Time();
+	Date_Time* end = new Date_Time();
 	int bags = 5;
-	end.setDate_Time(12,19,2013,23,59);
-	start.setDate_Time(12,16,2013,0,0);
+	end->setDate_Time(12,19,2013,23,59);
+	start->setDate_Time(12,16,2013,0,0);
 
 	reservation = getPossibleReservations(from, to, start, end);
 	reservation = getShortestReservation(reservation);
