@@ -1,7 +1,6 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
-#include <math.h>
 
 using namespace std;
 class Date_Time{
@@ -59,14 +58,14 @@ class Date_Time{
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}
 
-	void addMinutes(int numOfMin){		//recursion, weeeeeeeeeee
+	void addMinutes(int numOfMin){
 		if (numOfMin <= 0)
 			return;
-		if (floor(numOfMin/1440) > 0){
+		if (floor((this->minutes + numOfMin)/1440) > 0){
 			this->days += floor(numOfMin/1440);
-			numOfMin -= floor(numOfMin/1440)* 1440;
+			numOfMin -= floor(numOfMin/1440) * 1440;
 		}
-		if (floor(numOfMin/60) > 0){
+		if (floor((this->minutes + numOfMin)/60) > 0){
 			this->hours += floor(numOfMin/60);
 			numOfMin -= floor(numOfMin/60) * 60;
 		}
@@ -75,6 +74,20 @@ class Date_Time{
 		
 	}
 	
+	bool lessThan(Date_Time* date){
+		if (this->getDays() < date->getDays()) {
+			return 1;
+		}
+	
+		if (this->getDays() == date->getDays()) {
+			if (this->getElapsedMinutes() < date->getElapsedMinutes()) {
+				return 1;
+			}
+		}
+	
+		return 0;
+	}
+
 	Date_Time* getEndTime(int delta){
 		Date_Time* ret = new Date_Time();
 		ret->setMonths(this->getMonths());

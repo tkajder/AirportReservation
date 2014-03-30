@@ -20,8 +20,7 @@ class ReservationList{
 		this->numOfBags = 0;
 		this->flight = path;
 		start = path->getFlight()->getDeparture();
-		calculatePrice();
-		//calculateTime();	///
+		calculateTime();
 		this->next = NULL;
 	}
 
@@ -37,20 +36,24 @@ class ReservationList{
 
 	int getBagNum(){return this->numOfBags;}
 	
-	void setBagNum(int numOfBags) {this->numOfBags = numOfBags;}
+	void setBagNum(int numOfBags) {
+		this->numOfBags = numOfBags;
+		calculatePrice();
+	}
 
 	ReservationList* Next(){return this->next;}
 	
 	void setNext(ReservationList* ReservationList) {
 		this->next = ReservationList;
 	}
-	void calculatePrice(){
+	void calculatePrice() {
+		FlightPath* temp;
+		this->price = 0;
 		if (this->flight == NULL){
-			this->price = 0;
 			return;
-		}else{
-			FlightPath* temp = this->flight;
-			while (temp->Next() != NULL){
+		} else {
+			temp = this->flight;
+			while (temp){
 				this->price += (temp->getFlight())->getPrice();
 				this->price += (temp->getFlight())->getBaggageFees(this->numOfBags);
 				temp = temp->Next();
@@ -58,15 +61,22 @@ class ReservationList{
 		}
 	}
 	void calculateTime(){
-		if (this->flight == NULL){
-			this->price = 0;
+		FlightPath* first;
+		FlightPath* temp;
+		FlightPath* last;
+		this->time = 0;
+		if (this->flight == NULL) {
 			return;
-		}else{
-			FlightPath* temp = this->flight;
-			while (temp->Next() != NULL){
-				this->time += (temp->getFlight())->getDuration();
+		} else {
+			first = this->flight;
+			temp = this->flight;
+			while (temp){
+				last = temp;
 				temp = temp->Next();
 			}
+			// last arrival - first departure
+			cout << "BEGIN: " << first->getFlight()->getDeparture()->toString() << endl;
+			cout << "END: " << last->getFlight()->getArrival()->toString() << endl;
 		}
 	}
 	
