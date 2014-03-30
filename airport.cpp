@@ -9,7 +9,7 @@
 
 using namespace std;
 
-ReservationList* getPossibleReservations(HubNode*, HubNode*, Date_Time*);
+ReservationList* getPossibleReservations(HubNode*, HubNode*, Date_Time*, Date_Time*);
 void debug();
 void populateHubs();
 void populateFlights();
@@ -263,7 +263,7 @@ ReservationList* getShortestReservation(ReservationList* head) {
 	return shortest;
 }
 
-ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time* start){
+ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time* start, Date_Time* end) {
 	FlightNode* flight1 = src->getFlights();
 	FlightNode* flight2;
 	FlightPath* path;
@@ -272,22 +272,8 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 	ReservationList* reservation;
 	while (flight1) {
 		if (flight1->getDestination() == dest && start->lessThan(flight1->getDeparture())) {
-			path = new FlightPath(flight1);
-			reservation = new ReservationList(path);
-			if (current) {
-				current->setNext(reservation);
-				current = reservation;
-			} else {
-				head = reservation;
-				current = reservation;
-			}
-		}
-
-		flight2 = flight1->getDestination()->getFlights();
-		while (flight2) {
-			if (flight2->getDestination() == dest && flight1->getArrival()->lessThan(flight2->getDeparture())){
+			if (flight1->getArrival()->lessThan(end)) {
 				path = new FlightPath(flight1);
-				path->setNext(new FlightPath(flight2));
 				reservation = new ReservationList(path);
 				if (current) {
 					current->setNext(reservation);
@@ -295,6 +281,24 @@ ReservationList* getPossibleReservations(HubNode* src, HubNode* dest, Date_Time*
 				} else {
 					head = reservation;
 					current = reservation;
+				}
+			}
+		}
+
+		flight2 = flight1->getDestination()->getFlights();
+		while (flight2) {
+			if (flight2->getDestination() == dest && flight1->getArrival()->lessThan(flight2->getDeparture())){
+				if (flight2->getArrival()->lessThan(end)) {
+					path = new FlightPath(flight1);
+					path->setNext(new FlightPath(flight2));
+					reservation = new ReservationList(path);
+					if (current) {
+						current->setNext(reservation);
+						current = reservation;
+					} else {
+						head = reservation;
+						current = reservation;
+					}
 				}
 			}
 			flight2 = flight2->Next();
