@@ -38,16 +38,18 @@ int main(){
 		cout << "2) Cancel a Reservation" << endl;
 		cout << "3) Print Itinerary" << endl;
 		cout << "4) Schedule of all Flights" << endl;
-		cout << "5) Quit" << endl;
+		cout << "5) Debug Phoenix to Los Angeles" << endl;
+		cout << "6) Debug Phoenix to Honolulu" << endl;
+		cout << "7) Quit" << endl;
 		cout << "Enter the number for which option you wish to select: ";
 		cin >> selection;
-		if (selection > 0 && selection < 6){
+		if (selection > 0 && selection < 8){
 			selectionBranch(selection);
 		}
 		else{
 			cout << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
 		}
-	} while (selection != 5);
+	} while (selection != 7);
 	
 	freeData();
 	return 0;
@@ -234,6 +236,14 @@ void selectionBranch(int selection){
 		break;
 		
 	case 5:
+		debugPhoenixToLA();
+		break;
+		
+	case 6:
+		debugPhoenixToHonolulu();
+		break;	
+		
+	case 7:
 		// quit
 		cout << endl << endl;
 		break;	
