@@ -35,8 +35,8 @@ class FlightNode{
 		delete this->arrival;
 	}
 	
-	int getDelay(){};
-	float getBaggageFees(int){};
+	virtual int getDelay(){};
+	virtual double getBaggageFees(int){};
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 
@@ -110,8 +110,12 @@ class FlightSouthWest : public FlightNode {
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
 	
-	float getBaggageFees(int numOfBags){
-		return 25 * numOfBags;
+	double getBaggageFees(int numOfBags){
+		if (numOfBags >= 0) {
+			return 25 * numOfBags;
+		} else {
+			throw "Illegal number of bags.";
+		}
 	}
 	int getDelay(){
 		if (this->departure->getHours() >= 7 && this->departure->getHours() <= 17){
@@ -136,7 +140,7 @@ class FlightDelta : public FlightNode {
 		this->setFlightCompany("Delta");
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
-	float getBaggageFees(int numOfBags){
+	double getBaggageFees(int numOfBags){
 		return 0;
 	}
 	int getDelay(){
@@ -157,8 +161,14 @@ class FlightUSAirway : public FlightNode {
 		this->setFlightCompany("USAirway");
 		this->arrival = departure->getEndTime(duration+getDelay());
 	}
-	float getBaggageFees(int numOfBags){
-		return 25 * (numOfBags - 1);
+	double getBaggageFees(int numOfBags){
+		if (numOfBags == 0 || numOfBags == 1) {
+			return 0;
+		} else if (numOfBags > 1) {
+			return 25 * (numOfBags - 1);
+		} else {
+			throw "Illegal number of bags.";
+		}
 	}
 	int getDelay(){
 		if (this->departure->getHours() >= 7 && this->departure->getHours() <= 17){

@@ -59,14 +59,20 @@ class Date_Time{
 	}
 
 	void addMinutes(int numOfMin){
+<<<<<<< HEAD
 		cout << numOfMin << endl;
+=======
+>>>>>>> origin/Tom
 		if (numOfMin <= 0)
 			return;
 		if (floor((this->minutes + numOfMin)/1440) > 0){
 			this->days += floor(numOfMin/1440);
 			numOfMin -= floor(numOfMin/1440) * 1440;
 		}
+<<<<<<< HEAD
 		cout << numOfMin << endl;
+=======
+>>>>>>> origin/Tom
 		if (floor((this->minutes + numOfMin)/60) > 0){
 			this->hours += floor(numOfMin/60);
 			numOfMin -= floor(numOfMin/60) * 60;
@@ -78,6 +84,20 @@ class Date_Time{
 		
 	}
 	
+	bool lessThan(Date_Time* date){
+		if (this->getDays() < date->getDays()) {
+			return 1;
+		}
+	
+		if (this->getDays() == date->getDays()) {
+			if (this->getElapsedMinutes() < date->getElapsedMinutes()) {
+				return 1;
+			}
+		}
+	
+		return 0;
+	}
+
 	Date_Time* getEndTime(int delta){
 		Date_Time* ret = new Date_Time();
 		ret->setMonths(this->getMonths());

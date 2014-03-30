@@ -11,6 +11,7 @@ class FlightPath{
 	
 	FlightPath(FlightNode* newFlight){
 		this->flight = newFlight;
+		this->next = NULL;
 	}
 	HubNode* getDestination(){return this->flight->getDestination();}
 	FlightNode* getFlight(){return this->flight;}
