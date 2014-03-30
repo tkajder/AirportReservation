@@ -62,16 +62,19 @@ class Date_Time{
 		if (numOfMin <= 0)
 			return;
 		if (floor((this->minutes + numOfMin)/1440) > 0){
-			this->days += floor(numOfMin/1440);
-			numOfMin -= floor(numOfMin/1440) * 1440;
+			this->days += floor((this->minutes + numOfMin)/1440);
+			numOfMin -= floor((this->minutes + numOfMin)/1440) * 1440;
 		}
+		if (numOfMin <= 0)
+			return;
 		if (floor((this->minutes + numOfMin)/60) > 0){
-			this->hours += floor(numOfMin/60);
-			numOfMin -= floor(numOfMin/60) * 60;
+			this->hours += floor((this->minutes + numOfMin)/60);
+			numOfMin -= floor((this->minutes + numOfMin)/60) * 60;
 		}
+		if (numOfMin <= 0)
+			return;
 		this->minutes += numOfMin;
-		return;
-		
+		return;		
 	}
 	
 	bool lessThan(Date_Time* date){

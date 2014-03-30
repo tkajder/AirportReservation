@@ -14,10 +14,7 @@ class User{
 	ReservationList* getReservationHead() {
 		return this->reservationHead;
 	}
-	
-	void addReservation(ReservationList* reservation){
-		
-	}
+
 
 	ReservationList* cheapestRoute(){
 		ReservationList* temp = reservationHead;
