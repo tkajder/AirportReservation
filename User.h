@@ -28,7 +28,7 @@ class User{
 		}
 	}
 	*/
-	void addReservation(ReservationList* reservation) {
+	void setReservation(ReservationList* reservation) {
 		reservationHead = reservation;
 	}
 	
@@ -64,14 +64,32 @@ class User{
 	void printItinerary() {
 		FlightPath* path = this->reservationHead->getFlights();
 		FlightNode* flight;
+<<<<<<< HEAD
 	
+=======
+		int baggageFees;
+		
+>>>>>>> origin/Seth
 		while (path) {
-			flight = path->getFlight();
-			cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
-			cout << "\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
-			cout << "\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << this->reservationHead->getPrice() <<  endl; 
-			path = path->Next();
+			baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
+			if (baggageFees){
+				flight = path->getFlight();
+				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
+				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
+				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " + $" << baggageFees << " Baggage Fee" << " = " << "$" << flight->getPrice() + baggageFees <<  endl; 
+				path = path->Next();
+			}	
+			
+			else{
+				flight = path->getFlight();
+				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
+				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
+				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << flight->getPrice() <<  endl; 
+				path = path->Next();
+			}	
 		}
+		cout << endl << "Check-in " << reservationHead->getBagNum() << " Bags" << endl;
+		cout << "Grand Total: $" << reservationHead->getPrice() << endl << endl;
 	}
 };
 
