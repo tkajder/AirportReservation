@@ -174,6 +174,12 @@ void selectionBranch(int selection){
 		}
 
 		posRes = getPossibleReservations(src, dest, departDate, arriveDate);	
+
+		if (!posRes) {
+			cout << "No reservations found for specified airports and times." << endl << endl;
+			break;
+		}
+
 		debugReservations(posRes, numOfBags);
 
 		// asks for shortest or cheapest reservation
@@ -500,4 +506,37 @@ void debugReservations(ReservationList* res, int numOfBags) {
 		cout << "Total Time: " << res->getTime() << endl << endl;
 		res = res->Next();
 	}
+}
+
+void debugPhoenixToLA() {
+	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
+	HubNode* to = getHub("Los Angeles International");
+	Date_Time start = new Date_Time();
+	Date_Time end = new Date_Time();
+	int bags = 3;
+	end.setDate_Time(12,18,2013,23,59);
+	start.setDate_Time(12,16,2013,0,0);
+
+	reservation = getPossibleReservations(from, to, start, end);
+	reservation = getCheapestReservation(reservation);
+	reservation->setBagNum(bags);
+	user->setReservation(reservation);
+	user->printItinerary();
+}
+
+void debugPhoenixToHonolulu() {
+	ReservationList* reservation;
+	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
+	HubNode* to = getHub("Honolulu International Airport");
+	Date_Time start = new Date_Time();
+	Date_Time end = new Date_Time();
+	int bags = 5;
+	end.setDate_Time(12,19,2013,23,59);
+	start.setDate_Time(12,16,2013,0,0);
+
+	reservation = getPossibleReservations(from, to, start, end);
+	reservation = getShortestReservation(reservation);
+	reservation->setBagNum(bags);
+	user->setReservation(reservation);
+	user->printItinerary();
 }
