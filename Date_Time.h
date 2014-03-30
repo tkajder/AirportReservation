@@ -69,6 +69,9 @@ class Date_Time{
 			return;
 		if (floor((this->minutes + numOfMin)/60) > 0){
 			this->hours += floor((this->minutes + numOfMin)/60);
+				if (this->hours > 24){
+					this->days++;
+					this->hours -= 24;
 			numOfMin -= floor((this->minutes + numOfMin)/60) * 60;
 		}
 		if (numOfMin <= 0)
