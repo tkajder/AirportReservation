@@ -22,6 +22,8 @@ HubNode* selectHubs(int);
 void selectionBranch(int);
 bool isLegal(Date_Time*, Date_Time*);
 void debugReservations(ReservationList*,int);
+void debugPhoenixToLA();
+void debugPhoenixToHonolulu();
 
 HubNode* head = new HubNode();
 User* user = new User();
@@ -111,6 +113,8 @@ void selectionBranch(int selection){
 		// gets date user want to fly out
 		while(startDate == ""){
 			try{
+				pos = 0;
+				ppos = -1;
 				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What is the eariest date you would like to depart?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> startDate;
@@ -130,14 +134,14 @@ void selectionBranch(int selection){
 			catch(...){
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
 				startDate = ""; 
-				pos = 0;
-				ppos = -1;
 			}
 		}
 		
 		// gets date user wants to arrive
 		while(endDate == ""){
 			try{
+				pos = 0;
+				ppos = -1;
 				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> endDate;
@@ -157,8 +161,6 @@ void selectionBranch(int selection){
 			catch(...){
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
 				endDate = ""; 
-				pos = 0;
-				ppos = -1;
 			}
 		}
 		
@@ -174,8 +176,14 @@ void selectionBranch(int selection){
 			}
 			cout << endl << endl;
 		}
-
+	
 		posRes = getPossibleReservations(src, dest, departDate, arriveDate);	
+
+		if (!posRes) {
+			cout << "No reservations found for specified airports and times." << endl << endl;
+			break;
+		}
+
 		debugReservations(posRes, numOfBags);
 
 		// asks for shortest or cheapest reservation
@@ -512,4 +520,38 @@ void debugReservations(ReservationList* res, int numOfBags) {
 		cout << "Total Time: " << res->getTime() << endl << endl;
 		res = res->Next();
 	}
+}
+
+void debugPhoenixToLA() {
+	ReservationList* reservation;
+	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
+	HubNode* to = getHub("Los Angeles International Airport");
+	Date_Time* start = new Date_Time();
+	Date_Time* end = new Date_Time();
+	int bags = 3;
+	end->setDate_Time(12,18,2013,23,59);
+	start->setDate_Time(12,16,2013,0,0);
+
+	reservation = getPossibleReservations(from, to, start, end);
+	reservation = getCheapestReservation(reservation);
+	reservation->setBagNum(bags);
+	user->setReservation(reservation);
+	user->printItinerary();
+}
+
+void debugPhoenixToHonolulu() {
+	ReservationList* reservation;
+	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
+	HubNode* to = getHub("Honolulu International Airport");
+	Date_Time* start = new Date_Time();
+	Date_Time* end = new Date_Time();
+	int bags = 5;
+	end->setDate_Time(12,19,2013,23,59);
+	start->setDate_Time(12,16,2013,0,0);
+
+	reservation = getPossibleReservations(from, to, start, end);
+	reservation = getShortestReservation(reservation);
+	reservation->setBagNum(bags);
+	user->setReservation(reservation);
+	user->printItinerary();
 }

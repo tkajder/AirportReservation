@@ -64,12 +64,8 @@ class User{
 	void printItinerary() {
 		FlightPath* path = this->reservationHead->getFlights();
 		FlightNode* flight;
-<<<<<<< HEAD
-	
-=======
 		int baggageFees;
 		
->>>>>>> origin/Seth
 		while (path) {
 			baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
 			if (baggageFees){
