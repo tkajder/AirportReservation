@@ -264,6 +264,9 @@ void freeData() {		//handles memory cleanup after the program is complete
 	HubNode *hCurrent, *hTemp;
 	FlightNode *fCurrent, *fTemp;
 	hCurrent = head;
+	ReservationList* reservationHead;
+	FlightPath* path;
+	FlightPath* temp;
 	while (hCurrent) {	//loops for hubs
 		fCurrent = hCurrent->getFlights();	//grabs flights in hub
 		while (fCurrent) {		//loops for flights
@@ -274,6 +277,17 @@ void freeData() {		//handles memory cleanup after the program is complete
 		hTemp = hCurrent->Next();
 		delete hCurrent;		//deletes hub after all flights are free
 		hCurrent = hTemp;
+	}
+	reservationHead = user->getReservationHead();
+	if (reservationHead) {
+		path = reservationHead->getFlights();
+		while (path) {
+			temp = path->Next();
+			delete path->getFlight();
+			delete path;
+			path = temp;
+		}
+		delete reservationHead;
 	}
 	delete user;
 }
