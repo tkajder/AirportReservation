@@ -113,6 +113,8 @@ void selectionBranch(int selection){
 		// gets date user want to fly out
 		while(startDate == ""){
 			try{
+				pos = 0;
+				ppos = -1;
 				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What is the eariest date you would like to depart?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> startDate;
@@ -132,14 +134,14 @@ void selectionBranch(int selection){
 			catch(...){
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
 				startDate = ""; 
-				pos = 0;
-				ppos = -1;
 			}
 		}
 		
 		// gets date user wants to arrive
 		while(endDate == ""){
 			try{
+				pos = 0;
+				ppos = -1;
 				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> endDate;
@@ -159,8 +161,6 @@ void selectionBranch(int selection){
 			catch(...){
 				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
 				endDate = ""; 
-				pos = 0;
-				ppos = -1;
 			}
 		}
 		
@@ -176,7 +176,7 @@ void selectionBranch(int selection){
 			}
 			cout << endl << endl;
 		}
-
+	
 		posRes = getPossibleReservations(src, dest, departDate, arriveDate);	
 
 		if (!posRes) {
