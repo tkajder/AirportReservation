@@ -155,6 +155,7 @@ void selectionBranch(int selection){
 			if (route == 's'){
 				res = getShortestReservation(posRes);
 				res->setBagNum(numOfBags);
+				user->addReservation(res);
 				break;
 			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);
@@ -314,7 +315,7 @@ void populateHubs() {
 		HubNode* node = new HubNode();	//makes new temp node in heap
 		pos = line.find(",");
 		node->setName(line.substr(0, pos));	//sets information
-		node->setLocation(line.substr(pos + 1));
+		node->setLocation(line.substr(pos + 1, (line.length() - pos - 2))); //Accounts for \r
 		current->setNext(node);
 		current = node;
 	}
