@@ -122,10 +122,10 @@ void selectionBranch(int selection){		//secondary menu
 				cout << endl << endl;
 				// parse
 				pos = startDate.find("/");
-				day = atoi(startDate.substr(ppos + 1, pos).c_str());	//atoi used to convert string to int
+				month = atoi(startDate.substr(ppos + 1, pos).c_str());	//atoi used to convert string to int
 				ppos = pos;
 				pos = startDate.find("/", ppos + 1);
-				month = atoi(startDate.substr(ppos + 1, pos).c_str());
+				day = atoi(startDate.substr(ppos + 1, pos).c_str());
 				year = atoi(startDate.substr(pos + 1).c_str());
 			
 				// new Date_Time
@@ -133,7 +133,7 @@ void selectionBranch(int selection){		//secondary menu
 				departDate->setDate_Time(month, day, year, 0, 0);
 			}
 			catch(...){		//catch all 
-				cout << "Invalid input.  Please enter date as DD/MM/YYYY" << endl << endl;
+				cout << "Invalid input.  Please enter date as MM/DD/YYYY" << endl << endl;
 				startDate = ""; 
 			}
 		}
@@ -144,15 +144,15 @@ void selectionBranch(int selection){		//secondary menu
 				pos = 0;
 				ppos = -1;
 				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (DD/MM/YYYY): ";
+				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (MM/DD/YYYY): ";
 				cin >> endDate;
 				cout << endl << endl;
 				// parse
 				pos = endDate.find("/");
-				day = atoi(endDate.substr(ppos + 1, pos).c_str());
+				month = atoi(endDate.substr(ppos + 1, pos).c_str());
 				ppos = pos;
 				pos = endDate.find("/", ppos + 1);
-				month = atoi(endDate.substr(ppos + 1, pos).c_str());
+				day = atoi(endDate.substr(ppos + 1, pos).c_str());
 				year = atoi(endDate.substr(pos + 1).c_str());
 			
 				// new Date_Time
