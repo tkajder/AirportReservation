@@ -67,6 +67,7 @@ void selectionBranch(int selection){		//secondary menu
 	ReservationList *res;
 	ReservationList *posRes;
 	char route;
+	char confirm;
 	Date_Time *departDate;
 	Date_Time *arriveDate;
 	int pos;
@@ -188,7 +189,7 @@ void selectionBranch(int selection){		//secondary menu
 		debugReservations(posRes, numOfBags);
 
 		// asks for shortest or cheapest reservation
-		while (route != 'q'){
+		while (route != 's' || route != 'c'){
 			cout << "Would you like the shortest route or the cheapest route" << endl;
 			cout << "s: Shortest" << endl;
 			cout << "c: Cheapest" << endl;
@@ -197,19 +198,36 @@ void selectionBranch(int selection){		//secondary menu
 			if (route == 's'){
 				res = getShortestReservation(posRes);	//grabs shortest reservation
 				res->setBagNum(numOfBags);		//sets number of bags
-				user->setReservation(res);		//sets users reservation
 				break;
 			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);
 				res->setBagNum(numOfBags);
-				user->setReservation(res);
 				break;
-			} else{
+			} 
+			else{
 				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
 			}
 		}
-		cout << endl;
-		user->printItinerary();		//print users itinerary
+		
+		while (confirm != 'y' || confirm != 'n'){		
+			cout << endl << endl;
+			debugReservations(res, numOfBags);
+			cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
+			cin >> confirm;
+			cout << endl;
+			if (confirm == 'y'){
+				user->setReservation(res);	// adds reservation to user
+				user->printItinerary();		//print users itinerary
+				break;
+			}
+			else if (confirm == 'n'){
+				cout << "Reservation not booked" << endl << endl;
+				break;
+			}
+			else{
+				cout << "ERROR: Invalid input.";
+			}
+		}
 		break;
 		
 	case 2:
