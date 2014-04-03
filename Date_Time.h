@@ -44,17 +44,41 @@ class Date_Time{
 	int getHours(){return this->hours;}
 	int getMinutes(){return this->minutes;}
 	
-	//Setters
-	void setMonths(int input){this->months = input;}
-	void setDays(int input){this->days = input;}
-	void setYears(int input){this->years = input;}
-	void setHours(int input){this->hours = input;}
-	void setMinutes(int input){this->minutes = input;}
 	
 	//Sets the chunk at once
 	void setDate_Time(int mon, int d, int y, int h, int min){
-		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
-		days = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
+		if (mon > 0 && mon <= 12){
+			months = mon;
+			
+			if (months == 1 || months == 3 || months == 5 || months == 7 || months == 8 || months == 10 || months == 12){
+				if (d >= 0 && d <= 31){
+					days = d;
+				}
+				else{
+					throw "Improper day format.\n";
+				}
+			}
+			if (months == 4 || months == 6 || months == 9 || months == 11){
+				if (d >= 0 && d <= 30){
+					days = d;
+				}
+				else{
+					throw "Improper day format.\n";
+				}
+			}
+			if (months == 2){
+				if (d >= 0 && d <= 28){
+					days = d;
+				}
+				else{
+					throw "Improper day format.\n";
+				}
+			}
+		}
+		else{
+			throw "Improper month format.\n";
+		}
+		
 		years	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
 		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
@@ -96,11 +120,7 @@ class Date_Time{
 	// this is used to get the Date_Time of the flights arrival
 	Date_Time* getEndTime(int delta){	//creates new Date_Time object
 		Date_Time* ret = new Date_Time();
-		ret->setMonths(this->getMonths());
-		ret->setDays(this->getDays());		//adds current date_time info into it
-		ret->setYears(this->getYears());
-		ret->setHours(this->getHours());
-		ret->setMinutes(this->getMinutes()) ;
+		ret->setDate_Time(this->getMonths(), this->getDays(), this->getYears(), this->getHours(), this->getMinutes());
 		ret->addMinutes(delta);		//adds change in minutes to it
 		return ret;			
 	}
