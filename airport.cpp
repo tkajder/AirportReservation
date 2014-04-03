@@ -36,6 +36,7 @@ int main(){
 	
 	cout << endl << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {		//main menu
+		cout << "----------------------------------------------------------" << endl;
 		cout << "\t\t\tMain Menu" << endl << "----------------------------------------------------------" << endl;
 		cout << "1) Make a Reservation" << endl;
 		cout << "2) Cancel a Reservation" << endl;
@@ -80,10 +81,11 @@ void selectionBranch(int selection){		//secondary menu
 	case 1:
 		// gets source hub
 		while (selectSrc == -1){
-			cout << endl << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-			cout << "Where are you flying from?" << endl;
+			cout << endl << "----------------------------------------------------------" << endl;
+			cout << "\t\t   Make a Reservation" << endl << "----------------------------------------------------------" << endl;
+			cout << "Where are you flying from?" << endl << "---------------------------" << endl;
 			printHubs();
-			cout << "Enter the number of where you are flying from: ";
+			cout << endl << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
 			cout << endl;
 			if (selectSrc >= 1 && selectSrc <= 15){
@@ -97,10 +99,11 @@ void selectionBranch(int selection){		//secondary menu
 		
 		// gets destination hub
 		while (selectDest == -1){
-			cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
-			cout << "Where do you want to fly to?" << endl;
+			cout << "----------------------------------------------------------" << endl;
+			cout << "\t\t   Make a Reservation" << endl << "----------------------------------------------------------" << endl;
+			cout << "Where do you want to fly to?" << endl << "-----------------------------" << endl;
 			printHubs();
-			cout << "Enter the number of where you are flying to: ";
+			cout << endl << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
 			cout << endl;
 			if (selectDest >= 1 && selectDest <= 15){
@@ -117,10 +120,11 @@ void selectionBranch(int selection){		//secondary menu
 			try{
 				pos = 0;
 				ppos = -1;
-				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
+				cout << "----------------------------------------------------------" << endl;				
+				cout << "\t\t   Make a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What is the eariest date you would like to depart?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> startDate;
-				cout << endl << endl;
+				cout << endl;
 				// parse
 				pos = startDate.find("/");
 				month = atoi(startDate.substr(ppos + 1, pos).c_str());	//atoi used to convert string to int
@@ -144,10 +148,9 @@ void selectionBranch(int selection){		//secondary menu
 			try{
 				pos = 0;
 				ppos = -1;
-				cout << "\t\tMake a Reservation" << endl << "----------------------------------------------------------" << endl;
 				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (MM/DD/YYYY): ";
 				cin >> endDate;
-				cout << endl << endl;
+				cout << endl;
 				// parse
 				pos = endDate.find("/");
 				month = atoi(endDate.substr(ppos + 1, pos).c_str());
@@ -166,8 +169,6 @@ void selectionBranch(int selection){		//secondary menu
 			}
 		}
 		
-		
-
 		// gets number of bags
 		while (numOfBags == -1){
 			cout << "Enter the number of bags that will be checked: ";
@@ -176,7 +177,7 @@ void selectionBranch(int selection){		//secondary menu
 				cout << "Error: Invalid entry. Please enter an integer";
 				numOfBags = -1;		//to continue loop
 			}
-			cout << endl << endl;
+			cout << endl;
 		}
 	
 		posRes = getPossibleReservations(src, dest, departDate, arriveDate);	
@@ -185,7 +186,8 @@ void selectionBranch(int selection){		//secondary menu
 			cout << "No reservations found for specified airports and times." << endl << endl;
 			break;
 		}
-
+		cout << "----------------------------------------------------------" << endl;
+		cout << "\t\t   Available Reservations" << endl << "----------------------------------------------------------" << endl;
 		debugReservations(posRes, numOfBags);
 
 		// asks for shortest or cheapest reservation
@@ -198,10 +200,16 @@ void selectionBranch(int selection){		//secondary menu
 			if (route == 's'){
 				res = getShortestReservation(posRes);	//grabs shortest reservation
 				res->setBagNum(numOfBags);		//sets number of bags
+				cout << endl << endl;
+				cout << "----------------------------------------------------------" << endl;
+				cout << "\t\tShortest Route Reservation" << endl << "----------------------------------------------------------" << endl;
 				break;
 			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);
 				res->setBagNum(numOfBags);
+				cout << endl << endl;
+				cout << "----------------------------------------------------------" << endl;
+				cout << "\t\tCheapest Route Reservation" << endl << "----------------------------------------------------------" << endl;
 				break;
 			} 
 			else{
@@ -210,13 +218,14 @@ void selectionBranch(int selection){		//secondary menu
 		}
 		
 		while (confirm != 'y' || confirm != 'n'){		
-			cout << endl << endl;
 			debugReservations(res, numOfBags);
 			cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
 			cin >> confirm;
 			cout << endl;
 			if (confirm == 'y'){
 				user->setReservation(res);	// adds reservation to user
+				cout << "--------------------------------------------------------------------------------" << endl;
+				cout << "\t\t\t\tConfirmation" << endl << "--------------------------------------------------------------------------------" << endl;
 				user->printItinerary();		//print users itinerary
 				break;
 			}
@@ -245,6 +254,8 @@ void selectionBranch(int selection){		//secondary menu
 		//print itinerary
 		if (user->getReservationHead()){
 			cout << endl;
+			cout << "--------------------------------------------------------------------------------" << endl;
+			cout << "\t\t\t\tBooked Flight" << endl << "--------------------------------------------------------------------------------" << endl;
 			user->printItinerary();
 		}
 		else{
@@ -254,18 +265,18 @@ void selectionBranch(int selection){		//secondary menu
 
 	case 4:
 		// Print schedule of all flights
+		cout << endl << "----------------------------------------------------------" << endl;
+		cout << "\t\t  Schedule of Flights" << endl << "----------------------------------------------------------" << endl;
 		debug();
 		break;
 		
 	case 5:
 		//debug phoenix to la
-		cout << endl;
 		debugPhoenixToLA();
 		break;
 		
 	case 6:
 		//debug phoenix to honolulu
-		cout << endl;
 		debugPhoenixToHonolulu();
 		break;	
 		
@@ -541,7 +552,6 @@ void debug(){
 void debugReservations(ReservationList* res, int numOfBags) {	//prints out a list of reservations
 	FlightPath* path;
 	while (res) {		//loop for reservations
-		cout << "Reservation" << endl;
 		res->setBagNum(numOfBags);		//sets number of bags into the temp reservation object
 		path = res->getFlights();		//grabs flights
 		while (path) {
@@ -553,41 +563,87 @@ void debugReservations(ReservationList* res, int numOfBags) {	//prints out a lis
 			path = path->Next();	//iterate
 		}
 		cout << endl << "Total Price: " << res->getPrice() << endl;	
-		cout << "Total Time: " << res->getTime() << endl << endl;
+		cout << "Total Time: " << res->getTime() << endl << "----------------------------------------------------------" << endl << endl;
 		res = res->Next();
 	}
 }
 
 void debugPhoenixToLA() {	//debugging class 
-	ReservationList* reservation;
+	char confirm;
+	ReservationList* res;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
 	HubNode* to = getHub("Los Angeles International Airport");		//sets airports
 	Date_Time* start = new Date_Time();
 	Date_Time* end = new Date_Time();		//instantiate times
-	int bags = 3;
+	int numOfBags = 3;
 	end->setDate_Time(12,18,2013,23,59);		//set dates
 	start->setDate_Time(12,16,2013,0,0);
 
-	reservation = getPossibleReservations(from, to, start, end);		//grabs path
-	reservation = getCheapestReservation(reservation);
-	reservation->setBagNum(bags);
-	user->setReservation(reservation);	//sets reservation to users chosen res
-	user->printItinerary();
+	res = getPossibleReservations(from, to, start, end);		//grabs path
+	res = getCheapestReservation(res);
+	res->setBagNum(numOfBags);
+	
+	while (confirm != 'y' || confirm != 'n'){		
+		cout << endl;
+		cout << "----------------------------------------------------------" << endl;
+		cout << "\t\t   Available Reservations" << endl << "----------------------------------------------------------" << endl;
+		debugReservations(res, numOfBags);
+		cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
+		cin >> confirm;
+		cout << endl;
+		if (confirm == 'y'){
+			user->setReservation(res);	// adds reservation to user
+			cout << "--------------------------------------------------------------------------------" << endl;
+			cout << "\t\t\t\tConfirmation" << endl << "--------------------------------------------------------------------------------" << endl;
+			user->printItinerary();		//print users itinerary
+			break;
+		}
+		else if (confirm == 'n'){
+			cout << "Reservation not booked" << endl << endl;
+			break;
+		}
+		else{
+			cout << "ERROR: Invalid input.";
+		}
+	}
 }
 
 void debugPhoenixToHonolulu() {
-	ReservationList* reservation;
+	char confirm;
+	ReservationList* res;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
 	HubNode* to = getHub("Honolulu International Airport");
 	Date_Time* start = new Date_Time();
 	Date_Time* end = new Date_Time();
-	int bags = 5;
+	int numOfBags = 5;
 	end->setDate_Time(12,19,2013,23,59);
 	start->setDate_Time(12,16,2013,0,0);
 
-	reservation = getPossibleReservations(from, to, start, end);
-	reservation = getShortestReservation(reservation);
-	reservation->setBagNum(bags);
-	user->setReservation(reservation);
-	user->printItinerary();
+	res = getPossibleReservations(from, to, start, end);
+	res = getShortestReservation(res);
+	res->setBagNum(numOfBags);
+
+	while (confirm != 'y' || confirm != 'n'){		
+		cout << endl;
+		cout << "----------------------------------------------------------" << endl;
+		cout << "\t\t   Available Reservations" << endl << "----------------------------------------------------------" << endl;
+		debugReservations(res, numOfBags);
+		cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
+		cin >> confirm;
+		cout << endl;
+		if (confirm == 'y'){
+			user->setReservation(res);	// adds reservation to user
+			cout << "--------------------------------------------------------------------------------" << endl;
+			cout << "\t\t\t\tConfirmation" << endl << "--------------------------------------------------------------------------------" << endl;
+			user->printItinerary();			//print users itinerary
+			break;
+		}
+		else if (confirm == 'n'){
+			cout << "Reservation not booked" << endl << endl;
+			break;
+		}
+		else{
+			cout << "ERROR: Invalid input.";
+		}
+	}
 }
