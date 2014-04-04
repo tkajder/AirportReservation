@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdio>
+#include <iomanip>
 #include "Date_Time.h"
 #include "FlightNode.h"
 #include "User.h"
@@ -36,8 +37,9 @@ int main(){
 	
 	cout << endl << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {		//main menu
-		cout << "----------------------------------------------------------" << endl;
-		cout << "\t\t\tMain Menu" << endl << "----------------------------------------------------------" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill(' ') << setw(34) << "Main Menu" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
 		cout << "1) Make a Reservation" << endl;
 		cout << "2) Cancel a Reservation" << endl;
 		cout << "3) Print Itinerary" << endl;
@@ -84,9 +86,10 @@ void selectionBranch(int selection){
 	case 1:
 		// gets source hub
 		while (selectSrc == -1){
-			cout << endl << "----------------------------------------------------------" << endl;
-			cout << "\t\t   Make a Reservation" << endl << "----------------------------------------------------------" << endl;
-			cout << "Where are you flying from?" << endl << "---------------------------" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << setfill(' ') << setw(38) << "Make a Reservation" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << "Where are you flying from?" << endl << setfill('-') << setw(27) << "-" << endl;
 			printHubs();
 			cout << endl << "Enter the number of where you are flying from: ";
 			cin >> selectSrc; 
@@ -102,9 +105,10 @@ void selectionBranch(int selection){
 		
 		// gets destination hub
 		while (selectDest == -1){
-			cout << "----------------------------------------------------------" << endl;
-			cout << "\t\t   Make a Reservation" << endl << "----------------------------------------------------------" << endl;
-			cout << "Where do you want to fly to?" << endl << "-----------------------------" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << setfill(' ') << setw(38) << "Make a Reservation" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << "Where do you want to fly to?" << endl << setfill('-') << setw(29) << "-" << endl;
 			printHubs();
 			cout << endl << "Enter the number of where you are flying to: ";
 			cin >> selectDest;
@@ -123,8 +127,9 @@ void selectionBranch(int selection){
 			try{
 				pos = 0;
 				ppos = -1;
-				cout << "----------------------------------------------------------" << endl;				
-				cout << "\t\t   Make a Reservation" << endl << "----------------------------------------------------------" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
+				cout << setfill(' ') << setw(38) << "Make a Reservation" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
 				cout << "What is the eariest date you would like to depart?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> startDate;
 				cout << endl;
@@ -189,8 +194,9 @@ void selectionBranch(int selection){
 			cout << "No reservations found for specified airports and times." << endl << endl;
 			break;
 		}
-		cout << "----------------------------------------------------------" << endl;
-		cout << "\t\t   Available Reservations" << endl << "----------------------------------------------------------" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
+			cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
 		debugReservations(posRes, numOfBags);		// prints out the available reservations
 
 		// asks for shortest or cheapest reservation
