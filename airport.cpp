@@ -195,8 +195,8 @@ void selectionBranch(int selection){
 			break;
 		}
 		cout << setfill('-') << setw(58) << "-" << endl;
-			cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
-			cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
 		debugReservations(posRes, numOfBags);		// prints out the available reservations
 
 		// asks for shortest or cheapest reservation
@@ -210,16 +210,18 @@ void selectionBranch(int selection){
 				res = getShortestReservation(posRes);	//grabs shortest reservation
 				res->setBagNum(numOfBags);		//sets number of bags
 				cout << endl << endl;
-				cout << "----------------------------------------------------------" << endl;
-				cout << "\t\tShortest Route Reservation" << endl << "----------------------------------------------------------" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
+				cout << setfill(' ') << setw(42) << "Shortest Route Reservation" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
 				debugReservations(res, numOfBags);		// prints out shortest reservation
 				break;
 			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);	//grabs cheapest reservation
 				res->setBagNum(numOfBags);	//sets number of bags
 				cout << endl << endl;
-				cout << "----------------------------------------------------------" << endl;
-				cout << "\t\tCheapest Route Reservation" << endl << "----------------------------------------------------------" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
+				cout << setfill(' ') << setw(42) << "Cheapest Route Reservation" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
 				debugReservations(res, numOfBags);		// prints out shortest reservation
 				break;
 			} 
@@ -235,8 +237,9 @@ void selectionBranch(int selection){
 			cout << endl;
 			if (confirm == 'y'){
 				user->setReservation(res);	// adds reservation to user
-				cout << "--------------------------------------------------------------------------------" << endl;
-				cout << "\t\t\t\tConfirmation" << endl << "--------------------------------------------------------------------------------" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
+				cout << setfill(' ') << setw(34) << "Confirmation" << endl;
+				cout << setfill('-') << setw(58) << "-" << endl;
 				user->printItinerary();		//print users itinerary
 				break;
 			}
@@ -265,8 +268,9 @@ void selectionBranch(int selection){
 		//print itinerary of booked flight
 		if (user->getReservationHead()){
 			cout << endl;
-			cout << "--------------------------------------------------------------------------------" << endl;
-			cout << "\t\t\t\tBooked Flight" << endl << "--------------------------------------------------------------------------------" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << setfill(' ') << setw(35) << "Booked Flight" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
 			user->printItinerary();
 		}
 		else{
@@ -275,9 +279,10 @@ void selectionBranch(int selection){
 		break;
 
 	case 4:
-		// Print schedule of all flights
-		cout << endl << "----------------------------------------------------------" << endl;
-		cout << "\t\t  Schedule of Flights" << endl << "----------------------------------------------------------" << endl;
+		// Print schedule of all flights	
+		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill(' ') << setw(38) << "Schedule of Flights" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
 		debug();
 		break;
 		
@@ -574,7 +579,7 @@ void debugReservations(ReservationList* res, int numOfBags) {	//prints out a lis
 			path = path->Next();	//iterate
 		}
 		cout << endl << "Total Price: " << res->getPrice() << endl;	
-		cout << "Total Time: " << res->getTime() << endl << "----------------------------------------------------------" << endl << endl;
+		cout << "Total Time: " << res->getTime() << endl << setfill('-') << setw(58) << "-" << endl << endl;
 		res = res->Next();
 	}
 }
@@ -597,16 +602,18 @@ void debugPhoenixToLA() {	// Test case for Phoenix to LA
 	// gets confirmation before booking the flights
 	while (confirm != 'y' || confirm != 'n'){		
 		cout << endl;
-		cout << "----------------------------------------------------------" << endl;
-		cout << "\t\t   Available Reservations" << endl << "----------------------------------------------------------" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
 		debugReservations(res, numOfBags);
 		cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
 		cin >> confirm;
 		cout << endl;
 		if (confirm == 'y'){
 			user->setReservation(res);	// adds reservation to user
-			cout << "--------------------------------------------------------------------------------" << endl;
-			cout << "\t\t\t\tConfirmation" << endl << "--------------------------------------------------------------------------------" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << setfill(' ') << setw(35) << "Confirmation" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
 			user->printItinerary();		//print users itinerary
 			break;
 		}
@@ -638,16 +645,18 @@ void debugPhoenixToHonolulu() {	// test case for Phoenix to Honolulu
 	// gets confirmation before booking the flights
 	while (confirm != 'y' || confirm != 'n'){		
 		cout << endl;
-		cout << "----------------------------------------------------------" << endl;
-		cout << "\t\t   Available Reservations" << endl << "----------------------------------------------------------" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
+		cout << setfill('-') << setw(58) << "-" << endl;
 		debugReservations(res, numOfBags);
 		cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
 		cin >> confirm;
 		cout << endl;
 		if (confirm == 'y'){
 			user->setReservation(res);	// adds reservation to user
-			cout << "--------------------------------------------------------------------------------" << endl;
-			cout << "\t\t\t\tConfirmation" << endl << "--------------------------------------------------------------------------------" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
+			cout << setfill(' ') << setw(35) << "Confirmation" << endl;
+			cout << setfill('-') << setw(58) << "-" << endl;
 			user->printItinerary();			//print users itinerary
 			break;
 		}

@@ -73,19 +73,19 @@ class User{
 			baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
 			if (baggageFees){		//if there is baggage fees
 				flight = path->getFlight();
-				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
-				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
-				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " + $" << baggageFees << " Baggage Fee" << " = " << "$" << flight->getPrice() + baggageFees <<  endl; 
+				cout << " " << setfill(' ') <<  setw(13) << left << flight->getFlightNumber() << setw(13) << left << flight->getFlightCompany() << setw(14) << left << flight->getSource()->getLocation() << flight->getDeparture()->toString() << endl;
+				cout << " " <<  setw(26) << " " << setw(14) << left << flight->getDestination()->getLocation() << flight->getArrival()->toString() << endl;
+				cout << setw(10) << " " << "$" << flight->getPrice() << " base price" << " + $" << baggageFees << " Baggage Fee" << " = " << "$" << flight->getPrice() + baggageFees << endl << endl; 
 				path = path->Next();	//iterates path (flight)
 			}else{
 				flight = path->getFlight();
-				cout << flight->getFlightNumber() << "\t" << flight->getFlightCompany() << "\t" << flight->getSource()->getLocation() << "\t" << flight->getDeparture()->toString() << endl;
-				cout << "\t\t\t" << flight->getDestination()->getLocation() << "\t" << flight->getArrival()->toString() << endl;
-				cout << "\t\t\t" << "$" << flight->getPrice() << " base price" << " = " << "$" << flight->getPrice() <<  endl; 
+				cout << " " << setfill(' ') << setw(13) << left << flight->getFlightNumber() << setw(13) << left << flight->getFlightCompany() << setw(14) << left << flight->getSource()->getLocation() << flight->getDeparture()->toString() << endl;
+				cout << " " <<  setw(26) << " " << setw(14) << left << flight->getDestination()->getLocation() << flight->getArrival()->toString() << endl;
+				cout << setw(29) << " " << "$" << flight->getPrice() << " base price" << " = " << "$" << flight->getPrice() << endl << endl; 
 				path = path->Next();
 			}	
 		}
-		cout << endl << "Check-in " << reservationHead->getBagNum() << " Bags" << endl;
+		cout << "Check-in " << reservationHead->getBagNum() << " Bags" << endl;
 		cout << "Grand Total: $" << reservationHead->getPrice() << endl << endl;
 	}
 };
