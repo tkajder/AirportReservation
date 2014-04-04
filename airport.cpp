@@ -148,7 +148,7 @@ void selectionBranch(int selection){		//secondary menu
 			try{
 				pos = 0;
 				ppos = -1;
-				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (MM/DD/YYYY): ";
+				cout << "What is the latest date that you would like to arrive?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> endDate;
 				cout << endl;
 				// parse
