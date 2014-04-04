@@ -47,8 +47,25 @@ class Date_Time{
 	
 	//Sets the chunk at once
 	void setDate_Time(int mon, int d, int y, int h, int min){
+		bool isLeapYear = true;
+		
 		if (mon > 0 && mon <= 12){
 			months = mon;
+			
+			// Checks for leap year
+			if (y % 4 != 0){
+				isLeapYear = false;
+			}
+			else if (y % 100 != 0){
+				isLeapYear = true;
+			}
+			else if (y % 400 == 0){
+				isLeapYear = true;		
+			}
+			else{
+				isLeapYear = false;
+			}
+		
 			
 			if (months == 1 || months == 3 || months == 5 || months == 7 || months == 8 || months == 10 || months == 12){
 				if (d >= 0 && d <= 31){
@@ -66,8 +83,16 @@ class Date_Time{
 					throw "Improper day format.\n";
 				}
 			}
-			if (months == 2){
+			if (months == 2 && isLeapYear == false){
 				if (d >= 0 && d <= 28){
+					days = d;
+				}
+				else{
+					throw "Improper day format.\n";
+				}
+			}
+			if (months == 2 && isLeapYear == true){
+				if (d >= 0 && d <= 29){
 					days = d;
 				}
 				else{
@@ -79,7 +104,7 @@ class Date_Time{
 			throw "Improper month format.\n";
 		}
 		
-		years	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
+		years = (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
 		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
 		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}
