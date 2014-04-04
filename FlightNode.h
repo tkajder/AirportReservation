@@ -31,6 +31,9 @@ class FlightNode{
 	
 	// Destructor
 	~FlightNode() {
+		//delete source;
+		//delete destination;
+		delete next;
 		delete this->departure;
 		delete this->arrival;
 	}
