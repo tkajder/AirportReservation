@@ -1,6 +1,7 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
+#include <sstream>
 
 using namespace std;
 class Date_Time{
@@ -19,6 +20,7 @@ class Date_Time{
 		this->minutes = 0;
 	};
 	
+	// Constructor
 	Date_Time(string input) {
 		int pos, ppos;
 		ppos = -1;	// trails behind pos
@@ -49,10 +51,11 @@ class Date_Time{
 	void setDate_Time(int mon, int d, int y, int h, int min){
 		bool isLeapYear = true;
 		
-		if (mon > 0 && mon <= 12){
-			months = mon;
+		
+		if (mon > 0 && mon <= 12){	// checks that the month entered is valid
+			months = mon;	//sets month
 			
-			// Checks for leap year
+			// Checks for leap year (if it is a leap year February has 29 days, if not it has 28 days)
 			if (y % 4 != 0){
 				isLeapYear = false;
 			}
@@ -66,7 +69,7 @@ class Date_Time{
 				isLeapYear = false;
 			}
 		
-			
+			// If month entered is Jan, Mar, May, July, Aug, Oct, or Dec there are 31 days	
 			if (months == 1 || months == 3 || months == 5 || months == 7 || months == 8 || months == 10 || months == 12){
 				if (d >= 0 && d <= 31){
 					days = d;
@@ -75,6 +78,7 @@ class Date_Time{
 					throw "Improper day format.\n";
 				}
 			}
+			// if month entered is April, June, September, November it has 30 days
 			if (months == 4 || months == 6 || months == 9 || months == 11){
 				if (d >= 0 && d <= 30){
 					days = d;
@@ -83,6 +87,7 @@ class Date_Time{
 					throw "Improper day format.\n";
 				}
 			}
+			// if month is Feb and not a leap year, 28 days
 			if (months == 2 && isLeapYear == false){
 				if (d >= 0 && d <= 28){
 					days = d;
@@ -91,6 +96,7 @@ class Date_Time{
 					throw "Improper day format.\n";
 				}
 			}
+			// if month is Feb and is a leap year, 29 days
 			if (months == 2 && isLeapYear == true){
 				if (d >= 0 && d <= 29){
 					days = d;
@@ -104,9 +110,9 @@ class Date_Time{
 			throw "Improper month format.\n";
 		}
 		
-		years = (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
-		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
-		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
+		years = (y >= 0) ? y : throw "Improper year format.\n";		// years have to be greater than zero 
+		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";  // hours have to be between 1 and 23 inclusive (military time)
+		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";	// minutes have to be between 1 and 59 inclusive
 	}
 
 	void addMinutes(int numOfMin){
@@ -156,26 +162,28 @@ class Date_Time{
 
 	string toString(){
 		string dateTime;
-		char temp[80];	//creates temp char array to use in sprint
+		// converts int to string for months, days, years, hours, and minutes
+		string month = static_cast<ostringstream*>( &(ostringstream() << months) )->str();			
+		string day = static_cast<ostringstream*>( &(ostringstream() << days) )->str();
+		string year = static_cast<ostringstream*>( &(ostringstream() << years) )->str();
+		string hour = static_cast<ostringstream*>( &(ostringstream() << hours) )->str();
+		string minute = static_cast<ostringstream*>( &(ostringstream() << minutes) )->str();
+
 		if (hours >= 10 && minutes >= 10){
-			sprintf(temp, "%d/%d/%d  %d:%d", months, days, years, hours, minutes);
-			string dateTime(temp);	//converts char array into string
+			string dateTime = month + "/" + day + "/" + year + " " + hour + ":" + minute;
 			return dateTime;		//returns string
 		}
 		else if (hours < 10 && minutes >= 10){
-			sprintf(temp, "%d/%d/%d 0%d:%d", months, days, years, hours, minutes);
-			string dateTime(temp);
-			return dateTime;
+			string dateTime = month + "/" + day + "/" + year + " 0" + hour + ":" + minute;			
+			return dateTime;		// returns string
 		}
 		else if (hours >= 10 && minutes < 10){
-			sprintf(temp, "%d/%d/%d %d:0%d", months, days, years, hours, minutes);
-			string dateTime(temp);
-			return dateTime;
+			string dateTime = month + "/" + day + "/" + year + " " + hour + ":0" + minute;		
+			return dateTime;		// returns string
 		}
 		else {
-			sprintf(temp, "%d/%d/%d 0%d:0%d", months, days, years, hours, minutes);
-			string dateTime(temp);
-			return dateTime;
+			string dateTime = month + "/" + day + "/" + year + " 0" + hour + ":0" + minute;	
+			return dateTime;		// returns string
 		}
 	}
 };
