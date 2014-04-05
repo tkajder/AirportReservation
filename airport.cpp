@@ -4,9 +4,11 @@
 #include <fstream>
 #include <cstdio>
 #include <iomanip>
+#include <string>
 #include "Date_Time.h"
 #include "FlightNode.h"
 #include "User.h"
+
 
 using namespace std;
 
@@ -69,17 +71,17 @@ void selectionBranch(int selection){
 	string startDate = "";
 	string endDate = "";
 	int numOfBags = -1;
-	ReservationList *res;
-	ReservationList *posRes;
-	char route;
-	char confirm;
-	Date_Time *departDate;
-	Date_Time *arriveDate;
+	ReservationList *res = NULL;
+	ReservationList *posRes = NULL;
+	char route = NULL;
+	char confirm = NULL;
+	Date_Time *departDate = NULL;
+	Date_Time *arriveDate = NULL;
 	int pos;
 	int ppos = -1;
 	int day, month, year;
-	HubNode* src;
-	HubNode* dest;
+	HubNode* src = NULL;
+	HubNode* dest = NULL;
 	
 	switch (selection){
 	// User makes a reservation
@@ -313,7 +315,7 @@ void freeData() {		//handles memory cleanup after the program is complete
 	HubNode *hCurrent, *hTemp;
 	FlightNode *fCurrent, *fTemp;
 	hCurrent = head;
-	ReservationList* reservationHead;
+	//ReservationList* reservationHead;
 	FlightPath* path;
 	FlightPath* temp;
 	while (hCurrent) {	//loops for hubs
@@ -326,17 +328,6 @@ void freeData() {		//handles memory cleanup after the program is complete
 		hTemp = hCurrent->Next();
 		delete hCurrent;		//deletes hub after all flights are free
 		hCurrent = hTemp;
-	}
-	reservationHead = user->getReservationHead();	//loops for reservations
-	if (reservationHead) {
-		path = reservationHead->getFlights();
-		while (path) {
-			temp = path->Next();
-			delete path->getFlight();
-			delete path;
-			path = temp;
-		}
-		delete reservationHead;
 	}
 	delete user;		//cleans up user
 }
@@ -491,7 +482,7 @@ void populateFlights() {
 		pos = line.find(",", pos + 1);
 		duration = atoi(line.substr(ppos + 1, pos - ppos - 1).c_str());
 		// Account for 'extra' \r character
-		flightCompany = line.substr(pos + 1, line.length() - pos - 2);
+		flightCompany = line.substr(pos + 1, line.length() - pos - 1);
 
 		if (flightCompany.compare("USAirway") == 0) { 	//disseminates information above into their destination company class
 			current = new FlightUSAirway(flightNumber, price, source, destination, departure, duration);
@@ -585,7 +576,7 @@ void debugReservations(ReservationList* res, int numOfBags) {	//prints out a lis
 }
 
 void debugPhoenixToLA() {	// Test case for Phoenix to LA
-	char confirm;
+	char confirm = NULL;
 	ReservationList* res;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
 	HubNode* to = getHub("Los Angeles International Airport");		//sets airports
@@ -628,7 +619,7 @@ void debugPhoenixToLA() {	// Test case for Phoenix to LA
 }
 
 void debugPhoenixToHonolulu() {	// test case for Phoenix to Honolulu
-	char confirm;
+	char confirm = NULL;
 	ReservationList* res;
 	HubNode* from = getHub("Phoenix Sky Harbor International Airport");
 	HubNode* to = getHub("Honolulu International Airport");	// sets airports

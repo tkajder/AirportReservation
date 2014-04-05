@@ -14,9 +14,6 @@ class HubNode {
 	HubNode() {
 		this->next = NULL;
 	}			//constructor
-	~HubNode(){
-		//delete next;
-	}
 
 	// Setters
 	void setName(string name) {

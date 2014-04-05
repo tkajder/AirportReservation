@@ -9,10 +9,7 @@ class User{
 	User(){
 		reservationHead = NULL;
 	}
-	
-	~User() {
-		delete reservationHead;		//destructor
-	}
+
 
 	ReservationList* getReservationHead() {
 		return this->reservationHead;

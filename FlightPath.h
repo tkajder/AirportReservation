@@ -14,11 +14,6 @@ class FlightPath{
 		this->next = NULL;
 	}
 	
-	~FlightPath() {		//destructor
-		delete next;
-		delete flight;
-	}
-	
 	HubNode* getDestination(){return this->flight->getDestination();}		//getters
 	FlightNode* getFlight(){return this->flight;}
 	FlightPath* Next(){return this->next;}

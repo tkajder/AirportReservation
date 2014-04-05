@@ -25,9 +25,8 @@ class ReservationList{
 		calculateTime();			//calculates total time of trip
 		this->next = NULL;
 	}
-	
 	~ReservationList() {		//destructor
-		delete flight;
+		//delete flight;
 		delete next;
 		delete start;
 		delete end;
@@ -70,9 +69,9 @@ class ReservationList{
 		}
 	}
 	void calculateTime(){
-		FlightPath* first;
-		FlightPath* temp;
-		FlightPath* last;
+		FlightPath* first = NULL;
+		FlightPath* temp = NULL;
+		FlightPath* last = NULL;
 		this->time = 0;
 		if (this->flight == NULL) {
 			return;

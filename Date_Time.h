@@ -1,7 +1,6 @@
 #ifndef DATETIME_H
 #define DATETIME_H
 #include <cmath>
-#include <sstream>
 
 using namespace std;
 class Date_Time{
@@ -20,7 +19,6 @@ class Date_Time{
 		this->minutes = 0;
 	};
 	
-	// Constructor
 	Date_Time(string input) {
 		int pos, ppos;
 		ppos = -1;	// trails behind pos
@@ -46,73 +44,20 @@ class Date_Time{
 	int getHours(){return this->hours;}
 	int getMinutes(){return this->minutes;}
 	
+	//Setters
+	void setMonths(int input){this->months = input;}
+	void setDays(int input){this->days = input;}
+	void setYears(int input){this->years = input;}
+	void setHours(int input){this->hours = input;}
+	void setMinutes(int input){this->minutes = input;}
 	
 	//Sets the chunk at once
 	void setDate_Time(int mon, int d, int y, int h, int min){
-		bool isLeapYear = true;
-		
-		
-		if (mon > 0 && mon <= 12){	// checks that the month entered is valid
-			months = mon;	//sets month
-			
-			// Checks for leap year (if it is a leap year February has 29 days, if not it has 28 days)
-			if (y % 4 != 0){
-				isLeapYear = false;
-			}
-			else if (y % 100 != 0){
-				isLeapYear = true;
-			}
-			else if (y % 400 == 0){
-				isLeapYear = true;		
-			}
-			else{
-				isLeapYear = false;
-			}
-		
-			// If month entered is Jan, Mar, May, July, Aug, Oct, or Dec there are 31 days	
-			if (months == 1 || months == 3 || months == 5 || months == 7 || months == 8 || months == 10 || months == 12){
-				if (d >= 0 && d <= 31){
-					days = d;
-				}
-				else{
-					throw "Improper day format.\n";
-				}
-			}
-			// if month entered is April, June, September, November it has 30 days
-			if (months == 4 || months == 6 || months == 9 || months == 11){
-				if (d >= 0 && d <= 30){
-					days = d;
-				}
-				else{
-					throw "Improper day format.\n";
-				}
-			}
-			// if month is Feb and not a leap year, 28 days
-			if (months == 2 && isLeapYear == false){
-				if (d >= 0 && d <= 28){
-					days = d;
-				}
-				else{
-					throw "Improper day format.\n";
-				}
-			}
-			// if month is Feb and is a leap year, 29 days
-			if (months == 2 && isLeapYear == true){
-				if (d >= 0 && d <= 29){
-					days = d;
-				}
-				else{
-					throw "Improper day format.\n";
-				}
-			}
-		}
-		else{
-			throw "Improper month format.\n";
-		}
-		
-		years = (y >= 0) ? y : throw "Improper year format.\n";		// years have to be greater than zero 
-		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";  // hours have to be between 1 and 23 inclusive (military time)
-		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";	// minutes have to be between 1 and 59 inclusive
+		months = (mon > 0 && mon <= 12) ? mon : throw "Improper month format.\n";
+		days = (d >= 0 && d < 31) ? d : throw "Improper day format.\n";
+		years	= (y >= 0) ? y : throw "Improper year format.\n";		//formats raw time data into readable 
+		hours = (h >= 0 && h < 24) ? h : throw "Improper hour format.\n";
+		minutes = (min >= 0 && min < 60) ? min : throw "Improper minutes format.\n";
 	}
 
 	void addMinutes(int numOfMin){
@@ -151,7 +96,11 @@ class Date_Time{
 	// this is used to get the Date_Time of the flights arrival
 	Date_Time* getEndTime(int delta){	//creates new Date_Time object
 		Date_Time* ret = new Date_Time();
-		ret->setDate_Time(this->getMonths(), this->getDays(), this->getYears(), this->getHours(), this->getMinutes());
+		ret->setMonths(this->getMonths());
+		ret->setDays(this->getDays());		//adds current date_time info into it
+		ret->setYears(this->getYears());
+		ret->setHours(this->getHours());
+		ret->setMinutes(this->getMinutes()) ;
 		ret->addMinutes(delta);		//adds change in minutes to it
 		return ret;			
 	}
@@ -162,28 +111,26 @@ class Date_Time{
 
 	string toString(){
 		string dateTime;
-		// converts int to string for months, days, years, hours, and minutes
-		string month = static_cast<ostringstream*>( &(ostringstream() << months) )->str();			
-		string day = static_cast<ostringstream*>( &(ostringstream() << days) )->str();
-		string year = static_cast<ostringstream*>( &(ostringstream() << years) )->str();
-		string hour = static_cast<ostringstream*>( &(ostringstream() << hours) )->str();
-		string minute = static_cast<ostringstream*>( &(ostringstream() << minutes) )->str();
-
+		char temp[80];	//creates temp char array to use in sprint
 		if (hours >= 10 && minutes >= 10){
-			string dateTime = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+			sprintf_s(temp, "%d/%d/%d  %d:%d", months, days, years, hours, minutes);
+			string dateTime(temp);	//converts char array into string
 			return dateTime;		//returns string
 		}
 		else if (hours < 10 && minutes >= 10){
-			string dateTime = month + "/" + day + "/" + year + " 0" + hour + ":" + minute;			
-			return dateTime;		// returns string
+			sprintf_s(temp, "%d/%d/%d 0%d:%d", months, days, years, hours, minutes);
+			string dateTime(temp);
+			return dateTime;
 		}
 		else if (hours >= 10 && minutes < 10){
-			string dateTime = month + "/" + day + "/" + year + " " + hour + ":0" + minute;		
-			return dateTime;		// returns string
+			sprintf_s(temp, "%d/%d/%d %d:0%d", months, days, years, hours, minutes);
+			string dateTime(temp);
+			return dateTime;
 		}
 		else {
-			string dateTime = month + "/" + day + "/" + year + " 0" + hour + ":0" + minute;	
-			return dateTime;		// returns string
+			sprintf_s(temp, "%d/%d/%d 0%d:0%d", months, days, years, hours, minutes);
+			string dateTime(temp);
+			return dateTime;
 		}
 	}
 };

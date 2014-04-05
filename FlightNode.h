@@ -27,19 +27,12 @@ class FlightNode{
 		this->destination = destination;
 		this->departure = departure;
 		this->duration = duration;
-	}			
-	
-	// Destructor
-	~FlightNode() {
-		//delete source;
-		//delete destination;
-		delete next;
-		delete this->departure;
-		delete this->arrival;
+	}
+	~FlightNode(){
 	}
 	
-	virtual int getDelay(){};
-	virtual double getBaggageFees(int){};
+	virtual int getDelay(){return 0;};
+	virtual double getBaggageFees(int){return 0;};
 
 	// Setters
 	void setFlightNumber(string flightNumber) { 
