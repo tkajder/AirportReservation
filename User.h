@@ -67,26 +67,33 @@ class User{
 	void printItinerary() {
 		FlightPath* path = this->reservationHead->getFlights();
 		FlightNode* flight;
-		int baggageFees;
+		double baggageFees, tPrice;
+		string bag, price, ttlPrice, outPrice;
+		
+		
 		
 		while (path) {	//loops for paths
 			baggageFees = path->getFlight()->getBaggageFees(reservationHead->getBagNum());
-			if (baggageFees){		//if there is baggage fees
-				flight = path->getFlight();
-				cout << " " << setfill(' ') <<  setw(13) << left << flight->getFlightNumber() << setw(13) << left << flight->getFlightCompany() << setw(14) << left << flight->getSource()->getLocation() << flight->getDeparture()->toString() << endl;
-				cout << " " <<  setw(26) << " " << setw(14) << left << flight->getDestination()->getLocation() << flight->getArrival()->toString() << endl;
-				cout << setw(10) << " " << "$" << flight->getPrice() << " base price" << " + $" << baggageFees << " Baggage Fee" << " = " << "$" << flight->getPrice() + baggageFees << endl << endl; 
-				path = path->Next();	//iterates path (flight)
-			}else{
-				flight = path->getFlight();
-				cout << " " << setfill(' ') << setw(13) << left << flight->getFlightNumber() << setw(13) << left << flight->getFlightCompany() << setw(14) << left << flight->getSource()->getLocation() << flight->getDeparture()->toString() << endl;
-				cout << " " <<  setw(26) << " " << setw(14) << left << flight->getDestination()->getLocation() << flight->getArrival()->toString() << endl;
-				cout << setw(29) << " " << "$" << flight->getPrice() << " base price" << " = " << "$" << flight->getPrice() << endl << endl; 
-				path = path->Next();
-			}	
+			bag = static_cast<ostringstream*>( &(ostringstream() << path->getFlight()->getBaggageFees(reservationHead->getBagNum()) ) )->str();	// parses duration of flight to a string
+			price = static_cast<ostringstream*>( &(ostringstream() << path->getFlight()->getPrice() ) )->str();	// parses duration of flight to a string
+			
+			if (baggageFees == 0){
+				outPrice = "$" + price + " Base Price = $" + price; 
+			}
+			else{
+				tPrice = path->getFlight()->getPrice() + baggageFees;
+				ttlPrice = static_cast<ostringstream*>( &(ostringstream() << tPrice) )->str();	// parses duration of flight to a string
+				outPrice = "$" + price + " Base Price + $" + bag + " Baggage Fee = $" + ttlPrice; 
+			}
+
+			flight = path->getFlight();
+			cout << " " << setfill(' ') <<  setw(13) << left << flight->getFlightNumber() << setw(13) << left << flight->getFlightCompany() << setw(14) << left << flight->getSource()->getLocation() << flight->getDeparture()->toString() << endl;
+			cout << " " <<  setw(26) << " " << setw(14) << left << flight->getDestination()->getLocation() << flight->getArrival()->toString() << endl;
+			cout << setw(57) << right << outPrice << endl << endl; 
+			path = path->Next();	//iterates path (flight)	
 		}
-		cout << "Check-in " << reservationHead->getBagNum() << " Bags" << endl;
-		cout << "Grand Total: $" << reservationHead->getPrice() << endl << endl;
+		cout << " Check-in " << reservationHead->getBagNum() << " Bags" << endl;
+		cout << " Grand Total: $" << reservationHead->getPrice() << endl << endl;
 	}
 };
 
