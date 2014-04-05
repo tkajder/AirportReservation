@@ -4,7 +4,9 @@
 #include <fstream>
 #include <cstdio>
 #include <iomanip>
-#include <string>
+#include <sstream>
+#include <limits>
+#include <ios>
 #include "Date_Time.h"
 #include "FlightNode.h"
 #include "User.h"
@@ -37,10 +39,12 @@ int main(){
 	populateHubs();		//populates flights
 	populateFlights();		//populates flights
 	
+
+	
 	cout << endl << "Welcome to the Airport Reservation Extravaganza!!" << endl << endl;
 	do {		//main menu
 		cout << setfill('-') << setw(58) << "-" << endl;
-		cout << setfill(' ') << setw(34) << "Main Menu" << endl;
+		cout << setfill(' ') << setw(24) << " " << "Main Menu" << endl;
 		cout << setfill('-') << setw(58) << "-" << endl;
 		cout << "1) Make a Reservation" << endl;
 		cout << "2) Cancel a Reservation" << endl;
@@ -50,13 +54,23 @@ int main(){
 		cout << "6) Debug Phoenix to Honolulu" << endl;
 		cout << "7) Quit" << endl;
 		cout << "Enter the number for which option you wish to select: ";
-		cin >> selection;
-		if (selection > 0 && selection < 8){
-			selectionBranch(selection);		// selectionBranch method to branch to different options
+		
+		if (cin >> selection){
+			if (selection > 0 && selection < 8){
+				selectionBranch(selection);		// selectionBranch method to branch to different options
+			}
+			else{
+				cout << endl << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}
 		}
 		else{
-			cout << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+			cout << endl << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+			cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
+		
 	} while (selection != 7);
 	
 	freeData();
@@ -89,37 +103,59 @@ void selectionBranch(int selection){
 		// gets source hub
 		while (selectSrc == -1){
 			cout << setfill('-') << setw(58) << "-" << endl;
-			cout << setfill(' ') << setw(38) << "Make a Reservation" << endl;
+			cout << setfill(' ') << setw(20) << " " << "Make a Reservation" << endl;
 			cout << setfill('-') << setw(58) << "-" << endl;
 			cout << "Where are you flying from?" << endl << setfill('-') << setw(27) << "-" << endl;
 			printHubs();
 			cout << endl << "Enter the number of where you are flying from: ";
-			cin >> selectSrc; 
-			cout << endl;
-			if (selectSrc >= 1 && selectSrc <= 15){
-				src = selectHubs(selectSrc);
+			
+			if (cin >> selectSrc){
+				if (selectSrc >= 1 && selectSrc <= 15){
+					src = selectHubs(selectSrc);
+					cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+				else{
+					cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
+					cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					selectSrc = -1;
+				} 
 			}
 			else{
-				cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly from." << endl;
+				cout << endl << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				selectSrc = -1;
-			} 
+			}
 		}
 		
 		// gets destination hub
 		while (selectDest == -1){
 			cout << setfill('-') << setw(58) << "-" << endl;
-			cout << setfill(' ') << setw(38) << "Make a Reservation" << endl;
+			cout << setfill(' ') << setw(20) << " " << "Make a Reservation" << endl;
 			cout << setfill('-') << setw(58) << "-" << endl;
 			cout << "Where do you want to fly to?" << endl << setfill('-') << setw(29) << "-" << endl;
 			printHubs();
 			cout << endl << "Enter the number of where you are flying to: ";
-			cin >> selectDest;
-			cout << endl;
-			if (selectDest >= 1 && selectDest <= 15){
-				dest = selectHubs(selectDest);
+		
+			if (cin >> selectDest){
+				if (selectDest >= 1 && selectDest <= 15){
+					dest = selectHubs(selectDest);
+					cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				}
+				else{
+					cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly to." << endl;
+					cin.clear();
+					std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+					selectDest = -1;
+				}
 			}
 			else{
-				cout << "ERROR: Invalid entry. Please enter an integer between 1 and 14 corresponding to the Hub you wish to fly to." << endl;
+				cout << endl << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				selectDest = -1;
 			}
 		}
@@ -130,7 +166,7 @@ void selectionBranch(int selection){
 				pos = 0;
 				ppos = -1;
 				cout << setfill('-') << setw(58) << "-" << endl;
-				cout << setfill(' ') << setw(38) << "Make a Reservation" << endl;
+				cout << setfill(' ') << setw(20) << " " << "Make a Reservation" << endl;
 				cout << setfill('-') << setw(58) << "-" << endl;
 				cout << "What is the eariest date you would like to depart?" << endl << "Enter date (DD/MM/YYYY): ";
 				cin >> startDate;
@@ -182,12 +218,20 @@ void selectionBranch(int selection){
 		// gets number of bags
 		while (numOfBags == -1){
 			cout << "Enter the number of bags that will be checked: ";
-			cin >> numOfBags;
-			if (!(numOfBags >= 0)){
-				cout << "Error: Invalid entry. Please enter an integer";
-				numOfBags = -1;		//to continue loop
+			
+			if (cin >> numOfBags){
+				if (!(numOfBags >= 0)){
+					cout << endl << "Error: Invalid entry. Please enter an integer" << endl;
+					numOfBags = -1;		//to continue loop
+				}
+				cout << endl;
 			}
-			cout << endl;
+			else{
+				cout << endl << "ERROR: Invalid entry.  Please enter an integer." << endl << endl;
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				numOfBags = -1;
+			}
 		}
 		
 		posRes = getPossibleReservations(src, dest, departDate, arriveDate);		// gets the possible reservations that fit the user's criteria
@@ -196,9 +240,9 @@ void selectionBranch(int selection){
 			cout << "No reservations found for specified airports and times." << endl << endl;
 			break;
 		}
-		cout << setfill('-') << setw(58) << "-" << endl;
-		cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
-		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
+		cout << setfill(' ') << setw(29) << " " << "Available Reservations" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
 		debugReservations(posRes, numOfBags);		// prints out the available reservations
 
 		// asks for shortest or cheapest reservation
@@ -211,24 +255,30 @@ void selectionBranch(int selection){
 			if (route == 's'){
 				res = getShortestReservation(posRes);	//grabs shortest reservation
 				res->setBagNum(numOfBags);		//sets number of bags
-				cout << endl << endl;
-				cout << setfill('-') << setw(58) << "-" << endl;
-				cout << setfill(' ') << setw(42) << "Shortest Route Reservation" << endl;
-				cout << setfill('-') << setw(58) << "-" << endl;
+				cout << endl;
+				cout << setfill('-') << setw(80) << "-" << endl;
+				cout << setfill(' ') << setw(27) << " " << "Shortest Route Reservation" << endl;
+				cout << setfill('-') << setw(80) << "-" << endl;
 				debugReservations(res, numOfBags);		// prints out shortest reservation
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				break;
 			} else if (route == 'c'){
 				res = getCheapestReservation(posRes);	//grabs cheapest reservation
 				res->setBagNum(numOfBags);	//sets number of bags
-				cout << endl << endl;
-				cout << setfill('-') << setw(58) << "-" << endl;
-				cout << setfill(' ') << setw(42) << "Cheapest Route Reservation" << endl;
-				cout << setfill('-') << setw(58) << "-" << endl;
+				cout << endl;
+				cout << setfill('-') << setw(80) << "-" << endl;
+				cout << setfill(' ') << setw(27) << " " << "Cheapest Route Reservation" << endl;
+				cout << setfill('-') << setw(80) << "-" << endl;
 				debugReservations(res, numOfBags);		// prints out shortest reservation
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				break;
 			} 
 			else{
-				cout << "Invalid input.  Please enter 's' or 'c'" << endl;
+				cout << endl << "Invalid input.  Please enter 's' or 'c'" << endl << endl;
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}
 		}
 		
@@ -240,17 +290,23 @@ void selectionBranch(int selection){
 			if (confirm == 'y'){
 				user->setReservation(res);	// adds reservation to user
 				cout << setfill('-') << setw(58) << "-" << endl;
-				cout << setfill(' ') << setw(34) << "Confirmation" << endl;
+				cout << setfill(' ') << setw(23) << " " << "Confirmation" << endl;
 				cout << setfill('-') << setw(58) << "-" << endl;
 				user->printItinerary();		//print users itinerary
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				break;
 			}
 			else if (confirm == 'n'){
 				cout << "Reservation not booked" << endl << endl;
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 				break;
 			}
 			else{
 				cout << "ERROR: Invalid input.";
+				cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			}
 		}
 		break;
@@ -271,7 +327,7 @@ void selectionBranch(int selection){
 		if (user->getReservationHead()){
 			cout << endl;
 			cout << setfill('-') << setw(58) << "-" << endl;
-			cout << setfill(' ') << setw(35) << "Booked Flight" << endl;
+			cout << setfill(' ') << setw(22) << " " << "Booked Flight" << endl;
 			cout << setfill('-') << setw(58) << "-" << endl;
 			user->printItinerary();
 		}
@@ -282,9 +338,9 @@ void selectionBranch(int selection){
 
 	case 4:
 		// Print schedule of all flights	
-		cout << setfill('-') << setw(58) << "-" << endl;
-		cout << setfill(' ') << setw(38) << "Schedule of Flights" << endl;
-		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
+		cout << setfill(' ') << setw(30) << " " << "Schedule of Flights" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
 		debug();
 		break;
 		
@@ -541,15 +597,30 @@ HubNode* getHub(string name) {
 // prints out all the flight reservations
 void debug(){
 	HubNode* current = head;
-	while (current != NULL) {		//loops for hubs
+	int delay;
+	
+	while (current) {		//loops for hubs
 		FlightNode* flight = current->getFlights();
-		while (flight != NULL) {		//loops for flight per hub
-			cout << "Flight Number: " << flight->getFlightNumber() << endl; 
-			cout << "Flight Company: " << flight->getFlightCompany() << endl;
-			cout << "Source Airport: " << flight->getSource()->getName() << endl;
-			cout << "Destination Airport: " << flight->getDestination()->getName() << endl;
-			cout << "Departure Time: " << flight->getDeparture()->toString() << endl;
-			cout << "Price: " << flight->getPrice() << endl << endl;
+		string dura, duration;			// used to concatenate the duration of the flighht
+		int duraDelay;					// used to get duration + delay if there is one
+		
+		while (flight) {		//loops for flight per hub
+			delay = flight->getDelay();
+			if (delay == 0){
+				dura = static_cast<ostringstream*>( &(ostringstream() << flight->getDuration()) )->str();	// parses duration of flight to a string
+			}
+			else{
+				duraDelay = flight->getDuration() + delay;			// adds dealy to duration
+				dura = static_cast<ostringstream*>( &(ostringstream() << duraDelay) )->str();	// parses duration of flight to a string
+			}
+			duration = " Duration: " + dura + " minutes";
+		
+			cout << " " << flight->getFlightCompany() << " Flight " << flight->getFlightNumber() << endl;
+			cout << setfill(' ') << setw(44) << left << " Departure" << "Arrival" << endl;
+			cout << " " << setw(43) << left << flight->getSource()->getName() << flight->getDestination()->getName() << endl;
+			cout << " " << setw(43) << left << flight->getDeparture()->toString() << flight->getArrival()->toString() << endl;				
+			cout << setw(44) << left << duration << "Price: " << flight->getPrice() << endl << endl; 		
+				
 			flight = flight->Next();
 		}
 		current = current->Next();
@@ -558,19 +629,36 @@ void debug(){
 
 void debugReservations(ReservationList* res, int numOfBags) {	//prints out a list of reservations
 	FlightPath* path;
+	int delay;
+	
 	while (res) {		//loop for reservations
 		res->setBagNum(numOfBags);		//sets number of bags into the temp reservation object
 		path = res->getFlights();		//grabs flights
+		string dura, duration;			// used to concatenate the duration of the flighht
+		int duraDelay;					// used to get duration + delay if there is one
+		 
 		while (path) {
-			cout << "Flight Number: " << path->getFlight()->getFlightNumber() << endl;
-			cout << "Source: " << path->getFlight()->getSource()->getName() << endl;
-			cout << "Destination: " << path->getDestination()->getName() << endl;
-			cout << "Departure: " << path->getFlight()->getDeparture()->toString() << endl;
-			cout << "Arrival: " << path->getFlight()->getArrival()->toString() << endl;
+			delay = path->getFlight()->getDelay();
+			if (delay == 0){
+				dura = static_cast<ostringstream*>( &(ostringstream() << path->getFlight()->getDuration()) )->str();	// parses duration of flight to a string
+			}
+			else{
+				duraDelay = path->getFlight()->getDuration() + delay;			// adds dealy to duration
+				dura = static_cast<ostringstream*>( &(ostringstream() << duraDelay) )->str();	// parses duration of flight to a string
+			}
+			duration = " Duration: " + dura + " minutes";
+			
+			cout << " " << path->getFlight()->getFlightCompany() << " Flight " << path->getFlight()->getFlightNumber() << endl;
+			cout << setfill(' ') << setw(44) << left << " Departure" << "Arrival" << endl;
+			cout << " " << setw(43) << left << path->getFlight()->getSource()->getName() << path->getDestination()->getName() << endl;
+			cout << " " << setw(43) << left << path->getFlight()->getDeparture()->toString() << path->getFlight()->getArrival()->toString() << endl;
+			cout << setw(44) << left << duration << "Price: " << path->getFlight()->getPrice() << endl << endl; 		
+			
 			path = path->Next();	//iterate
 		}
-		cout << endl << "Total Price: " << res->getPrice() << endl;	
-		cout << "Total Time: " << res->getTime() << endl << setfill('-') << setw(58) << "-" << endl << endl;
+		cout << " Total Price: " << res->getPrice() << endl;	
+		cout << " Total Time: " << res->getTime() << " minutes" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl << endl;
 		res = res->Next();
 	}
 }
@@ -593,9 +681,9 @@ void debugPhoenixToLA() {	// Test case for Phoenix to LA
 	// gets confirmation before booking the flights
 	while (confirm != 'y' || confirm != 'n'){		
 		cout << endl;
-		cout << setfill('-') << setw(58) << "-" << endl;
-		cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
-		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
+		cout << setfill(' ') << setw(29) << " " << "Available Reservations" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
 		debugReservations(res, numOfBags);
 		cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
 		cin >> confirm;
@@ -603,7 +691,7 @@ void debugPhoenixToLA() {	// Test case for Phoenix to LA
 		if (confirm == 'y'){
 			user->setReservation(res);	// adds reservation to user
 			cout << setfill('-') << setw(58) << "-" << endl;
-			cout << setfill(' ') << setw(35) << "Confirmation" << endl;
+			cout << setfill(' ') << setw(23) << " " << "Confirmation" << endl;
 			cout << setfill('-') << setw(58) << "-" << endl;
 			user->printItinerary();		//print users itinerary
 			break;
@@ -636,9 +724,9 @@ void debugPhoenixToHonolulu() {	// test case for Phoenix to Honolulu
 	// gets confirmation before booking the flights
 	while (confirm != 'y' || confirm != 'n'){		
 		cout << endl;
-		cout << setfill('-') << setw(58) << "-" << endl;
-		cout << setfill(' ') << setw(39) << "Available Reservations" << endl;
-		cout << setfill('-') << setw(58) << "-" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
+		cout << setfill(' ') << setw(29) << " " << "Available Reservations" << endl;
+		cout << setfill('-') << setw(80) << "-" << endl;
 		debugReservations(res, numOfBags);
 		cout << "Would you like to book this flight?" << endl << "y: YES" << endl << "n: NO" << endl << "Enter selection: ";
 		cin >> confirm;
@@ -646,7 +734,7 @@ void debugPhoenixToHonolulu() {	// test case for Phoenix to Honolulu
 		if (confirm == 'y'){
 			user->setReservation(res);	// adds reservation to user
 			cout << setfill('-') << setw(58) << "-" << endl;
-			cout << setfill(' ') << setw(35) << "Confirmation" << endl;
+			cout << setfill(' ') << setw(23) << " " << "Confirmation" << endl;
 			cout << setfill('-') << setw(58) << "-" << endl;
 			user->printItinerary();			//print users itinerary
 			break;
